@@ -5951,7 +5951,31 @@
         pinBuffer = '';
         updatePinDots();
     }
-    function applyLang(l) { currentLang = l; document.querySelectorAll('[data-t]').forEach(el => { const k = el.getAttribute('data-t'); if(translations[l] && translations[l][k]) el.textContent = translations[l][k]; }); }
+    function applyLang(l) {
+        currentLang = l;
+        localStorage.setItem('koma_lang', l);
+        const t = translations[l] || translations['en'];
+        // Update data-t elements
+        document.querySelectorAll('[data-t]').forEach(el => {
+            const k = el.getAttribute('data-t');
+            if(t[k]) el.textContent = t[k];
+        });
+        // Update launcher app labels by mapping app names to translation keys
+        const appNameMap = { 'Settings':'settings', 'Files':'files', 'Terminal':'terminal', 'Notes':'notes', 'Calculator':'calculator', 'Contacts':'contacts', 'Star Stream':'star_stream', 'Chat':'chat', 'Store':'store',
+            'Ajustes':'settings', 'Archivos':'files', 'Notas':'notes', 'Calculadora':'calculator', 'Contactos':'contacts', 'Tienda':'store', 'Llamada':'call', 'Buscador':'finder' };
+        document.querySelectorAll('.launch-icon span').forEach(span => {
+            const key = appNameMap[span.textContent];
+            if(key && t[key]) span.textContent = t[key];
+        });
+        // Update settings section titles
+        document.querySelectorAll('.settings-section-title').forEach(title => {
+            const txt = title.textContent.trim().toLowerCase();
+            const sectionMap = { 'general':'general', 'display':'display', 'about':'about', 'wallpaper':'wallpaper', 'security':'security', 'privacy':'privacy', 'notifications':'notifications', 'battery':'battery', 'storage':'storage', 'network':'network' };
+            for(const [en, key] of Object.entries(sectionMap)) {
+                if(txt.includes(en) && t[key]) { title.textContent = t[key]; break; }
+            }
+        });
+    }
     function transitionLayer(fromId, toId) { const f = document.getElementById(fromId); const t = document.getElementById(toId); f.style.opacity = '0'; setTimeout(() => { f.classList.remove('active'); t.classList.add('active'); t.style.opacity = '1'; }, 800); }
 
     function updateClock() {
