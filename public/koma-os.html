@@ -4300,6 +4300,121 @@
                 </div>
             </div>
 
+            <!-- KOMAHUB STORE -->
+            <div id="win-komahub" class="window hidden liquid-glass" style="width: 700px; height: 550px; top: 60px; left: 180px;">
+                <div class="win-header">
+                    <span style="font-weight:700;">
+                        <svg style="display:inline;vertical-align:middle;margin-right:6px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00ffcc" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                        KomaHub
+                    </span>
+                    <div class="win-btns"><div class="win-btn min" onclick="minWin('win-komahub')"></div><div class="win-btn max" onclick="maxWin('win-komahub')"></div><div class="win-btn close" onclick="closeWin('win-komahub')"></div></div>
+                </div>
+                <div class="win-body" style="padding:20px;overflow-y:auto;" id="komahub-body">
+                    <div style="background:linear-gradient(135deg,rgba(0,255,204,0.15),rgba(139,92,246,0.15));border-radius:16px;padding:25px;margin-bottom:20px;position:relative;overflow:hidden;">
+                        <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:radial-gradient(circle,rgba(0,255,204,0.2),transparent);border-radius:50%;"></div>
+                        <p style="font-size:10px;text-transform:uppercase;letter-spacing:2px;opacity:0.5;margin-bottom:6px;">Community</p>
+                        <h2 style="font-size:22px;font-weight:800;margin:0 0 6px;">KomaHub Store</h2>
+                        <p style="font-size:12px;opacity:0.6;max-width:350px;">Share and download Themes & Icon Packs. Upload .zip files — icons must match Koma OS app names for auto-detection.</p>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+                        <div style="background:rgba(255,255,255,0.04);border-radius:14px;padding:16px;text-align:center;cursor:pointer;" onclick="komahubUpload()">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin:0 auto 8px;display:block;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                            <p style="font-size:13px;font-weight:600;">Upload Pack</p>
+                            <p style="font-size:10px;opacity:0.4;">Share your theme or icon pack (.zip)</p>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.04);border-radius:14px;padding:16px;text-align:center;cursor:pointer;" onclick="komahubBrowse()">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#febc2e" stroke-width="2" style="margin:0 auto 8px;display:block;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <p style="font-size:13px;font-weight:600;">Browse Packs</p>
+                            <p style="font-size:10px;opacity:0.4;">Discover community creations</p>
+                        </div>
+                    </div>
+                    <div id="komahub-packs-list">
+                        <h3 style="font-size:14px;font-weight:700;margin-bottom:12px;">Available Packs</h3>
+                        <div style="background:rgba(255,255,255,0.03);border-radius:10px;padding:16px;text-align:center;opacity:0.4;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto 8px;display:block;"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                            <p style="font-size:12px;">No community packs yet. Be the first to upload!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KOMACALL -->
+            <div id="win-komacall" class="window hidden liquid-glass" style="width: 380px; height: 520px; top: 80px; left: 350px;">
+                <div class="win-header">
+                    <span style="font-weight:700;">
+                        <svg style="display:inline;vertical-align:middle;margin-right:6px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#28c840" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        KomaCall
+                    </span>
+                    <div class="win-btns"><div class="win-btn min" onclick="minWin('win-komacall')"></div><div class="win-btn max" onclick="maxWin('win-komacall')"></div><div class="win-btn close" onclick="closeWin('win-komacall')"></div></div>
+                </div>
+                <div class="win-body" style="padding:20px;overflow-y:auto;" id="komacall-body">
+                    <div style="text-align:center;margin-bottom:20px;">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#28c840" stroke-width="1.5" style="margin:0 auto 10px;display:block;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <h3 style="font-size:16px;font-weight:700;">KomaCall</h3>
+                        <p style="font-size:11px;opacity:0.4;">Make and receive calls</p>
+                    </div>
+                    <div style="margin-bottom:16px;">
+                        <label style="font-size:11px;opacity:0.5;display:block;margin-bottom:6px;">Country Prefix</label>
+                        <select id="komacall-prefix" class="auth-input no-icon" style="height:38px;font-size:13px;">
+                            <option value="+1">+1 (US/Canada)</option>
+                            <option value="+52">+52 (Mexico)</option>
+                            <option value="+44">+44 (UK)</option>
+                            <option value="+34">+34 (Spain)</option>
+                            <option value="+49">+49 (Germany)</option>
+                            <option value="+33">+33 (France)</option>
+                            <option value="+81">+81 (Japan)</option>
+                            <option value="+86">+86 (China)</option>
+                            <option value="+91">+91 (India)</option>
+                            <option value="+55">+55 (Brazil)</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom:16px;">
+                        <input type="tel" id="komacall-number" placeholder="Enter phone number..." class="auth-input no-icon" style="font-size:16px;letter-spacing:2px;">
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px;">
+                        <button onclick="komacallDial('1')" class="calc-btn" style="height:50px;font-size:20px;">1</button>
+                        <button onclick="komacallDial('2')" class="calc-btn" style="height:50px;font-size:20px;">2</button>
+                        <button onclick="komacallDial('3')" class="calc-btn" style="height:50px;font-size:20px;">3</button>
+                        <button onclick="komacallDial('4')" class="calc-btn" style="height:50px;font-size:20px;">4</button>
+                        <button onclick="komacallDial('5')" class="calc-btn" style="height:50px;font-size:20px;">5</button>
+                        <button onclick="komacallDial('6')" class="calc-btn" style="height:50px;font-size:20px;">6</button>
+                        <button onclick="komacallDial('7')" class="calc-btn" style="height:50px;font-size:20px;">7</button>
+                        <button onclick="komacallDial('8')" class="calc-btn" style="height:50px;font-size:20px;">8</button>
+                        <button onclick="komacallDial('9')" class="calc-btn" style="height:50px;font-size:20px;">9</button>
+                        <button onclick="komacallDial('*')" class="calc-btn" style="height:50px;font-size:20px;">*</button>
+                        <button onclick="komacallDial('0')" class="calc-btn" style="height:50px;font-size:20px;">0</button>
+                        <button onclick="komacallDial('#')" class="calc-btn" style="height:50px;font-size:20px;">#</button>
+                    </div>
+                    <div style="display:flex;gap:10px;justify-content:center;">
+                        <button onclick="komacallMakeCall()" style="width:60px;height:60px;border-radius:50%;background:#28c840;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        </button>
+                        <button onclick="komacallEnd()" style="width:60px;height:60px;border-radius:50%;background:#ff5f57;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                        </button>
+                    </div>
+                    <div id="komacall-status" style="text-align:center;margin-top:12px;font-size:12px;opacity:0.5;"></div>
+                </div>
+            </div>
+
+            <!-- CONTACTS -->
+            <div id="win-contacts" class="window hidden liquid-glass" style="width: 420px; height: 520px; top: 70px; left: 280px;">
+                <div class="win-header">
+                    <span style="font-weight:700;">
+                        <svg style="display:inline;vertical-align:middle;margin-right:6px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        Contacts
+                    </span>
+                    <div class="win-btns"><div class="win-btn min" onclick="minWin('win-contacts')"></div><div class="win-btn max" onclick="maxWin('win-contacts')"></div><div class="win-btn close" onclick="closeWin('win-contacts')"></div></div>
+                </div>
+                <div class="win-body" style="padding:20px;overflow-y:auto;" id="contacts-body">
+                    <div style="display:flex;gap:10px;margin-bottom:16px;">
+                        <input type="text" id="contacts-search" placeholder="Search contacts..." class="auth-input no-icon" style="flex:1;height:36px;font-size:12px;" oninput="renderContacts()">
+                        <button onclick="addContactPrompt()" style="background:var(--accent);border:none;border-radius:10px;color:black;padding:0 14px;cursor:pointer;font-weight:600;font-size:12px;">+ Add</button>
+                    </div>
+                    <div id="contacts-list"></div>
+                </div>
+            </div>
+
         </main>
 
         <!-- APP LAUNCHER -->
