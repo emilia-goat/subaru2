@@ -5303,7 +5303,7 @@
     let cinemaFilter = 'all';
     let heroRotateInterval = null;
 
-    // KomaStream+ bootloader logic
+    // Star Stream x Koma OS bootloader logic
     function initCinemaBoot() {
         const boot = document.getElementById('cinema-boot');
         const mainUI = document.getElementById('cinema-main-ui');
@@ -5313,6 +5313,9 @@
         boot.style.opacity = '1';
         if(mainUI) mainUI.style.display = 'none';
         if(scrollArea) scrollArea.style.display = 'none';
+        // Hide old cinema UI, show iframe
+        const iframeContainer = document.getElementById('star-stream-iframe-wrap');
+        if(iframeContainer) iframeContainer.style.display = 'none';
         const status = document.getElementById('cinema-boot-status');
         const msgs = ['Connecting to Star Stream...', 'Loading catalog...', 'Syncing with Koma OS...', 'Preparing interface...', 'Ready!'];
         let i = 0;
@@ -5325,9 +5328,12 @@
             boot.style.opacity = '0';
             setTimeout(() => {
                 boot.style.display = 'none';
-                if(mainUI) mainUI.style.display = '';
-                if(scrollArea) scrollArea.style.display = '';
-                renderCinema();
+                // Show iframe instead of old cinema UI
+                if(iframeContainer) {
+                    iframeContainer.style.display = 'block';
+                    const iframe = document.getElementById('star-stream-iframe');
+                    if(iframe && !iframe.src) iframe.src = 'https://star-stream-flow.base44.app/';
+                }
             }, 800);
         }, 3000);
     }
