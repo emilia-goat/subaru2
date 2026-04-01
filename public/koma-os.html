@@ -2058,13 +2058,23 @@
         <div class="boot-ring" style="animation-delay: 1.5s;"></div>
         <div class="boot-ring" style="animation-delay: 3s;"></div>
         <div style="position: relative; z-index: 10; text-align: center;">
-            <div style="font-size: 80px; margin-bottom: 10px; animation: brandFloat 3s ease-in-out infinite;">🌀</div>
-            <h1 class="koma-brand">KomaOS</h1>
-            <p style="font-size: 13px; opacity: 0.4; letter-spacing: 8px; margin-top: 10px; color: var(--accent);">EXTREME EDITION v6.4</p>
+            <div style="width:80px;height:80px;border-radius:50%;background:transparent;border:2px solid rgba(255,149,0,0.5);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ff9500" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><rect x="15" y="2" width="6" height="6" rx="1" fill="none" stroke="#ff9500" stroke-width="1.5"/></svg>
+            </div>
+            <h1 style="font-size:18px;font-weight:600;margin-bottom:5px;color:white;">Restricted Access Network</h1>
+            <p style="font-size: 13px; opacity: 0.4; letter-spacing: 8px; margin-top: 10px; color: var(--accent);">KOMAOS v6.4</p>
             <!-- Keyboard Sequence Access (PC) / Access Code fallback (Mobile) -->
             <div id="access-code-section" style="margin-top: 30px;">
+                <div style="background:#ff9500;width:calc(100% + 60px);margin-left:-30px;padding:20px 30px;text-align:center;margin-bottom:20px;">
+                    <p style="font-size:12px;opacity:0.8;color:white;">Oops,</p>
+                    <h2 style="font-size:22px;font-weight:700;margin:4px 0;color:white;">koma-os.system</h2>
+                    <p style="font-size:12px;opacity:0.7;color:white;">is not available until access sequence is provided.</p>
+                </div>
                 <div id="key-seq-ui">
-                    <p style="font-size: 14px; opacity: 0.6; letter-spacing: 2px; margin-bottom: 15px; color: rgba(255,255,255,0.7);">🔒 Enter Sequence to Unlock</p>
+                    <p style="font-size: 13px; opacity: 0.6; letter-spacing: 1px; margin-bottom: 15px; color: rgba(255,255,255,0.7);">
+                        <svg style="display:inline;vertical-align:middle;margin-right:6px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff9500" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        Enter Sequence to Unlock
+                    </p>
                     <div id="key-seq-display" style="display:flex; gap:8px; justify-content:center; margin-bottom:15px; min-height:40px; flex-wrap:wrap;"></div>
                     <p id="key-seq-hint" style="font-size:11px; opacity:0.35; letter-spacing:1px; color:rgba(255,255,255,0.5);">Use arrow keys: ↑ ↓ ↑ ↓</p>
                     <p id="key-seq-emergency-hint" style="font-size:10px; opacity:0.25; margin-top:6px; color:rgba(255,255,255,0.4);">Emergency: ← ↑ ↓ ↑ ↓</p>
@@ -2072,18 +2082,23 @@
                 </div>
                 <!-- Mobile fallback -->
                 <div id="mobile-access-fallback" style="display:none;">
-                    <p style="font-size: 14px; opacity: 0.6; letter-spacing: 2px; margin-bottom: 15px; color: rgba(255,255,255,0.7);">🔒 Tap the Sequence</p>
+                    <p style="font-size: 13px; opacity: 0.6; letter-spacing: 1px; margin-bottom: 15px; color: rgba(255,255,255,0.7);">
+                        <svg style="display:inline;vertical-align:middle;margin-right:6px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff9500" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        Tap the Sequence
+                    </p>
                     <div style="display:grid; grid-template-columns:repeat(3,60px); gap:10px; justify-content:center; margin-bottom:15px;">
                         <div></div>
-                        <button onclick="mobileKeyInput('up')" style="width:60px;height:60px;border-radius:14px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:white;font-size:22px;cursor:pointer;backdrop-filter:blur(8px);transition:0.2s;" ontouchstart="this.style.transform='scale(0.9)'" ontouchend="this.style.transform='scale(1)'">↑</button>
+                        <button onclick="mobileKeyInput('up')" style="width:60px;height:60px;border-radius:14px;background:rgba(255,149,0,0.12);border:1px solid rgba(255,149,0,0.3);color:#ff9500;font-size:22px;cursor:pointer;backdrop-filter:blur(8px);transition:0.2s;" ontouchstart="this.style.transform='scale(0.9)'" ontouchend="this.style.transform='scale(1)'">↑</button>
                         <div></div>
-                        <button onclick="mobileKeyInput('left')" style="width:60px;height:60px;border-radius:14px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:white;font-size:22px;cursor:pointer;backdrop-filter:blur(8px);transition:0.2s;" ontouchstart="this.style.transform='scale(0.9)'" ontouchend="this.style.transform='scale(1)'">←</button>
-                        <button onclick="mobileKeyInput('down')" style="width:60px;height:60px;border-radius:14px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:white;font-size:22px;cursor:pointer;backdrop-filter:blur(8px);transition:0.2s;" ontouchstart="this.style.transform='scale(0.9)'" ontouchend="this.style.transform='scale(1)'">↓</button>
-                        <button onclick="mobileKeyInput('right')" style="width:60px;height:60px;border-radius:14px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:white;font-size:22px;cursor:pointer;backdrop-filter:blur(8px);transition:0.2s;" ontouchstart="this.style.transform='scale(0.9)'" ontouchend="this.style.transform='scale(1)'">→</button>
+                        <button onclick="mobileKeyInput('left')" style="width:60px;height:60px;border-radius:14px;background:rgba(255,149,0,0.12);border:1px solid rgba(255,149,0,0.3);color:#ff9500;font-size:22px;cursor:pointer;backdrop-filter:blur(8px);transition:0.2s;" ontouchstart="this.style.transform='scale(0.9)'" ontouchend="this.style.transform='scale(1)'">←</button>
+                        <button onclick="mobileKeyInput('down')" style="width:60px;height:60px;border-radius:14px;background:rgba(255,149,0,0.12);border:1px solid rgba(255,149,0,0.3);color:#ff9500;font-size:22px;cursor:pointer;backdrop-filter:blur(8px);transition:0.2s;" ontouchstart="this.style.transform='scale(0.9)'" ontouchend="this.style.transform='scale(1)'">↓</button>
+                        <button onclick="mobileKeyInput('right')" style="width:60px;height:60px;border-radius:14px;background:rgba(255,149,0,0.12);border:1px solid rgba(255,149,0,0.3);color:#ff9500;font-size:22px;cursor:pointer;backdrop-filter:blur(8px);transition:0.2s;" ontouchstart="this.style.transform='scale(0.9)'" ontouchend="this.style.transform='scale(1)'">→</button>
                     </div>
                     <div id="mobile-seq-display" style="display:flex; gap:8px; justify-content:center; margin-bottom:10px; min-height:30px;"></div>
                     <button onclick="mobileSeqBuffer=[];renderMobileSeq();" style="font-size:12px;padding:8px 20px;border-radius:20px;background:rgba(255,95,87,0.2);border:1px solid rgba(255,95,87,0.3);color:#ff5f57;cursor:pointer;">Reset</button>
                 </div>
+                <p style="font-size:12px;color:#ff9500;margin-top:15px;opacity:0.7;">Access restricted. Provide valid sequence to continue.</p>
+                <p style="font-size:11px;opacity:0.3;margin-top:8px;">Administrator Console Access v4.2</p>
             </div>
             <div style="margin-top: 20px; display: none;" id="boot-btn-wrap">
                 <button id="boot-btn">INITIALIZE SYSTEM</button>
@@ -3298,6 +3313,22 @@
                                     </div>
                                 </div>
                                 <div class="settings-section">
+                                    <div class="settings-section-title">Anti-Virus / Anti-Spyware</div>
+                                    <div class="settings-card">
+                                        <div class="settings-row">
+                                            <div>
+                                                <div class="settings-row-label">System Scan</div>
+                                                <div class="settings-row-desc">Detect unauthorized localStorage changes and suspicious entries</div>
+                                            </div>
+                                            <button class="mac-get-btn" style="font-size:11px;" onclick="runSystemGuardFromSettings()">
+                                                <svg style="display:inline;vertical-align:middle;margin-right:4px;" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                                                Run Scan
+                                            </button>
+                                        </div>
+                                        <div id="guard-settings-scan-result" style="margin-top:12px;padding:12px;background:rgba(255,255,255,0.03);border-radius:10px;display:none;"></div>
+                                    </div>
+                                </div>
+                                <div class="settings-section">
                                     <div class="settings-section-title">Persistence</div>
                                     <div class="settings-card">
                                         <div class="settings-row">
@@ -4111,34 +4142,91 @@
             <div id="gyro-privacy-overlay"></div>
             <div class="stealth-indicator" id="stealth-indicator">🔒 Stealth Active</div>
 
-            <!-- DEVELOPER MENU -->
+            <!-- OWNER DEVELOPER PANEL (Enhanced) -->
             <div id="dev-menu-overlay">
-                <div class="dev-menu-card">
-                    <h2>🔧 Developer Menu</h2>
-                    <p style="font-size: 12px; opacity: 0.4; margin-bottom: 20px;">Secret developer tools — KomaOS Internal</p>
-                    <div class="dev-option" onclick="downloadKomaSource()">
-                        <span class="dev-icon">📥</span>
-                        <div><div style="font-weight:600;">Download Source Code</div><div style="font-size:11px; opacity:0.4;">Bundle all HTML/CSS/JS into a single file</div></div>
+                <div class="dev-menu-card" style="max-height:85vh;overflow-y:auto;width:600px;max-width:95vw;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                        <div>
+                            <h2 style="margin:0;display:flex;align-items:center;gap:8px;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff5f57" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                Owner Developer Panel
+                            </h2>
+                            <p style="font-size:11px;opacity:0.4;margin-top:4px;">KomaOS v6.4 — Internal Tools</p>
+                        </div>
+                        <button onclick="document.getElementById('dev-menu-overlay').classList.remove('active')" style="background:rgba(255,255,255,0.08);border:none;color:white;width:32px;height:32px;border-radius:10px;cursor:pointer;font-size:16px;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        </button>
                     </div>
-                    <div class="dev-option" onclick="showNotification('Dev','localStorage entries: '+Object.keys(localStorage).length)">
-                        <span class="dev-icon">💾</span>
-                        <div><div style="font-weight:600;">Storage Inspector</div><div style="font-size:11px; opacity:0.4;">View localStorage stats</div></div>
+
+                    <!-- User Monitoring -->
+                    <div style="background:rgba(255,255,255,0.04);border-radius:14px;padding:16px;margin-bottom:12px;">
+                        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00ffcc" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            <span style="font-size:13px;font-weight:600;">User Monitoring</span>
+                            <button onclick="refreshDevUserList()" style="margin-left:auto;background:rgba(0,255,204,0.1);border:1px solid rgba(0,255,204,0.2);border-radius:8px;color:var(--accent);font-size:10px;padding:4px 10px;cursor:pointer;">Refresh</button>
+                        </div>
+                        <div id="dev-user-list" style="font-size:12px;max-height:120px;overflow-y:auto;">Loading...</div>
                     </div>
-                    <div class="dev-option" onclick="localStorage.clear(); showNotification('Dev','All data cleared. Refreshing...'); setTimeout(()=>location.reload(),1500);">
-                        <span class="dev-icon">🗑️</span>
-                        <div><div style="font-weight:600;">Factory Reset</div><div style="font-size:11px; opacity:0.4;">Clear all stored data and refresh</div></div>
+
+                    <!-- Global Broadcast -->
+                    <div style="background:rgba(255,255,255,0.04);border-radius:14px;padding:16px;margin-bottom:12px;">
+                        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#febc2e" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                            <span style="font-size:13px;font-weight:600;">Global Broadcast</span>
+                        </div>
+                        <div style="display:flex;gap:8px;">
+                            <input type="text" id="dev-broadcast-msg" placeholder="Type system broadcast message..." class="auth-input no-icon" style="flex:1;height:36px;font-size:12px;">
+                            <button onclick="sendGlobalBroadcast()" class="koma-btn" style="padding:0 16px;font-size:12px;white-space:nowrap;">Send</button>
+                        </div>
                     </div>
-                    <div class="dev-option" onclick="showNotification('Dev','Version: KomaOS v6.4-beta\nBuild: '+Date.now())">
-                        <span class="dev-icon">ℹ️</span>
-                        <div><div style="font-weight:600;">Build Info</div><div style="font-size:11px; opacity:0.4;">Display system build details</div></div>
+
+                    <!-- Temporary Bans -->
+                    <div style="background:rgba(255,255,255,0.04);border-radius:14px;padding:16px;margin-bottom:12px;">
+                        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff5f57" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+                            <span style="font-size:13px;font-weight:600;">Temporary Bans</span>
+                        </div>
+                        <div style="display:flex;gap:8px;">
+                            <input type="text" id="dev-ban-user" placeholder="Enter user ID to ban (1 hour)..." class="auth-input no-icon" style="flex:1;height:36px;font-size:12px;">
+                            <button onclick="tempBanUser()" class="koma-btn" style="padding:0 16px;font-size:12px;background:rgba(255,95,87,0.2);border-color:rgba(255,95,87,0.3);color:#ff5f57;white-space:nowrap;">Ban</button>
+                        </div>
+                        <div id="dev-ban-list" style="font-size:11px;opacity:0.5;margin-top:8px;"></div>
                     </div>
-                    <div class="dev-option" onclick="console.log(JSON.stringify(localStorage,null,2)); showNotification('Dev','Dumped to browser console')">
-                        <span class="dev-icon">📋</span>
-                        <div><div style="font-weight:600;">Dump State to Console</div><div style="font-size:11px; opacity:0.4;">Log full localStorage to console</div></div>
+
+                    <!-- System Guard -->
+                    <div style="background:rgba(255,255,255,0.04);border-radius:14px;padding:16px;margin-bottom:12px;">
+                        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#28c840" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                            <span style="font-size:13px;font-weight:600;">System Guard — Anti-Virus</span>
+                            <button onclick="runSystemGuard()" style="margin-left:auto;background:rgba(40,200,64,0.1);border:1px solid rgba(40,200,64,0.2);border-radius:8px;color:#28c840;font-size:10px;padding:4px 10px;cursor:pointer;">Run Scan</button>
+                        </div>
+                        <div id="guard-scan-result" style="font-size:12px;padding:10px;background:rgba(0,0,0,0.2);border-radius:8px;">Click "Run Scan" to check for unauthorized changes</div>
                     </div>
-                    <div class="dev-option" onclick="document.getElementById('dev-menu-overlay').classList.remove('active')">
-                        <span class="dev-icon">✕</span>
-                        <div><div style="font-weight:600;">Close Menu</div></div>
+
+                    <!-- Dev Tools -->
+                    <div style="background:rgba(255,255,255,0.04);border-radius:14px;padding:16px;">
+                        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                            <span style="font-size:13px;font-weight:600;">Developer Tools</span>
+                        </div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                            <button onclick="downloadKomaSource()" class="dev-option" style="display:flex;align-items:center;gap:8px;padding:10px;border-radius:10px;background:rgba(255,255,255,0.04);border:none;color:white;cursor:pointer;font-size:12px;text-align:left;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                Download Source
+                            </button>
+                            <button onclick="showNotification('Dev','localStorage entries: '+Object.keys(localStorage).length)" class="dev-option" style="display:flex;align-items:center;gap:8px;padding:10px;border-radius:10px;background:rgba(255,255,255,0.04);border:none;color:white;cursor:pointer;font-size:12px;text-align:left;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                                Storage Stats
+                            </button>
+                            <button onclick="console.log(JSON.stringify(localStorage,null,2)); showNotification('Dev','Dumped to browser console')" class="dev-option" style="display:flex;align-items:center;gap:8px;padding:10px;border-radius:10px;background:rgba(255,255,255,0.04);border:none;color:white;cursor:pointer;font-size:12px;text-align:left;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                Dump to Console
+                            </button>
+                            <button onclick="localStorage.clear(); showNotification('Dev','All data cleared. Refreshing...'); setTimeout(()=>location.reload(),1500);" class="dev-option" style="display:flex;align-items:center;gap:8px;padding:10px;border-radius:10px;background:rgba(255,95,87,0.08);border:none;color:#ff5f57;cursor:pointer;font-size:12px;text-align:left;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                                Factory Reset
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -4212,6 +4300,121 @@
                 </div>
             </div>
 
+            <!-- KOMAHUB STORE -->
+            <div id="win-komahub" class="window hidden liquid-glass" style="width: 700px; height: 550px; top: 60px; left: 180px;">
+                <div class="win-header">
+                    <span style="font-weight:700;">
+                        <svg style="display:inline;vertical-align:middle;margin-right:6px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00ffcc" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                        KomaHub
+                    </span>
+                    <div class="win-btns"><div class="win-btn min" onclick="minWin('win-komahub')"></div><div class="win-btn max" onclick="maxWin('win-komahub')"></div><div class="win-btn close" onclick="closeWin('win-komahub')"></div></div>
+                </div>
+                <div class="win-body" style="padding:20px;overflow-y:auto;" id="komahub-body">
+                    <div style="background:linear-gradient(135deg,rgba(0,255,204,0.15),rgba(139,92,246,0.15));border-radius:16px;padding:25px;margin-bottom:20px;position:relative;overflow:hidden;">
+                        <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:radial-gradient(circle,rgba(0,255,204,0.2),transparent);border-radius:50%;"></div>
+                        <p style="font-size:10px;text-transform:uppercase;letter-spacing:2px;opacity:0.5;margin-bottom:6px;">Community</p>
+                        <h2 style="font-size:22px;font-weight:800;margin:0 0 6px;">KomaHub Store</h2>
+                        <p style="font-size:12px;opacity:0.6;max-width:350px;">Share and download Themes & Icon Packs. Upload .zip files — icons must match Koma OS app names for auto-detection.</p>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+                        <div style="background:rgba(255,255,255,0.04);border-radius:14px;padding:16px;text-align:center;cursor:pointer;" onclick="komahubUpload()">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin:0 auto 8px;display:block;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                            <p style="font-size:13px;font-weight:600;">Upload Pack</p>
+                            <p style="font-size:10px;opacity:0.4;">Share your theme or icon pack (.zip)</p>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.04);border-radius:14px;padding:16px;text-align:center;cursor:pointer;" onclick="komahubBrowse()">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#febc2e" stroke-width="2" style="margin:0 auto 8px;display:block;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <p style="font-size:13px;font-weight:600;">Browse Packs</p>
+                            <p style="font-size:10px;opacity:0.4;">Discover community creations</p>
+                        </div>
+                    </div>
+                    <div id="komahub-packs-list">
+                        <h3 style="font-size:14px;font-weight:700;margin-bottom:12px;">Available Packs</h3>
+                        <div style="background:rgba(255,255,255,0.03);border-radius:10px;padding:16px;text-align:center;opacity:0.4;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto 8px;display:block;"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                            <p style="font-size:12px;">No community packs yet. Be the first to upload!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KOMACALL -->
+            <div id="win-komacall" class="window hidden liquid-glass" style="width: 380px; height: 520px; top: 80px; left: 350px;">
+                <div class="win-header">
+                    <span style="font-weight:700;">
+                        <svg style="display:inline;vertical-align:middle;margin-right:6px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#28c840" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        KomaCall
+                    </span>
+                    <div class="win-btns"><div class="win-btn min" onclick="minWin('win-komacall')"></div><div class="win-btn max" onclick="maxWin('win-komacall')"></div><div class="win-btn close" onclick="closeWin('win-komacall')"></div></div>
+                </div>
+                <div class="win-body" style="padding:20px;overflow-y:auto;" id="komacall-body">
+                    <div style="text-align:center;margin-bottom:20px;">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#28c840" stroke-width="1.5" style="margin:0 auto 10px;display:block;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <h3 style="font-size:16px;font-weight:700;">KomaCall</h3>
+                        <p style="font-size:11px;opacity:0.4;">Make and receive calls</p>
+                    </div>
+                    <div style="margin-bottom:16px;">
+                        <label style="font-size:11px;opacity:0.5;display:block;margin-bottom:6px;">Country Prefix</label>
+                        <select id="komacall-prefix" class="auth-input no-icon" style="height:38px;font-size:13px;">
+                            <option value="+1">+1 (US/Canada)</option>
+                            <option value="+52">+52 (Mexico)</option>
+                            <option value="+44">+44 (UK)</option>
+                            <option value="+34">+34 (Spain)</option>
+                            <option value="+49">+49 (Germany)</option>
+                            <option value="+33">+33 (France)</option>
+                            <option value="+81">+81 (Japan)</option>
+                            <option value="+86">+86 (China)</option>
+                            <option value="+91">+91 (India)</option>
+                            <option value="+55">+55 (Brazil)</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom:16px;">
+                        <input type="tel" id="komacall-number" placeholder="Enter phone number..." class="auth-input no-icon" style="font-size:16px;letter-spacing:2px;">
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px;">
+                        <button onclick="komacallDial('1')" class="calc-btn" style="height:50px;font-size:20px;">1</button>
+                        <button onclick="komacallDial('2')" class="calc-btn" style="height:50px;font-size:20px;">2</button>
+                        <button onclick="komacallDial('3')" class="calc-btn" style="height:50px;font-size:20px;">3</button>
+                        <button onclick="komacallDial('4')" class="calc-btn" style="height:50px;font-size:20px;">4</button>
+                        <button onclick="komacallDial('5')" class="calc-btn" style="height:50px;font-size:20px;">5</button>
+                        <button onclick="komacallDial('6')" class="calc-btn" style="height:50px;font-size:20px;">6</button>
+                        <button onclick="komacallDial('7')" class="calc-btn" style="height:50px;font-size:20px;">7</button>
+                        <button onclick="komacallDial('8')" class="calc-btn" style="height:50px;font-size:20px;">8</button>
+                        <button onclick="komacallDial('9')" class="calc-btn" style="height:50px;font-size:20px;">9</button>
+                        <button onclick="komacallDial('*')" class="calc-btn" style="height:50px;font-size:20px;">*</button>
+                        <button onclick="komacallDial('0')" class="calc-btn" style="height:50px;font-size:20px;">0</button>
+                        <button onclick="komacallDial('#')" class="calc-btn" style="height:50px;font-size:20px;">#</button>
+                    </div>
+                    <div style="display:flex;gap:10px;justify-content:center;">
+                        <button onclick="komacallMakeCall()" style="width:60px;height:60px;border-radius:50%;background:#28c840;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        </button>
+                        <button onclick="komacallEnd()" style="width:60px;height:60px;border-radius:50%;background:#ff5f57;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                        </button>
+                    </div>
+                    <div id="komacall-status" style="text-align:center;margin-top:12px;font-size:12px;opacity:0.5;"></div>
+                </div>
+            </div>
+
+            <!-- CONTACTS -->
+            <div id="win-contacts" class="window hidden liquid-glass" style="width: 420px; height: 520px; top: 70px; left: 280px;">
+                <div class="win-header">
+                    <span style="font-weight:700;">
+                        <svg style="display:inline;vertical-align:middle;margin-right:6px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        Contacts
+                    </span>
+                    <div class="win-btns"><div class="win-btn min" onclick="minWin('win-contacts')"></div><div class="win-btn max" onclick="maxWin('win-contacts')"></div><div class="win-btn close" onclick="closeWin('win-contacts')"></div></div>
+                </div>
+                <div class="win-body" style="padding:20px;overflow-y:auto;" id="contacts-body">
+                    <div style="display:flex;gap:10px;margin-bottom:16px;">
+                        <input type="text" id="contacts-search" placeholder="Search contacts..." class="auth-input no-icon" style="flex:1;height:36px;font-size:12px;" oninput="renderContacts()">
+                        <button onclick="addContactPrompt()" style="background:var(--accent);border:none;border-radius:10px;color:black;padding:0 14px;cursor:pointer;font-weight:600;font-size:12px;">+ Add</button>
+                    </div>
+                    <div id="contacts-list"></div>
+                </div>
+            </div>
+
         </main>
 
         <!-- APP LAUNCHER -->
@@ -4230,6 +4433,9 @@
                 <div class="launch-icon" draggable="true" data-app-name="Privacy Display" data-app-icon="https://cdn-icons-png.flaticon.com/512/2913/2913133.png" data-app-win="win-privacy-display" onclick="openApp('win-privacy-display')"><img src="https://cdn-icons-png.flaticon.com/512/2913/2913133.png"><span>Privacy Display</span></div>
                 <div class="launch-icon" draggable="true" data-app-name="Terminal" data-app-icon="https://upload.wikimedia.org/wikipedia/commons/6/68/Terminalicon3.png" data-app-win="win-terminal" onclick="openApp('win-terminal')"><img src="https://upload.wikimedia.org/wikipedia/commons/6/68/Terminalicon3.png"><span>Terminal</span></div>
                 <div class="launch-icon" draggable="true" data-app-name="Browser" data-app-icon="https://cdn-icons-png.flaticon.com/512/718/718064.png" data-app-url="https://darkfat.com" onclick="openWebApp('Koma Browser', 'https://darkfat.com')"><img src="https://cdn-icons-png.flaticon.com/512/718/718064.png"><span>Browser</span></div>
+                <div class="launch-icon" draggable="true" data-app-name="KomaHub" data-app-icon="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" data-app-win="win-komahub" onclick="openApp('win-komahub')"><img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png"><span>KomaHub</span></div>
+                <div class="launch-icon" draggable="true" data-app-name="KomaCall" data-app-icon="https://cdn-icons-png.flaticon.com/512/724/724664.png" data-app-win="win-komacall" onclick="openApp('win-komacall')"><img src="https://cdn-icons-png.flaticon.com/512/724/724664.png"><span>KomaCall</span></div>
+                <div class="launch-icon" draggable="true" data-app-name="Contacts" data-app-icon="https://cdn-icons-png.flaticon.com/512/1077/1077114.png" data-app-win="win-contacts" onclick="openApp('win-contacts')"><img src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png"><span>Contacts</span></div>
             </div>
         </div>
 
@@ -6465,11 +6671,23 @@
         menu.className = 'desktop-ctx-menu';
         menu.id = 'desktop-ctx-menu';
         menu.innerHTML = `
-            <div class="ctx-item" onclick="ctxOpenApp()">▶️ Open</div>
-            <div class="ctx-item" onclick="ctxRenameApp()">✏️ Rename</div>
-            <div class="ctx-item" onclick="ctxGroupApp()">📁 Group into Folder</div>
+            <div class="ctx-item" onclick="ctxOpenApp()">
+                <svg style="display:inline;vertical-align:middle;margin-right:6px;" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Open
+            </div>
+            <div class="ctx-item" onclick="ctxRenameApp()">
+                <svg style="display:inline;vertical-align:middle;margin-right:6px;" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+                Rename
+            </div>
+            <div class="ctx-item" onclick="ctxGroupApp()">
+                <svg style="display:inline;vertical-align:middle;margin-right:6px;" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                Group into Folder
+            </div>
             <div class="ctx-sep"></div>
-            <div class="ctx-item danger" onclick="ctxDeleteApp()">🗑️ Remove</div>
+            <div class="ctx-item danger" onclick="ctxDeleteApp()">
+                <svg style="display:inline;vertical-align:middle;margin-right:6px;" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                Remove
+            </div>
         `;
         menu.style.left = Math.min(e.clientX, window.innerWidth - 200) + 'px';
         menu.style.top = Math.min(e.clientY, window.innerHeight - 200) + 'px';
@@ -6648,11 +6866,13 @@
     // ============================================================
     // WALLPAPER CODE GENERATOR (WallCode App)
     // ============================================================
-    const KOMA_DEFAULT_WALLCODES = {
+    const KOMA_PUBLIC_WALLCODES = {
         '62516': { name: 'GTA V Rain', type: 'gif', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/Grand%20Theft%20Auto%20V%20Rain%20GIF.gif' },
         '78015': { name: 'Manga Wallpaper', type: 'gif', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/Manga%20Wallpaper%20GIF%20(6).gif' },
         '62872': { name: 'Black Hole', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/black-hole.3840x2160.mp4' },
-        '47028': { name: 'Hunt Showdown', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/%E3%80%90Hunt-%20Showdown%E3%80%91Trait%20Icon%20Animation%E2%80%94%E2%80%94Hundred_Hands%23huntshowdow%20%23wallpaper%20%23steam%20%23animationart.mp4' },
+        '47028': { name: 'Hunt Showdown', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/%E3%80%90Hunt-%20Showdown%E3%80%91Trait%20Icon%20Animation%E2%80%94%E2%80%94Hundred_Hands%23huntshowdow%20%23wallpaper%20%23steam%20%23animationart.mp4' }
+    };
+    const KOMA_SECRET_WALLCODES = {
         '98626': { name: 'Black Hole Secret', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/black-hole.3840x2160.mp4' },
         '57297': { name: 'Minecraft Fox', type: 'image', url: 'https://images.unsplash.com/photo-1627483262112-039e9a0a0c2b?w=1920&q=80' },
         '89013': { name: 'Death Roots', type: 'image', url: 'https://images.unsplash.com/photo-1518709766631-a6a7f45921c3?w=1920&q=80' },
@@ -6663,6 +6883,7 @@
         '24317': { name: 'Mazda RX-7', type: 'image', url: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1920&q=80' },
         '09162': { name: 'Super Cars', type: 'image', url: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1920&q=80' }
     };
+    const KOMA_DEFAULT_WALLCODES = {...KOMA_PUBLIC_WALLCODES, ...KOMA_SECRET_WALLCODES};
 
     function getCustomWallcodes() { return JSON.parse(localStorage.getItem('koma_custom_wallcodes') || '{}'); }
     function saveCustomWallcodes(codes) { localStorage.setItem('koma_custom_wallcodes', JSON.stringify(codes)); }
@@ -6726,11 +6947,16 @@
             </div>
 
             <div style="background:rgba(255,255,255,0.04); border-radius:14px; padding:16px; margin-bottom:16px;">
-                <p style="font-size:13px; font-weight:600; margin-bottom:12px;">⭐ KomaOS Default Codes</p>
+                <p style="font-size:13px; font-weight:600; margin-bottom:12px;">
+                    <svg style="display:inline;vertical-align:middle;margin-right:6px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#febc2e" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    KomaOS Default Codes
+                </p>
                 <div style="display:grid; gap:8px;">
-                    ${Object.entries(KOMA_DEFAULT_WALLCODES).map(([code, data]) => `
+                    ${Object.entries(KOMA_PUBLIC_WALLCODES).map(([code, data]) => `
                         <div style="display:flex; align-items:center; gap:12px; padding:10px; background:rgba(255,255,255,0.04); border-radius:10px;">
-                            <div style="width:50px; height:35px; border-radius:6px; background:rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:center; font-size:16px;">${data.type === 'video' ? '🎬' : '🖼️'}</div>
+                            <div style="width:50px; height:35px; border-radius:6px; background:rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:center;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${data.type === 'video' ? '<polygon points="5 3 19 12 5 21 5 3"/>' : '<rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>'}</svg>
+                            </div>
                             <div style="flex:1;"><div style="font-size:12px; font-weight:600;">${data.name}</div><div style="font-size:10px; opacity:0.4;">${data.type.toUpperCase()}</div></div>
                             <code style="font-size:14px; color:var(--accent); font-weight:700;">${code}</code>
                             <button class="store-get-btn" onclick="applyWallcodeByCode('${code}')">Apply</button>
@@ -10247,6 +10473,294 @@
     // Take initial guard snapshot
     takeGuardSnapshot();
 
+    // ============================================================
+    // SYSTEM GUARD FROM SETTINGS (real scan)
+    // ============================================================
+    function runSystemGuardFromSettings() {
+        const el = document.getElementById('guard-settings-scan-result');
+        if(!el) return;
+        el.style.display = 'block';
+        el.innerHTML = '<div style="display:flex;align-items:center;gap:8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" class="spin-icon"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg><span style="color:var(--accent);font-size:12px;">Scanning localStorage for unauthorized changes...</span></div>';
+        
+        const prevSnapshot = JSON.parse(localStorage.getItem('koma_guard_snapshot') || '{}');
+        const issues = [];
+        
+        for(let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            const isKnown = KOMA_KNOWN_KEYS.some(k => key.includes(k));
+            if(!isKnown) {
+                issues.push({ type: 'unknown', key });
+            }
+            if(prevSnapshot[key] !== undefined) {
+                const currentLen = localStorage.getItem(key)?.length || 0;
+                if(Math.abs(currentLen - prevSnapshot[key]) > 1000) {
+                    issues.push({ type: 'modified', key, diff: currentLen - prevSnapshot[key] });
+                }
+            }
+        }
+        
+        takeGuardSnapshot();
+        
+        setTimeout(() => {
+            if(issues.length === 0) {
+                el.innerHTML = '<div style="display:flex;align-items:center;gap:8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#28c840" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><span style="color:#28c840;font-size:12px;font-weight:600;">Your operating system is back to life: "Return by Death"</span></div><p style="font-size:10px;opacity:0.4;margin-top:6px;">All ' + localStorage.length + ' entries verified. No unauthorized changes detected.</p>';
+                showNotification('System Guard', 'Your operating system is back to life: "Return by Death"');
+            } else {
+                el.innerHTML = '<div style="display:flex;align-items:center;gap:8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#febc2e" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span style="color:#febc2e;font-size:12px;font-weight:600;">Found ' + issues.length + ' suspicious entries</span></div>' +
+                    '<div style="margin-top:8px;max-height:100px;overflow-y:auto;">' + issues.map(i => '<div style="font-size:10px;opacity:0.5;padding:2px 0;">' + i.type + ': ' + i.key + '</div>').join('') + '</div>';
+                showNotification('System Guard', 'Found ' + issues.length + ' suspicious entries');
+            }
+        }, 2500);
+    }
+
+    // ============================================================
+    // DESKTOP WORKSPACE CONTEXT MENU (right-click on empty space)
+    // ============================================================
+    (function initWorkspaceContextMenu() {
+        const workspace = document.getElementById('workspace');
+        if(!workspace) return;
+        
+        workspace.addEventListener('contextmenu', function(e) {
+            // Only trigger on empty workspace, not on icons/windows
+            if(e.target !== workspace && !e.target.classList.contains('desktop-widgets') && e.target.id !== 'desktop-clock-widget') return;
+            e.preventDefault();
+            e.stopPropagation();
+            
+            removeWorkspaceCtxMenu();
+            const menu = document.createElement('div');
+            menu.id = 'workspace-ctx-menu';
+            menu.className = 'desktop-ctx-menu';
+            menu.style.cssText = 'animation:fadeIn 0.15s ease-out;';
+            menu.innerHTML = `
+                <div class="ctx-item" onclick="removeWorkspaceCtxMenu(); openApp('win-settings'); showSettingsTab(document.querySelector('[onclick*=\\'display\\']'),'display');">
+                    <svg style="display:inline;vertical-align:middle;margin-right:8px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    Change Wallpaper
+                </div>
+                <div class="ctx-item" onclick="removeWorkspaceCtxMenu(); addDesktopWidget('clock');">
+                    <svg style="display:inline;vertical-align:middle;margin-right:8px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    Add Clock Widget
+                </div>
+                <div class="ctx-item" onclick="removeWorkspaceCtxMenu(); addDesktopWidget('weather');">
+                    <svg style="display:inline;vertical-align:middle;margin-right:8px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+                    Add Weather Widget
+                </div>
+                <div class="ctx-sep"></div>
+                <div class="ctx-item" onclick="removeWorkspaceCtxMenu(); openApp('win-settings');">
+                    <svg style="display:inline;vertical-align:middle;margin-right:8px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    System Settings
+                </div>
+                <div class="ctx-item" onclick="removeWorkspaceCtxMenu(); openLauncher();">
+                    <svg style="display:inline;vertical-align:middle;margin-right:8px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                    Open Launcher
+                </div>
+                <div class="ctx-sep"></div>
+                <div class="ctx-item" onclick="removeWorkspaceCtxMenu(); openApp('win-komahub');">
+                    <svg style="display:inline;vertical-align:middle;margin-right:8px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    KomaHub Store
+                </div>
+                <div class="ctx-item" onclick="removeWorkspaceCtxMenu(); openApp('win-contacts');">
+                    <svg style="display:inline;vertical-align:middle;margin-right:8px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                    Contacts
+                </div>
+            `;
+            menu.style.left = Math.min(e.clientX, window.innerWidth - 220) + 'px';
+            menu.style.top = Math.min(e.clientY, window.innerHeight - 350) + 'px';
+            document.body.appendChild(menu);
+        });
+        
+        document.addEventListener('click', removeWorkspaceCtxMenu);
+    })();
+    
+    function removeWorkspaceCtxMenu() {
+        const m = document.getElementById('workspace-ctx-menu');
+        if(m) m.remove();
+    }
+
+    // ============================================================
+    // KOMAHUB STORE FUNCTIONS
+    // ============================================================
+    function komahubUpload() {
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = '.zip';
+        fileInput.style.display = 'none';
+        fileInput.onchange = (e) => {
+            const file = e.target.files[0];
+            if(!file) return;
+            const packs = JSON.parse(localStorage.getItem('koma_hub_packs') || '[]');
+            packs.push({ name: file.name.replace('.zip',''), size: (file.size/1024).toFixed(1) + ' KB', date: new Date().toLocaleDateString(), type: 'theme' });
+            localStorage.setItem('koma_hub_packs', JSON.stringify(packs));
+            showNotification('KomaHub', 'Pack "' + file.name + '" uploaded! Icons must match Koma OS app names for auto-detection.');
+            komahubBrowse();
+            fileInput.remove();
+        };
+        document.body.appendChild(fileInput);
+        fileInput.click();
+    }
+
+    function komahubBrowse() {
+        const list = document.getElementById('komahub-packs-list');
+        if(!list) return;
+        const packs = JSON.parse(localStorage.getItem('koma_hub_packs') || '[]');
+        if(packs.length === 0) {
+            list.innerHTML = '<h3 style="font-size:14px;font-weight:700;margin-bottom:12px;">Available Packs</h3><div style="background:rgba(255,255,255,0.03);border-radius:10px;padding:16px;text-align:center;opacity:0.4;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto 8px;display:block;"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg><p style="font-size:12px;">No community packs yet. Be the first to upload!</p></div>';
+        } else {
+            list.innerHTML = '<h3 style="font-size:14px;font-weight:700;margin-bottom:12px;">Available Packs (' + packs.length + ')</h3>' +
+                packs.map((p,i) => '<div style="display:flex;align-items:center;gap:12px;padding:10px;background:rgba(255,255,255,0.04);border-radius:10px;margin-bottom:6px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg><div style="flex:1;"><div style="font-size:12px;font-weight:600;">' + p.name + '</div><div style="font-size:10px;opacity:0.4;">' + p.size + ' — ' + p.date + '</div></div><button class="store-get-btn" onclick="showNotification(\'KomaHub\',\'Pack applied!\')">Apply</button><button onclick="removeKomahubPack(' + i + ')" style="background:none;border:none;color:#ff5f57;cursor:pointer;font-size:14px;opacity:0.5;">×</button></div>').join('');
+        }
+    }
+
+    function removeKomahubPack(idx) {
+        const packs = JSON.parse(localStorage.getItem('koma_hub_packs') || '[]');
+        packs.splice(idx, 1);
+        localStorage.setItem('koma_hub_packs', JSON.stringify(packs));
+        komahubBrowse();
+        showNotification('KomaHub', 'Pack removed');
+    }
+
+    // ============================================================
+    // KOMACALL FUNCTIONS
+    // ============================================================
+    let komacallActive = false;
+    let komacallRingAudio = null;
+
+    function komacallDial(num) {
+        const input = document.getElementById('komacall-number');
+        if(input) input.value += num;
+    }
+
+    function komacallMakeCall() {
+        const prefix = document.getElementById('komacall-prefix')?.value || '+1';
+        const number = document.getElementById('komacall-number')?.value?.trim();
+        if(!number) { showNotification('KomaCall', 'Enter a number first'); return; }
+        
+        komacallActive = true;
+        const status = document.getElementById('komacall-status');
+        if(status) status.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;gap:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#28c840" stroke-width="2" class="spin-icon"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Calling ' + prefix + ' ' + number + '...</div>';
+        showNotification('KomaCall', 'Calling ' + prefix + ' ' + number);
+        
+        // Simulate ringing
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 440;
+            gain.gain.value = 0.1;
+            osc.start();
+            komacallRingAudio = { osc, audioCtx, gain };
+            // Ring pattern
+            let ringCount = 0;
+            const ringInterval = setInterval(() => {
+                if(!komacallActive || ringCount > 6) {
+                    clearInterval(ringInterval);
+                    osc.stop();
+                    audioCtx.close();
+                    komacallRingAudio = null;
+                    if(status && komacallActive) status.innerHTML = '<span style="color:#ff5f57;">No answer</span>';
+                    komacallActive = false;
+                    return;
+                }
+                gain.gain.value = gain.gain.value > 0.01 ? 0 : 0.1;
+                ringCount++;
+            }, 800);
+        } catch(e) {}
+        
+        // Save to call log
+        const log = JSON.parse(localStorage.getItem('koma_call_log') || '[]');
+        log.unshift({ number: prefix + number, time: Date.now(), type: 'outgoing' });
+        localStorage.setItem('koma_call_log', JSON.stringify(log.slice(0, 50)));
+    }
+
+    function komacallEnd() {
+        komacallActive = false;
+        if(komacallRingAudio) {
+            try { komacallRingAudio.osc.stop(); komacallRingAudio.audioCtx.close(); } catch(e) {}
+            komacallRingAudio = null;
+        }
+        const status = document.getElementById('komacall-status');
+        if(status) status.innerHTML = '<span style="opacity:0.5;">Call ended</span>';
+        showNotification('KomaCall', 'Call ended');
+    }
+
+    // ============================================================
+    // CONTACTS FUNCTIONS
+    // ============================================================
+    function getContacts() { return JSON.parse(localStorage.getItem('koma_contacts') || '[]'); }
+    function saveContacts(c) { localStorage.setItem('koma_contacts', JSON.stringify(c)); }
+
+    function renderContacts() {
+        const el = document.getElementById('contacts-list');
+        if(!el) return;
+        const contacts = getContacts();
+        const query = (document.getElementById('contacts-search')?.value || '').toLowerCase();
+        const filtered = query ? contacts.filter(c => c.name.toLowerCase().includes(query) || c.phone.includes(query)) : contacts;
+        
+        if(filtered.length === 0) {
+            el.innerHTML = '<div style="text-align:center;padding:30px;opacity:0.3;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto 10px;display:block;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><p style="font-size:12px;">No contacts yet</p></div>';
+            return;
+        }
+        
+        el.innerHTML = filtered.map((c, i) => `
+            <div style="display:flex;align-items:center;gap:12px;padding:10px;background:rgba(255,255,255,0.04);border-radius:10px;margin-bottom:6px;">
+                <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,${c.color || 'rgba(99,102,241,0.3)'},${c.color || 'rgba(139,92,246,0.3)'});display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:white;">${c.name.charAt(0).toUpperCase()}</div>
+                <div style="flex:1;">
+                    <div style="font-size:13px;font-weight:600;">${c.name}</div>
+                    <div style="font-size:11px;opacity:0.4;">${c.phone}</div>
+                </div>
+                <button onclick="callContact('${c.phone}')" style="background:rgba(40,200,64,0.15);border:1px solid rgba(40,200,64,0.2);border-radius:8px;padding:4px 8px;cursor:pointer;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#28c840" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </button>
+                <button onclick="deleteContact(${i})" style="background:none;border:none;color:#ff5f57;cursor:pointer;opacity:0.5;font-size:14px;">×</button>
+            </div>
+        `).join('');
+    }
+
+    function addContactPrompt() {
+        const name = prompt('Contact name:');
+        if(!name) return;
+        const phone = prompt('Phone number:');
+        if(!phone) return;
+        const contacts = getContacts();
+        const colors = ['rgba(99,102,241,0.4)','rgba(236,72,153,0.4)','rgba(34,197,94,0.4)','rgba(245,158,11,0.4)','rgba(6,182,212,0.4)'];
+        contacts.push({ name, phone, color: colors[Math.floor(Math.random()*colors.length)] });
+        saveContacts(contacts);
+        renderContacts();
+        showNotification('Contacts', name + ' added');
+    }
+
+    function deleteContact(idx) {
+        const contacts = getContacts();
+        const name = contacts[idx]?.name;
+        contacts.splice(idx, 1);
+        saveContacts(contacts);
+        renderContacts();
+        showNotification('Contacts', (name || 'Contact') + ' removed');
+    }
+
+    function callContact(phone) {
+        openApp('win-komacall');
+        setTimeout(() => {
+            const input = document.getElementById('komacall-number');
+            if(input) input.value = phone;
+        }, 300);
+    }
+
+    // Init contacts on window open
+    const contactsObserver = new MutationObserver(() => {
+        const win = document.getElementById('win-contacts');
+        if(win && !win.classList.contains('hidden')) renderContacts();
+    });
+    setTimeout(() => {
+        const cWin = document.getElementById('win-contacts');
+        if(cWin) contactsObserver.observe(cWin, { attributes: true, attributeFilter: ['class'] });
+    }, 2000);
+
+    // Add spin animation for scan icons
+    const spinCSS = document.createElement('style');
+    spinCSS.textContent = '@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } .spin-icon { animation: spin 1s linear infinite; }';
+    document.head.appendChild(spinCSS);
 
 </script>
 
