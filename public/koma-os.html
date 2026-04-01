@@ -3869,6 +3869,10 @@
                         </div>
                         <div style="font-size:10px; color:rgba(255,255,255,0.2); margin-top:12px;" id="cinema-boot-status">Initializing...</div>
                     </div>
+                    <!-- Star Stream iframe (native cinema) -->
+                    <div id="star-stream-iframe-wrap" style="display:none; position:absolute; inset:0; z-index:50;">
+                        <iframe id="star-stream-iframe" style="width:100%;height:100%;border:none;" allow="fullscreen; autoplay; encrypted-media" allowfullscreen></iframe>
+                    </div>
                     <div class="cinema-nav" id="cinema-main-ui" style="display:none;">
                         <div class="cinema-nav-tabs" style="flex-wrap:wrap;">
                             <button class="cinema-nav-tab active" onclick="filterCinema('all', this)">Home</button>
