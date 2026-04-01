@@ -6671,11 +6671,23 @@
         menu.className = 'desktop-ctx-menu';
         menu.id = 'desktop-ctx-menu';
         menu.innerHTML = `
-            <div class="ctx-item" onclick="ctxOpenApp()">▶️ Open</div>
-            <div class="ctx-item" onclick="ctxRenameApp()">✏️ Rename</div>
-            <div class="ctx-item" onclick="ctxGroupApp()">📁 Group into Folder</div>
+            <div class="ctx-item" onclick="ctxOpenApp()">
+                <svg style="display:inline;vertical-align:middle;margin-right:6px;" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Open
+            </div>
+            <div class="ctx-item" onclick="ctxRenameApp()">
+                <svg style="display:inline;vertical-align:middle;margin-right:6px;" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+                Rename
+            </div>
+            <div class="ctx-item" onclick="ctxGroupApp()">
+                <svg style="display:inline;vertical-align:middle;margin-right:6px;" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                Group into Folder
+            </div>
             <div class="ctx-sep"></div>
-            <div class="ctx-item danger" onclick="ctxDeleteApp()">🗑️ Remove</div>
+            <div class="ctx-item danger" onclick="ctxDeleteApp()">
+                <svg style="display:inline;vertical-align:middle;margin-right:6px;" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                Remove
+            </div>
         `;
         menu.style.left = Math.min(e.clientX, window.innerWidth - 200) + 'px';
         menu.style.top = Math.min(e.clientY, window.innerHeight - 200) + 'px';
