@@ -451,18 +451,7 @@
     // FEATURE: GLOBAL LANGUAGE SUPPORT
     // ============================================================
     // Extend translations
-    Object.assign(translations, {
-        ja: { oobe_welcome: "KomaOSへようこそ", oobe_lang: "言語を選択", oobe_region: "地域を選択", next: "次へ", finder: "ファインダー", files: "ファイル", cc_title: "コントロールセンター", brightness: "明るさ", volume: "音量" },
-        fr: { oobe_welcome: "Bienvenue sur KomaOS", oobe_lang: "Choisissez votre langue", oobe_region: "Choisissez votre région", next: "Suivant", finder: "Finder", files: "Fichiers", cc_title: "Centre de contrôle", brightness: "Luminosité", volume: "Volume" },
-        de: { oobe_welcome: "Willkommen bei KomaOS", oobe_lang: "Sprache wählen", oobe_region: "Region wählen", next: "Weiter", finder: "Finder", files: "Dateien", cc_title: "Kontrollzentrum", brightness: "Helligkeit", volume: "Lautstärke" },
-        pt: { oobe_welcome: "Bem-vindo ao KomaOS", oobe_lang: "Selecione o idioma", oobe_region: "Selecione a região", next: "Próximo", finder: "Localizador", files: "Arquivos", cc_title: "Centro de Controle", brightness: "Brilho", volume: "Volume" },
-        zh: { oobe_welcome: "欢迎使用KomaOS", oobe_lang: "选择语言", oobe_region: "选择地区", next: "下一步", finder: "访达", files: "文件", cc_title: "控制中心", brightness: "亮度", volume: "音量" },
-        ko: { oobe_welcome: "KomaOS에 오신 것을 환영합니다", oobe_lang: "언어 선택", oobe_region: "지역 선택", next: "다음", finder: "파인더", files: "파일", cc_title: "제어 센터", brightness: "밝기", volume: "볼륨" },
-        ar: { oobe_welcome: "مرحبًا بكم في KomaOS", oobe_lang: "اختر اللغة", oobe_region: "اختر المنطقة", next: "التالي", finder: "الباحث", files: "الملفات", cc_title: "مركز التحكم", brightness: "السطوع", volume: "مستوى الصوت" },
-        hi: { oobe_welcome: "KomaOS में आपका स्वागत है", oobe_lang: "अपनी भाषा चुनें", oobe_region: "अपना क्षेत्र चुनें", next: "अगला", finder: "खोजक", files: "फ़ाइलें", cc_title: "नियंत्रण केंद्र", brightness: "चमक", volume: "आवाज़" },
-        ru: { oobe_welcome: "Добро пожаловать в KomaOS", oobe_lang: "Выберите язык", oobe_region: "Выберите регион", next: "Далее", finder: "Поиск", files: "Файлы", cc_title: "Центр управления", brightness: "Яркость", volume: "Громкость" },
-        it: { oobe_welcome: "Benvenuto su KomaOS", oobe_lang: "Seleziona la lingua", oobe_region: "Seleziona la regione", next: "Avanti", finder: "Finder", files: "File", cc_title: "Centro di Controllo", brightness: "Luminosità", volume: "Volume" },
-    });
+    // Extended translations merged into main translations object below
 
     // ============================================================
     // FEATURE: PRIVACY SHIELD (Simple Brightness Dimming)
@@ -609,11 +598,11 @@
 
         /* ===== BOOTLOADER — CINEMATIC ===== */
         #boot-screen {
-            background: #000; z-index: 10000; overflow: hidden; perspective: 1000px;
+            background: #2a2a2e; z-index: 10000; overflow: hidden; perspective: 1000px;
         }
         #boot-screen::before {
             content: ''; position: absolute; inset: 0;
-            background: radial-gradient(circle at 50% 50%, rgba(23,147,209,0.15) 0%, transparent 70%);
+            background: radial-gradient(circle at 50% 50%, rgba(120,120,130,0.15) 0%, transparent 70%);
             animation: bootPulse 3s ease-in-out infinite;
         }
         @keyframes bootPulse {
@@ -3021,7 +3010,7 @@
                                     </div>
                                 </div>
                                 <div class="settings-section">
-                                    <div class="settings-section-title">KomaStream+ Optimization</div>
+                                    <div class="settings-section-title">Star Stream x Koma OS</div>
                                     <div class="settings-card">
                                         <div class="settings-row">
                                             <div><div class="settings-row-label">Video Quality</div><div class="settings-row-desc">Default streaming resolution</div></div>
@@ -3370,7 +3359,7 @@
                                         <div class="settings-row"><div style="opacity:0.5; font-size:12px;">Build</div><div style="font-size:12px; font-weight:500;">2026.03.29</div></div>
                                     </div>
                                 </div>
-                                <p style="font-size:10px; opacity:0.3; margin-top:20px; text-align:center;">&copy; 2026 KomaStream Studios</p>
+                                <p style="font-size:10px; opacity:0.3; margin-top:20px; text-align:center;">&copy; 2026 Koma OS Studios</p>
                             </div>
                         </div>
                     </div>
@@ -3849,7 +3838,7 @@
             <!-- CINEMA -->
             <div id="win-cinema" class="window hidden liquid-glass" style="width: 90%; height: 85%; top: 5%; left: 5%;">
                 <div class="win-header">
-                    <span style="color: #9146ff; font-weight: bold; display:flex; align-items:center; gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/><line x1="17" y1="17" x2="22" y2="17"/></svg> KomaStream+</span>
+                    <span style="color: #9146ff; font-weight: bold; display:flex; align-items:center; gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/><line x1="17" y1="17" x2="22" y2="17"/></svg> Star Stream x Koma OS</span>
                     <div class="win-btns">
                         <div class="win-btn min" onclick="minWin('win-cinema')"></div>
                         <div class="win-btn max" onclick="maxWin('win-cinema')"></div>
@@ -3862,12 +3851,16 @@
                         <div style="animation: ksBootPulse 2s ease-in-out infinite; margin-bottom:20px;">
                             <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#9146ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
                         </div>
-                        <div style="font-size:28px; font-weight:800; background:linear-gradient(135deg,#9146ff,#ff6b9d); -webkit-background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:-0.5px;">KomaStream+</div>
-                        <div style="font-size:11px; color:rgba(255,255,255,0.3); margin-top:6px; letter-spacing:3px; text-transform:uppercase;">Koma OS × GN-Math</div>
+                        <div style="font-size:28px; font-weight:800; background:linear-gradient(135deg,#9146ff,#ff6b9d); -webkit-background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:-0.5px;">Star Stream</div>
+                        <div style="font-size:11px; color:rgba(255,255,255,0.3); margin-top:6px; letter-spacing:3px; text-transform:uppercase;">x Koma OS</div>
                         <div style="width:180px; height:3px; background:rgba(255,255,255,0.06); border-radius:3px; margin-top:24px; overflow:hidden;">
                             <div class="cinema-boot-bar" style="height:100%; width:0%; background:linear-gradient(90deg,#9146ff,#ff6b9d); border-radius:3px; animation:ksBootBar 2.5s ease-in-out forwards;"></div>
                         </div>
                         <div style="font-size:10px; color:rgba(255,255,255,0.2); margin-top:12px;" id="cinema-boot-status">Initializing...</div>
+                    </div>
+                    <!-- Star Stream iframe (native cinema) -->
+                    <div id="star-stream-iframe-wrap" style="display:none; position:absolute; inset:0; z-index:50;">
+                        <iframe id="star-stream-iframe" style="width:100%;height:100%;border:none;" allow="fullscreen; autoplay; encrypted-media" allowfullscreen></iframe>
                     </div>
                     <div class="cinema-nav" id="cinema-main-ui" style="display:none;">
                         <div class="cinema-nav-tabs" style="flex-wrap:wrap;">
@@ -3885,7 +3878,7 @@
                         </div>
                         <div class="cinema-search-wrap">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                            <input type="text" class="cinema-search-bar" id="anime-search" placeholder="Search KomaStream+..." oninput="searchAnime(this.value)">
+                            <input type="text" class="cinema-search-bar" id="anime-search" placeholder="Search Star Stream..." oninput="searchAnime(this.value)">
                         </div>
                     </div>
                     <div class="cinema-scroll" id="cinema-scroll-area" style="display:none;">
@@ -4428,7 +4421,7 @@
                 <div class="launch-icon" draggable="true" data-app-name="Clock" data-app-icon="https://tinyurl.com/y639pana" data-app-win="win-clock" onclick="openApp('win-clock')"><img src="https://tinyurl.com/y639pana"><span>Clock</span></div>
                 <div class="launch-icon" draggable="true" data-app-name="Calendar" data-app-icon="https://cdn.jim-nielsen.com/macos/512/calendar-2021-04-29.png?rf=1024" data-app-win="win-calendar" onclick="openApp('win-calendar')"><img src="https://cdn.jim-nielsen.com/macos/512/calendar-2021-04-29.png?rf=1024"><span>Calendar</span></div>
                 <div class="launch-icon" draggable="true" data-app-name="Wiki" data-app-icon="https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/1280px-Wikipedia-logo-v2.svg.png" data-app-win="win-wiki" onclick="openApp('win-wiki')"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/1280px-Wikipedia-logo-v2.svg.png"><span>Wiki</span></div>
-                <div class="launch-icon" draggable="true" data-app-name="KomaStream+" data-app-icon="https://cdn-icons-png.flaticon.com/512/2504/2504929.png" data-app-win="win-cinema" onclick="openApp('win-cinema'); initCinemaBoot();"><img src="https://cdn-icons-png.flaticon.com/512/2504/2504929.png"><span>KomaStream+</span></div>
+                <div class="launch-icon" draggable="true" data-app-name="Star Stream" data-app-icon="https://cdn-icons-png.flaticon.com/512/2504/2504929.png" data-app-win="win-cinema" onclick="openApp('win-cinema'); initCinemaBoot();"><img src="https://cdn-icons-png.flaticon.com/512/2504/2504929.png"><span>Star Stream</span></div>
                 <div class="launch-icon" draggable="true" data-app-name="Games" data-app-icon="https://cdn-icons-png.flaticon.com/512/8293/8293566.png" data-app-win="win-games" onclick="openApp('win-games')"><img src="https://cdn-icons-png.flaticon.com/512/8293/8293566.png"><span>Games</span></div>
                 <div class="launch-icon" draggable="true" data-app-name="Privacy Display" data-app-icon="https://cdn-icons-png.flaticon.com/512/2913/2913133.png" data-app-win="win-privacy-display" onclick="openApp('win-privacy-display')"><img src="https://cdn-icons-png.flaticon.com/512/2913/2913133.png"><span>Privacy Display</span></div>
                 <div class="launch-icon" draggable="true" data-app-name="Terminal" data-app-icon="https://upload.wikimedia.org/wikipedia/commons/6/68/Terminalicon3.png" data-app-win="win-terminal" onclick="openApp('win-terminal')"><img src="https://upload.wikimedia.org/wikipedia/commons/6/68/Terminalicon3.png"><span>Terminal</span></div>
@@ -5303,7 +5296,7 @@
     let cinemaFilter = 'all';
     let heroRotateInterval = null;
 
-    // KomaStream+ bootloader logic
+    // Star Stream x Koma OS bootloader logic
     function initCinemaBoot() {
         const boot = document.getElementById('cinema-boot');
         const mainUI = document.getElementById('cinema-main-ui');
@@ -5313,8 +5306,11 @@
         boot.style.opacity = '1';
         if(mainUI) mainUI.style.display = 'none';
         if(scrollArea) scrollArea.style.display = 'none';
+        // Hide old cinema UI, show iframe
+        const iframeContainer = document.getElementById('star-stream-iframe-wrap');
+        if(iframeContainer) iframeContainer.style.display = 'none';
         const status = document.getElementById('cinema-boot-status');
-        const msgs = ['Connecting to KomaStream+...', 'Loading catalog...', 'Syncing with GN-Math...', 'Preparing interface...', 'Ready!'];
+        const msgs = ['Connecting to Star Stream...', 'Loading catalog...', 'Syncing with Koma OS...', 'Preparing interface...', 'Ready!'];
         let i = 0;
         const msgInterval = setInterval(() => {
             if(status && i < msgs.length) { status.textContent = msgs[i]; i++; }
@@ -5325,9 +5321,12 @@
             boot.style.opacity = '0';
             setTimeout(() => {
                 boot.style.display = 'none';
-                if(mainUI) mainUI.style.display = '';
-                if(scrollArea) scrollArea.style.display = '';
-                renderCinema();
+                // Show iframe instead of old cinema UI
+                if(iframeContainer) {
+                    iframeContainer.style.display = 'block';
+                    const iframe = document.getElementById('star-stream-iframe');
+                    if(iframe && !iframe.src) iframe.src = 'https://star-stream-flow.base44.app/';
+                }
             }, 800);
         }, 3000);
     }
@@ -5517,8 +5516,18 @@
 
     // --- TRANSLATIONS ---
     const translations = {
-        es: { oobe_welcome: "Bienvenido a KomaOS", oobe_lang: "Selecciona tu idioma", oobe_region: "Selecciona tu región", next: "Siguiente", finder: "Buscador", files: "Archivos", cc_title: "Centro de Control", brightness: "Brillo", volume: "Volumen" },
-        en: { oobe_welcome: "Welcome to KomaOS", oobe_lang: "Select your language", oobe_region: "Select your region", next: "Next", finder: "Finder", files: "Files", cc_title: "Control Center", brightness: "Brightness", volume: "Volume" }
+        es: { oobe_welcome:"Bienvenido a KomaOS", oobe_lang:"Selecciona tu idioma", oobe_region:"Selecciona tu región", next:"Siguiente", finder:"Buscador", files:"Archivos", cc_title:"Centro de Control", brightness:"Brillo", volume:"Volumen", settings:"Ajustes", general:"General", display:"Pantalla", about:"Acerca de", wallpaper:"Fondo de pantalla", security:"Seguridad", privacy:"Privacidad", notifications:"Notificaciones", battery:"Batería", storage:"Almacenamiento", network:"Red", bluetooth:"Bluetooth", accounts:"Cuentas", language:"Idioma", region:"Región", search:"Buscar", lock:"Bloquear", logout:"Cerrar sesión", cancel:"Cancelar", save:"Guardar", done:"Listo", back:"Volver", apply:"Aplicar", delete_btn:"Eliminar", confirm:"Confirmar", system_guard:"Guardia del Sistema", scan:"Escanear", contacts:"Contactos", store:"Tienda", calculator:"Calculadora", terminal:"Terminal", notes:"Notas", star_stream:"Star Stream", chat:"Chat", call:"Llamada" },
+        en: { oobe_welcome:"Welcome to KomaOS", oobe_lang:"Select your language", oobe_region:"Select your region", next:"Next", finder:"Finder", files:"Files", cc_title:"Control Center", brightness:"Brightness", volume:"Volume", settings:"Settings", general:"General", display:"Display", about:"About", wallpaper:"Wallpaper", security:"Security", privacy:"Privacy", notifications:"Notifications", battery:"Battery", storage:"Storage", network:"Network", bluetooth:"Bluetooth", accounts:"Accounts", language:"Language", region:"Region", search:"Search", lock:"Lock", logout:"Log Out", cancel:"Cancel", save:"Save", done:"Done", back:"Back", apply:"Apply", delete_btn:"Delete", confirm:"Confirm", system_guard:"System Guard", scan:"Scan", contacts:"Contacts", store:"Store", calculator:"Calculator", terminal:"Terminal", notes:"Notes", star_stream:"Star Stream", chat:"Chat", call:"Call" },
+        ja: { oobe_welcome:"KomaOSへようこそ", oobe_lang:"言語を選択", oobe_region:"地域を選択", next:"次へ", finder:"ファインダー", files:"ファイル", cc_title:"コントロールセンター", brightness:"明るさ", volume:"音量", settings:"設定", general:"一般", display:"ディスプレイ", about:"情報", wallpaper:"壁紙", security:"セキュリティ", privacy:"プライバシー", notifications:"通知", battery:"バッテリー", storage:"ストレージ", network:"ネットワーク", bluetooth:"Bluetooth", accounts:"アカウント", language:"言語", region:"地域", search:"検索", lock:"ロック", logout:"ログアウト", cancel:"キャンセル", save:"保存", done:"完了", back:"戻る", apply:"適用", delete_btn:"削除", confirm:"確認", system_guard:"システムガード", scan:"スキャン", contacts:"連絡先", store:"ストア", calculator:"電卓", terminal:"ターミナル", notes:"メモ", star_stream:"Star Stream", chat:"チャット", call:"通話" },
+        fr: { oobe_welcome:"Bienvenue sur KomaOS", oobe_lang:"Choisissez votre langue", oobe_region:"Choisissez votre région", next:"Suivant", finder:"Finder", files:"Fichiers", cc_title:"Centre de contrôle", brightness:"Luminosité", volume:"Volume", settings:"Paramètres", general:"Général", display:"Affichage", about:"À propos", wallpaper:"Fond d'écran", security:"Sécurité", privacy:"Confidentialité", notifications:"Notifications", battery:"Batterie", storage:"Stockage", network:"Réseau", bluetooth:"Bluetooth", accounts:"Comptes", language:"Langue", region:"Région", search:"Rechercher", lock:"Verrouiller", logout:"Déconnexion", cancel:"Annuler", save:"Enregistrer", done:"Terminé", back:"Retour", apply:"Appliquer", delete_btn:"Supprimer", confirm:"Confirmer", system_guard:"Garde système", scan:"Scanner", contacts:"Contacts", store:"Boutique", calculator:"Calculatrice", terminal:"Terminal", notes:"Notes", star_stream:"Star Stream", chat:"Discussion", call:"Appel" },
+        de: { oobe_welcome:"Willkommen bei KomaOS", oobe_lang:"Sprache wählen", oobe_region:"Region wählen", next:"Weiter", finder:"Finder", files:"Dateien", cc_title:"Kontrollzentrum", brightness:"Helligkeit", volume:"Lautstärke", settings:"Einstellungen", general:"Allgemein", display:"Anzeige", about:"Über", wallpaper:"Hintergrundbild", security:"Sicherheit", privacy:"Datenschutz", notifications:"Benachrichtigungen", battery:"Akku", storage:"Speicher", network:"Netzwerk", bluetooth:"Bluetooth", accounts:"Konten", language:"Sprache", region:"Region", search:"Suchen", lock:"Sperren", logout:"Abmelden", cancel:"Abbrechen", save:"Speichern", done:"Fertig", back:"Zurück", apply:"Anwenden", delete_btn:"Löschen", confirm:"Bestätigen", system_guard:"Systemwächter", scan:"Scannen", contacts:"Kontakte", store:"Store", calculator:"Rechner", terminal:"Terminal", notes:"Notizen", star_stream:"Star Stream", chat:"Chat", call:"Anruf" },
+        pt: { oobe_welcome:"Bem-vindo ao KomaOS", oobe_lang:"Selecione o idioma", oobe_region:"Selecione a região", next:"Próximo", finder:"Localizador", files:"Arquivos", cc_title:"Centro de Controle", brightness:"Brilho", volume:"Volume", settings:"Configurações", general:"Geral", display:"Tela", about:"Sobre", wallpaper:"Papel de parede", security:"Segurança", privacy:"Privacidade", notifications:"Notificações", battery:"Bateria", storage:"Armazenamento", network:"Rede", bluetooth:"Bluetooth", accounts:"Contas", language:"Idioma", region:"Região", search:"Pesquisar", lock:"Bloquear", logout:"Sair", cancel:"Cancelar", save:"Salvar", done:"Concluído", back:"Voltar", apply:"Aplicar", delete_btn:"Excluir", confirm:"Confirmar", system_guard:"Guarda do Sistema", scan:"Escanear", contacts:"Contatos", store:"Loja", calculator:"Calculadora", terminal:"Terminal", notes:"Notas", star_stream:"Star Stream", chat:"Bate-papo", call:"Chamada" },
+        zh: { oobe_welcome:"欢迎使用KomaOS", oobe_lang:"选择语言", oobe_region:"选择地区", next:"下一步", finder:"访达", files:"文件", cc_title:"控制中心", brightness:"亮度", volume:"音量", settings:"设置", general:"通用", display:"显示", about:"关于", wallpaper:"壁纸", security:"安全", privacy:"隐私", notifications:"通知", battery:"电池", storage:"存储", network:"网络", bluetooth:"蓝牙", accounts:"账户", language:"语言", region:"地区", search:"搜索", lock:"锁定", logout:"退出", cancel:"取消", save:"保存", done:"完成", back:"返回", apply:"应用", delete_btn:"删除", confirm:"确认", system_guard:"系统卫士", scan:"扫描", contacts:"联系人", store:"商店", calculator:"计算器", terminal:"终端", notes:"备忘录", star_stream:"Star Stream", chat:"聊天", call:"电话" },
+        ko: { oobe_welcome:"KomaOS에 오신 것을 환영합니다", oobe_lang:"언어 선택", oobe_region:"지역 선택", next:"다음", finder:"파인더", files:"파일", cc_title:"제어 센터", brightness:"밝기", volume:"볼륨", settings:"설정", general:"일반", display:"디스플레이", about:"정보", wallpaper:"배경화면", security:"보안", privacy:"개인정보", notifications:"알림", battery:"배터리", storage:"저장공간", network:"네트워크", bluetooth:"블루투스", accounts:"계정", language:"언어", region:"지역", search:"검색", lock:"잠금", logout:"로그아웃", cancel:"취소", save:"저장", done:"완료", back:"뒤로", apply:"적용", delete_btn:"삭제", confirm:"확인", system_guard:"시스템 가드", scan:"스캔", contacts:"연락처", store:"스토어", calculator:"계산기", terminal:"터미널", notes:"메모", star_stream:"Star Stream", chat:"채팅", call:"전화" },
+        ar: { oobe_welcome:"مرحبًا بكم في KomaOS", oobe_lang:"اختر اللغة", oobe_region:"اختر المنطقة", next:"التالي", finder:"الباحث", files:"الملفات", cc_title:"مركز التحكم", brightness:"السطوع", volume:"مستوى الصوت", settings:"الإعدادات", general:"عام", display:"الشاشة", about:"حول", wallpaper:"خلفية", security:"الأمان", privacy:"الخصوصية", notifications:"الإشعارات", battery:"البطارية", storage:"التخزين", network:"الشبكة", bluetooth:"بلوتوث", accounts:"الحسابات", language:"اللغة", region:"المنطقة", search:"بحث", lock:"قفل", logout:"تسجيل الخروج", cancel:"إلغاء", save:"حفظ", done:"تم", back:"رجوع", apply:"تطبيق", delete_btn:"حذف", confirm:"تأكيد", system_guard:"حارس النظام", scan:"فحص", contacts:"جهات الاتصال", store:"المتجر", calculator:"الآلة الحاسبة", terminal:"الطرفية", notes:"الملاحظات", star_stream:"Star Stream", chat:"محادثة", call:"مكالمة" },
+        hi: { oobe_welcome:"KomaOS में आपका स्वागत है", oobe_lang:"अपनी भाषा चुनें", oobe_region:"अपना क्षेत्र चुनें", next:"अगला", finder:"खोजक", files:"फ़ाइलें", cc_title:"नियंत्रण केंद्र", brightness:"चमक", volume:"आवाज़", settings:"सेटिंग्स", general:"सामान्य", display:"प्रदर्शन", about:"के बारे में", wallpaper:"वॉलपेपर", security:"सुरक्षा", privacy:"गोपनीयता", notifications:"सूचनाएं", battery:"बैटरी", storage:"संग्रहण", network:"नेटवर्क", bluetooth:"ब्लूटूथ", accounts:"खाते", language:"भाषा", region:"क्षेत्र", search:"खोजें", lock:"लॉक", logout:"लॉग आउट", cancel:"रद्द करें", save:"सहेजें", done:"हो गया", back:"वापस", apply:"लागू करें", delete_btn:"हटाएं", confirm:"पुष्टि करें", system_guard:"सिस्टम गार्ड", scan:"स्कैन", contacts:"संपर्क", store:"स्टोर", calculator:"कैलकुलेटर", terminal:"टर्मिनल", notes:"नोट्स", star_stream:"Star Stream", chat:"चैट", call:"कॉल" },
+        ru: { oobe_welcome:"Добро пожаловать в KomaOS", oobe_lang:"Выберите язык", oobe_region:"Выберите регион", next:"Далее", finder:"Поиск", files:"Файлы", cc_title:"Центр управления", brightness:"Яркость", volume:"Громкость", settings:"Настройки", general:"Основные", display:"Экран", about:"О системе", wallpaper:"Обои", security:"Безопасность", privacy:"Конфиденциальность", notifications:"Уведомления", battery:"Батарея", storage:"Хранилище", network:"Сеть", bluetooth:"Bluetooth", accounts:"Учётные записи", language:"Язык", region:"Регион", search:"Поиск", lock:"Заблокировать", logout:"Выйти", cancel:"Отмена", save:"Сохранить", done:"Готово", back:"Назад", apply:"Применить", delete_btn:"Удалить", confirm:"Подтвердить", system_guard:"Страж системы", scan:"Сканировать", contacts:"Контакты", store:"Магазин", calculator:"Калькулятор", terminal:"Терминал", notes:"Заметки", star_stream:"Star Stream", chat:"Чат", call:"Звонок" },
+        it: { oobe_welcome:"Benvenuto su KomaOS", oobe_lang:"Seleziona la lingua", oobe_region:"Seleziona la regione", next:"Avanti", finder:"Finder", files:"File", cc_title:"Centro di Controllo", brightness:"Luminosità", volume:"Volume", settings:"Impostazioni", general:"Generale", display:"Schermo", about:"Informazioni", wallpaper:"Sfondo", security:"Sicurezza", privacy:"Privacy", notifications:"Notifiche", battery:"Batteria", storage:"Archiviazione", network:"Rete", bluetooth:"Bluetooth", accounts:"Account", language:"Lingua", region:"Regione", search:"Cerca", lock:"Blocca", logout:"Esci", cancel:"Annulla", save:"Salva", done:"Fatto", back:"Indietro", apply:"Applica", delete_btn:"Elimina", confirm:"Conferma", system_guard:"Guardia di Sistema", scan:"Scansione", contacts:"Contatti", store:"Negozio", calculator:"Calcolatrice", terminal:"Terminale", notes:"Note", star_stream:"Star Stream", chat:"Chat", call:"Chiamata" }
     };
 
     // --- SYSTEM FLOW ---
@@ -5931,7 +5940,31 @@
         pinBuffer = '';
         updatePinDots();
     }
-    function applyLang(l) { currentLang = l; document.querySelectorAll('[data-t]').forEach(el => { const k = el.getAttribute('data-t'); if(translations[l] && translations[l][k]) el.textContent = translations[l][k]; }); }
+    function applyLang(l) {
+        currentLang = l;
+        localStorage.setItem('koma_lang', l);
+        const t = translations[l] || translations['en'];
+        // Update data-t elements
+        document.querySelectorAll('[data-t]').forEach(el => {
+            const k = el.getAttribute('data-t');
+            if(t[k]) el.textContent = t[k];
+        });
+        // Update launcher app labels by mapping app names to translation keys
+        const appNameMap = { 'Settings':'settings', 'Files':'files', 'Terminal':'terminal', 'Notes':'notes', 'Calculator':'calculator', 'Contacts':'contacts', 'Star Stream':'star_stream', 'Chat':'chat', 'Store':'store',
+            'Ajustes':'settings', 'Archivos':'files', 'Notas':'notes', 'Calculadora':'calculator', 'Contactos':'contacts', 'Tienda':'store', 'Llamada':'call', 'Buscador':'finder' };
+        document.querySelectorAll('.launch-icon span').forEach(span => {
+            const key = appNameMap[span.textContent];
+            if(key && t[key]) span.textContent = t[key];
+        });
+        // Update settings section titles
+        document.querySelectorAll('.settings-section-title').forEach(title => {
+            const txt = title.textContent.trim().toLowerCase();
+            const sectionMap = { 'general':'general', 'display':'display', 'about':'about', 'wallpaper':'wallpaper', 'security':'security', 'privacy':'privacy', 'notifications':'notifications', 'battery':'battery', 'storage':'storage', 'network':'network' };
+            for(const [en, key] of Object.entries(sectionMap)) {
+                if(txt.includes(en) && t[key]) { title.textContent = t[key]; break; }
+            }
+        });
+    }
     function transitionLayer(fromId, toId) { const f = document.getElementById(fromId); const t = document.getElementById(toId); f.style.opacity = '0'; setTimeout(() => { f.classList.remove('active'); t.classList.add('active'); t.style.opacity = '1'; }, 800); }
 
     function updateClock() {
@@ -6873,15 +6906,15 @@
         '47028': { name: 'Hunt Showdown', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/%E3%80%90Hunt-%20Showdown%E3%80%91Trait%20Icon%20Animation%E2%80%94%E2%80%94Hundred_Hands%23huntshowdow%20%23wallpaper%20%23steam%20%23animationart.mp4' }
     };
     const KOMA_SECRET_WALLCODES = {
-        '98626': { name: 'Black Hole Secret', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/black-hole.3840x2160.mp4' },
-        '57297': { name: 'Minecraft Fox', type: 'image', url: 'https://images.unsplash.com/photo-1627483262112-039e9a0a0c2b?w=1920&q=80' },
-        '89013': { name: 'Death Roots', type: 'image', url: 'https://images.unsplash.com/photo-1518709766631-a6a7f45921c3?w=1920&q=80' },
-        '98106': { name: 'Hollow Knight', type: 'image', url: 'https://images.unsplash.com/photo-1614624532983-4ce03382d63d?w=1920&q=80' },
-        '67429': { name: 'Arknights', type: 'image', url: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1920&q=80' },
-        '78000': { name: 'Mikami Death Note', type: 'image', url: 'https://images.unsplash.com/photo-1535016120720-40c646be5580?w=1920&q=80' },
-        '36148': { name: 'Supra Edit', type: 'image', url: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1920&q=80' },
-        '24317': { name: 'Mazda RX-7', type: 'image', url: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1920&q=80' },
-        '09162': { name: 'Super Cars', type: 'image', url: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1920&q=80' }
+        '98626': { name: 'Black Hole', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/black-hole.3840x2160.mp4' },
+        '57297': { name: 'Minecraft Fox', type: 'gif', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/Wallpaper%20GIF.gif' },
+        '89013': { name: 'Death Roots', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/hunt-showdown-death-roots3840x21%20(1).mp4' },
+        '98106': { name: 'Hollow Knight', type: 'gif', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/Wallpaper%20GIF%20(3).gif' },
+        '67429': { name: 'Arknights', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/platinum-arknights.1920x1080.mp4' },
+        '78000': { name: 'Mikami Death Note', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/mikami-death-note3840x2160.mp4' },
+        '36148': { name: 'Supra Edit', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/ssstik.io_%40drvnx1_1774939471973.mp4' },
+        '24317': { name: 'Mazda RX-7', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/ssstik.io_%40moren_228_1774939403411.mp4' },
+        '09162': { name: 'Super Cars', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/ssstik.io_%40micrpt_1774939563415.mp4' }
     };
     const KOMA_DEFAULT_WALLCODES = {...KOMA_PUBLIC_WALLCODES, ...KOMA_SECRET_WALLCODES};
 
