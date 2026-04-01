@@ -6729,11 +6729,16 @@
             </div>
 
             <div style="background:rgba(255,255,255,0.04); border-radius:14px; padding:16px; margin-bottom:16px;">
-                <p style="font-size:13px; font-weight:600; margin-bottom:12px;">⭐ KomaOS Default Codes</p>
+                <p style="font-size:13px; font-weight:600; margin-bottom:12px;">
+                    <svg style="display:inline;vertical-align:middle;margin-right:6px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#febc2e" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    KomaOS Default Codes
+                </p>
                 <div style="display:grid; gap:8px;">
-                    ${Object.entries(KOMA_DEFAULT_WALLCODES).map(([code, data]) => `
+                    ${Object.entries(KOMA_PUBLIC_WALLCODES).map(([code, data]) => `
                         <div style="display:flex; align-items:center; gap:12px; padding:10px; background:rgba(255,255,255,0.04); border-radius:10px;">
-                            <div style="width:50px; height:35px; border-radius:6px; background:rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:center; font-size:16px;">${data.type === 'video' ? '🎬' : '🖼️'}</div>
+                            <div style="width:50px; height:35px; border-radius:6px; background:rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:center;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${data.type === 'video' ? '<polygon points="5 3 19 12 5 21 5 3"/>' : '<rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>'}</svg>
+                            </div>
                             <div style="flex:1;"><div style="font-size:12px; font-weight:600;">${data.name}</div><div style="font-size:10px; opacity:0.4;">${data.type.toUpperCase()}</div></div>
                             <code style="font-size:14px; color:var(--accent); font-weight:700;">${code}</code>
                             <button class="store-get-btn" onclick="applyWallcodeByCode('${code}')">Apply</button>
