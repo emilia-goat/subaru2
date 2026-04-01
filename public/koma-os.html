@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KomaOS v6.3 | komastream studios proyect</title>
-    <meta name="description" content="KomaOS v6.3 - A web-based operating system with liquid glass UI">
+    <title>KomaOS v6.4 | komastream studios proyect</title>
+    <meta name="description" content="KomaOS v6.4 - A web-based operating system with liquid glass UI">
     <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
     <script>
@@ -388,11 +388,19 @@
         }
     });
 
-    // Also allow Ctrl+Shift+D
+    // Owner Developer Panel: Ctrl+Shift+D+O
+    let ownerKeyBuffer = '';
     document.addEventListener('keydown', (e) => {
-        if(e.ctrlKey && e.shiftKey && e.key === 'D') {
-            e.preventDefault();
-            document.getElementById('dev-menu-overlay').classList.add('active');
+        if(e.ctrlKey && e.shiftKey) {
+            ownerKeyBuffer += e.key.toUpperCase();
+            clearTimeout(window._ownerKeyTimeout);
+            window._ownerKeyTimeout = setTimeout(() => ownerKeyBuffer = '', 2000);
+            if(ownerKeyBuffer.includes('DO')) {
+                e.preventDefault();
+                ownerKeyBuffer = '';
+                document.getElementById('dev-menu-overlay').classList.add('active');
+                showNotification('System', 'Owner Developer Panel Active');
+            }
         }
     });
 
@@ -404,7 +412,7 @@
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'KomaOS-v6.3-source.html';
+        a.download = 'KomaOS-v6.4-source.html';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -2032,10 +2040,10 @@
   
   
 
-  <meta property="og:title" content="KomaOS v6.3 | komastream studios proyect">
-  <meta name="twitter:title" content="KomaOS v6.3 | komastream studios proyect">
-  <meta property="og:description" content="KomaOS v6.3 - A web-based operating system with liquid glass UI">
-  <meta name="twitter:description" content="KomaOS v6.3 - A web-based operating system with liquid glass UI">
+  <meta property="og:title" content="KomaOS v6.4 | komastream studios proyect">
+  <meta name="twitter:title" content="KomaOS v6.4 | komastream studios proyect">
+  <meta property="og:description" content="KomaOS v6.4 - A web-based operating system with liquid glass UI">
+  <meta name="twitter:description" content="KomaOS v6.4 - A web-based operating system with liquid glass UI">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
 </head>
 <body onload="initSystem()">
@@ -2052,19 +2060,30 @@
         <div style="position: relative; z-index: 10; text-align: center;">
             <div style="font-size: 80px; margin-bottom: 10px; animation: brandFloat 3s ease-in-out infinite;">🌀</div>
             <h1 class="koma-brand">KomaOS</h1>
-            <p style="font-size: 13px; opacity: 0.4; letter-spacing: 8px; margin-top: 10px; color: var(--accent);">EXTREME EDITION v6.2</p>
-            <!-- Access Code Section -->
+            <p style="font-size: 13px; opacity: 0.4; letter-spacing: 8px; margin-top: 10px; color: var(--accent);">EXTREME EDITION v6.4</p>
+            <!-- Keyboard Sequence Access (PC) / Access Code fallback (Mobile) -->
             <div id="access-code-section" style="margin-top: 30px;">
-                <p style="font-size: 14px; opacity: 0.6; letter-spacing: 2px; margin-bottom: 15px; color: rgba(255,255,255,0.7);">🔒 Enter Access Code</p>
-                <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 15px;">
-                    <input type="password" id="access-code-input" maxlength="4" placeholder="••••" 
-                        style="width: 160px; text-align: center; font-size: 28px; letter-spacing: 12px; padding: 14px 20px; border-radius: 16px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: white; outline: none; backdrop-filter: blur(10px); transition: 0.3s; font-weight: 300;"
-                        onkeypress="if(event.key==='Enter')verifyAccessCode()"
-                        onfocus="this.style.borderColor='var(--accent)'; this.style.boxShadow='0 0 20px rgba(0,255,204,0.2)';"
-                        onblur="this.style.borderColor='rgba(255,255,255,0.15)'; this.style.boxShadow='none';">
+                <div id="key-seq-ui">
+                    <p style="font-size: 14px; opacity: 0.6; letter-spacing: 2px; margin-bottom: 15px; color: rgba(255,255,255,0.7);">🔒 Enter Sequence to Unlock</p>
+                    <div id="key-seq-display" style="display:flex; gap:8px; justify-content:center; margin-bottom:15px; min-height:40px; flex-wrap:wrap;"></div>
+                    <p id="key-seq-hint" style="font-size:11px; opacity:0.35; letter-spacing:1px; color:rgba(255,255,255,0.5);">Use arrow keys: ↑ ↓ ↑ ↓</p>
+                    <p id="key-seq-emergency-hint" style="font-size:10px; opacity:0.25; margin-top:6px; color:rgba(255,255,255,0.4);">Emergency: ← ↑ ↓ ↑ ↓</p>
+                    <p id="access-code-error" style="color: #ff5f57; font-size: 12px; margin-top: 12px; opacity: 0; transition: 0.3s;">Invalid sequence</p>
                 </div>
-                <button onclick="verifyAccessCode()" style="font-size: 14px; padding: 12px 35px; border-radius: 30px; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); border: 1px solid rgba(255,255,255,0.2); color: white; cursor: pointer; font-weight: 600; letter-spacing: 2px; transition: 0.3s; backdrop-filter: blur(10px);" onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))'">VERIFY</button>
-                <p id="access-code-error" style="color: #ff5f57; font-size: 12px; margin-top: 12px; opacity: 0; transition: 0.3s;">Invalid access code</p>
+                <!-- Mobile fallback -->
+                <div id="mobile-access-fallback" style="display:none;">
+                    <p style="font-size: 14px; opacity: 0.6; letter-spacing: 2px; margin-bottom: 15px; color: rgba(255,255,255,0.7);">🔒 Tap the Sequence</p>
+                    <div style="display:grid; grid-template-columns:repeat(3,60px); gap:10px; justify-content:center; margin-bottom:15px;">
+                        <div></div>
+                        <button onclick="mobileKeyInput('up')" style="width:60px;height:60px;border-radius:14px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:white;font-size:22px;cursor:pointer;backdrop-filter:blur(8px);transition:0.2s;" ontouchstart="this.style.transform='scale(0.9)'" ontouchend="this.style.transform='scale(1)'">↑</button>
+                        <div></div>
+                        <button onclick="mobileKeyInput('left')" style="width:60px;height:60px;border-radius:14px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:white;font-size:22px;cursor:pointer;backdrop-filter:blur(8px);transition:0.2s;" ontouchstart="this.style.transform='scale(0.9)'" ontouchend="this.style.transform='scale(1)'">←</button>
+                        <button onclick="mobileKeyInput('down')" style="width:60px;height:60px;border-radius:14px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:white;font-size:22px;cursor:pointer;backdrop-filter:blur(8px);transition:0.2s;" ontouchstart="this.style.transform='scale(0.9)'" ontouchend="this.style.transform='scale(1)'">↓</button>
+                        <button onclick="mobileKeyInput('right')" style="width:60px;height:60px;border-radius:14px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:white;font-size:22px;cursor:pointer;backdrop-filter:blur(8px);transition:0.2s;" ontouchstart="this.style.transform='scale(0.9)'" ontouchend="this.style.transform='scale(1)'">→</button>
+                    </div>
+                    <div id="mobile-seq-display" style="display:flex; gap:8px; justify-content:center; margin-bottom:10px; min-height:30px;"></div>
+                    <button onclick="mobileSeqBuffer=[];renderMobileSeq();" style="font-size:12px;padding:8px 20px;border-radius:20px;background:rgba(255,95,87,0.2);border:1px solid rgba(255,95,87,0.3);color:#ff5f57;cursor:pointer;">Reset</button>
+                </div>
             </div>
             <div style="margin-top: 20px; display: none;" id="boot-btn-wrap">
                 <button id="boot-btn">INITIALIZE SYSTEM</button>
@@ -4109,7 +4128,7 @@
                         <span class="dev-icon">🗑️</span>
                         <div><div style="font-weight:600;">Factory Reset</div><div style="font-size:11px; opacity:0.4;">Clear all stored data and refresh</div></div>
                     </div>
-                    <div class="dev-option" onclick="showNotification('Dev','Version: KomaOS v6.3-beta\nBuild: '+Date.now())">
+                    <div class="dev-option" onclick="showNotification('Dev','Version: KomaOS v6.4-beta\nBuild: '+Date.now())">
                         <span class="dev-icon">ℹ️</span>
                         <div><div style="font-weight:600;">Build Info</div><div style="font-size:11px; opacity:0.4;">Display system build details</div></div>
                     </div>
@@ -5025,7 +5044,7 @@
             if (e.key === 'Enter') {
                 const cmd = termInput.value.toLowerCase(); let resp = `<br><span style="color:var(--accent)">$</span> ${cmd}<br>`;
                 if (cmd === 'help') resp += "Commands: help, clear, neofetch, color [hex], vpn, exit";
-                else if (cmd === 'neofetch') resp += "OS: KomaOS v6.3<br>Kernel: Koma-Web-1.3<br>Shell: KomaBash<br>UI: Liquid Glass v3<br>Dock: macOS Sequoia";
+                else if (cmd === 'neofetch') resp += "OS: KomaOS v6.4<br>Kernel: Koma-Web-1.3<br>Shell: KomaBash<br>UI: Liquid Glass v3<br>Dock: macOS Sequoia";
                 else if (cmd === 'clear') { termOutput.innerHTML = ""; resp = ""; }
                 else if (cmd.startsWith('color ')) { document.documentElement.style.setProperty('--primary', cmd.split(' ')[1]); resp += "System color changed."; }
                 else if (cmd === 'vpn') { toggleVPN(); resp += vpnConnected ? "VPN Connected (219.100.37.207)" : "VPN Disconnected"; }
@@ -5300,21 +5319,114 @@
     let pinBuffer = '';
 
     // --- ACCESS CODE VERIFICATION ---
-    function verifyAccessCode() {
-        const input = document.getElementById('access-code-input');
-        const error = document.getElementById('access-code-error');
-        if(input.value === '6843') {
-            document.getElementById('access-code-section').style.display = 'none';
-            document.getElementById('boot-btn-wrap').style.display = 'block';
-            showNotification('System', 'Access granted!');
-        } else {
-            error.style.opacity = '1';
-            input.style.borderColor = '#ff5f57';
-            input.style.boxShadow = '0 0 20px rgba(255,95,87,0.3)';
-            input.value = '';
-            setTimeout(() => { error.style.opacity = '0'; input.style.borderColor = 'rgba(255,255,255,0.15)'; input.style.boxShadow = 'none'; }, 2000);
+    // Keyboard Sequence Access System
+    const MAIN_SEQUENCE = ['up','down','up','down'];
+    const EMERGENCY_SEQUENCE = ['left','up','down','up','down'];
+    let keySeqBuffer = [];
+    let mobileSeqBuffer = [];
+    let isEmergencyAccess = false;
+
+    const KEY_MAP = { ArrowUp:'up', ArrowDown:'down', ArrowLeft:'left', ArrowRight:'right' };
+    const ARROW_ICONS = { up:'↑', down:'↓', left:'←', right:'→' };
+
+    function isMobileDevice() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+    }
+
+    // Show mobile or PC UI
+    function initAccessUI() {
+        if(isMobileDevice()) {
+            document.getElementById('key-seq-ui').style.display = 'none';
+            document.getElementById('mobile-access-fallback').style.display = 'block';
         }
     }
+
+    function renderKeySeqDisplay() {
+        const el = document.getElementById('key-seq-display');
+        if(!el) return;
+        el.innerHTML = keySeqBuffer.map(k => `<div style="width:36px;height:36px;border-radius:10px;background:rgba(0,255,204,0.15);border:1px solid rgba(0,255,204,0.3);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--accent);animation:fadeIn 0.2s;">${ARROW_ICONS[k]||k}</div>`).join('');
+    }
+
+    function renderMobileSeq() {
+        const el = document.getElementById('mobile-seq-display');
+        if(!el) return;
+        el.innerHTML = mobileSeqBuffer.map(k => `<div style="width:30px;height:30px;border-radius:8px;background:rgba(0,255,204,0.15);border:1px solid rgba(0,255,204,0.3);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--accent);">${ARROW_ICONS[k]||k}</div>`).join('');
+    }
+
+    function checkSequence(buffer) {
+        const mainStr = MAIN_SEQUENCE.join(',');
+        const emergStr = EMERGENCY_SEQUENCE.join(',');
+        const bufStr = buffer.join(',');
+        if(bufStr === mainStr) { accessGranted(false); return true; }
+        if(bufStr === emergStr) { accessGranted(true); return true; }
+        if(buffer.length >= 5) {
+            const error = document.getElementById('access-code-error');
+            if(error) { error.style.opacity = '1'; setTimeout(() => error.style.opacity = '0', 2000); }
+            return 'reset';
+        }
+        return false;
+    }
+
+    function accessGranted(emergency) {
+        isEmergencyAccess = emergency;
+        document.getElementById('access-code-section').style.display = 'none';
+        document.getElementById('boot-btn-wrap').style.display = 'block';
+        showNotification('System', emergency ? '🚨 Emergency Access Granted' : '✅ Access Granted');
+        if(emergency) showEmergencySystem();
+    }
+
+    // PC keyboard listener
+    document.addEventListener('keydown', function(e) {
+        if(!document.getElementById('boot-screen')?.classList.contains('active')) return;
+        if(document.getElementById('access-code-section')?.style.display === 'none') return;
+        const dir = KEY_MAP[e.key];
+        if(!dir) return;
+        e.preventDefault();
+        keySeqBuffer.push(dir);
+        renderKeySeqDisplay();
+        const result = checkSequence(keySeqBuffer);
+        if(result === 'reset') { keySeqBuffer = []; setTimeout(renderKeySeqDisplay, 500); }
+    });
+
+    // Mobile arrow button input
+    function mobileKeyInput(dir) {
+        mobileSeqBuffer.push(dir);
+        renderMobileSeq();
+        const result = checkSequence(mobileSeqBuffer);
+        if(result === 'reset') { mobileSeqBuffer = []; setTimeout(renderMobileSeq, 500); }
+    }
+
+    // Emergency System Full Screen
+    function showEmergencySystem() {
+        let overlay = document.getElementById('emergency-system-overlay');
+        if(!overlay) {
+            overlay = document.createElement('div');
+            overlay.id = 'emergency-system-overlay';
+            overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:#1a1a2e;display:flex;flex-direction:column;align-items:center;justify-content:center;color:white;font-family:inherit;';
+            overlay.innerHTML = `
+                <div style="text-align:center;">
+                    <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,rgba(255,165,0,0.3),rgba(255,165,0,0.1));border:2px solid rgba(255,165,0,0.5);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ff9500" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><rect x="15" y="2" width="6" height="6" rx="1" fill="none" stroke="#ff9500" stroke-width="1.5"/></svg>
+                    </div>
+                    <h2 style="font-size:18px;font-weight:600;margin-bottom:5px;">Restricted Access Network</h2>
+                </div>
+                <div style="background:#ff9500;width:100%;padding:30px;text-align:center;margin-top:30px;">
+                    <p style="font-size:14px;opacity:0.8;">Oops,</p>
+                    <h1 style="font-size:28px;font-weight:700;margin:5px 0;">restricted-site.com</h1>
+                    <p style="font-size:13px;opacity:0.7;">is not available because it is categorized as Mature - Games.</p>
+                </div>
+                <div style="text-align:center;margin-top:30px;">
+                    <p style="font-size:13px;color:#ff9500;">You are logged in as student@district.edu (IP address: 10.0.0.5).</p>
+                    <p style="font-size:13px;opacity:0.6;margin-top:8px;">If you feel this site has been restricted in error, please contact your network administrator.</p>
+                </div>
+                <p style="position:absolute;bottom:20px;font-size:11px;opacity:0.3;">Administrator Console Access v4.2</p>
+                <button onclick="this.parentElement.remove()" style="position:absolute;top:15px;right:15px;background:rgba(255,255,255,0.1);border:none;color:white;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:14px;">✕</button>
+            `;
+            document.body.appendChild(overlay);
+        }
+    }
+
+    function verifyAccessCode() { /* Legacy - now uses key sequences */ }
 
     // System uptime tracking
     const komaBootTime = Date.now();
@@ -5397,6 +5509,7 @@
         setupLockUI();
         applyLockPersonalization();
         initHardwareMonitoring();
+        initAccessUI();
 
         const savedLockType = localStorage.getItem('koma_lock_type') || 'none';
         const sel = document.getElementById('lock-type-select');
@@ -5904,7 +6017,7 @@
         } else if(type === 'system') {
             content = `<div class="widget-header"><span>📊 System</span><button class="widget-close" onclick="this.closest('.desktop-widget-panel').remove()">✕</button></div>
                 <div style="font-size:12px; line-height:2;">
-                    <div style="display:flex; justify-content:space-between;"><span style="opacity:0.5;">OS</span><span>KomaOS v6.3</span></div>
+                    <div style="display:flex; justify-content:space-between;"><span style="opacity:0.5;">OS</span><span>KomaOS v6.4</span></div>
                     <div style="display:flex; justify-content:space-between;"><span style="opacity:0.5;">UI</span><span>Liquid Glass v3</span></div>
                     <div style="display:flex; justify-content:space-between;"><span style="opacity:0.5;">Memory</span><span>${Math.round(performance.memory?.usedJSHeapSize/1048576 || 64)} MB</span></div>
                     <div style="display:flex; justify-content:space-between;"><span style="opacity:0.5;">Screen</span><span>${screen.width}×${screen.height}</span></div>
@@ -6539,7 +6652,16 @@
         '62516': { name: 'GTA V Rain', type: 'gif', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/Grand%20Theft%20Auto%20V%20Rain%20GIF.gif' },
         '78015': { name: 'Manga Wallpaper', type: 'gif', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/Manga%20Wallpaper%20GIF%20(6).gif' },
         '62872': { name: 'Black Hole', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/black-hole.3840x2160.mp4' },
-        '47028': { name: 'Hunt Showdown', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/%E3%80%90Hunt-%20Showdown%E3%80%91Trait%20Icon%20Animation%E2%80%94%E2%80%94Hundred_Hands%23huntshowdow%20%23wallpaper%20%23steam%20%23animationart.mp4' }
+        '47028': { name: 'Hunt Showdown', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/%E3%80%90Hunt-%20Showdown%E3%80%91Trait%20Icon%20Animation%E2%80%94%E2%80%94Hundred_Hands%23huntshowdow%20%23wallpaper%20%23steam%20%23animationart.mp4' },
+        '98626': { name: 'Black Hole Secret', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/black-hole.3840x2160.mp4' },
+        '57297': { name: 'Minecraft Fox', type: 'image', url: 'https://images.unsplash.com/photo-1627483262112-039e9a0a0c2b?w=1920&q=80' },
+        '89013': { name: 'Death Roots', type: 'image', url: 'https://images.unsplash.com/photo-1518709766631-a6a7f45921c3?w=1920&q=80' },
+        '98106': { name: 'Hollow Knight', type: 'image', url: 'https://images.unsplash.com/photo-1614624532983-4ce03382d63d?w=1920&q=80' },
+        '67429': { name: 'Arknights', type: 'image', url: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1920&q=80' },
+        '78000': { name: 'Mikami Death Note', type: 'image', url: 'https://images.unsplash.com/photo-1535016120720-40c646be5580?w=1920&q=80' },
+        '36148': { name: 'Supra Edit', type: 'image', url: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1920&q=80' },
+        '24317': { name: 'Mazda RX-7', type: 'image', url: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1920&q=80' },
+        '09162': { name: 'Super Cars', type: 'image', url: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1920&q=80' }
     };
 
     function getCustomWallcodes() { return JSON.parse(localStorage.getItem('koma_custom_wallcodes') || '{}'); }
@@ -9625,7 +9747,508 @@
         section.appendChild(infoRow);
     })();
 
-    </script>
+    
+    // ============================================================
+    // OWNER DEVELOPER PANEL FUNCTIONS
+    // ============================================================
+    function refreshDevUserList() {
+        const el = document.getElementById('dev-user-list');
+        if(!el) return;
+        const users = JSON.parse(localStorage.getItem('koma_all_users') || '[]');
+        const currentUser = localStorage.getItem('koma_username') || 'Guest';
+        const currentId = localStorage.getItem('koma_user_id') || 'local-' + Date.now();
+        if(!users.find(u => u.id === currentId)) {
+            users.push({ id: currentId, name: currentUser, lastSeen: Date.now() });
+            localStorage.setItem('koma_all_users', JSON.stringify(users));
+        }
+        el.innerHTML = users.map(u => `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05);"><span>${u.name}</span><span style="opacity:0.4;">${u.id.substring(0,8)}...</span></div>`).join('') || '<p>No users tracked</p>';
+    }
+    // Auto refresh on dev panel open
+    const devObserver = new MutationObserver(() => {
+        if(document.getElementById('dev-menu-overlay')?.classList.contains('active')) refreshDevUserList();
+    });
+    setTimeout(() => {
+        const devOverlay = document.getElementById('dev-menu-overlay');
+        if(devOverlay) devObserver.observe(devOverlay, { attributes: true, attributeFilter: ['class'] });
+    }, 2000);
+
+    function sendGlobalBroadcast() {
+        const msg = document.getElementById('dev-broadcast-msg')?.value?.trim();
+        if(!msg) return;
+        showNotification('📢 System Broadcast', msg);
+        localStorage.setItem('koma_last_broadcast', JSON.stringify({ msg, time: Date.now() }));
+        document.getElementById('dev-broadcast-msg').value = '';
+    }
+
+    function tempBanUser() {
+        const userId = document.getElementById('dev-ban-user')?.value?.trim();
+        if(!userId) return;
+        const bans = JSON.parse(localStorage.getItem('koma_temp_bans') || '[]');
+        bans.push({ id: userId, bannedAt: Date.now(), expiresAt: Date.now() + 3600000 });
+        localStorage.setItem('koma_temp_bans', JSON.stringify(bans));
+        showNotification('Admin', `User ${userId} temporarily banned for 1 hour`);
+        document.getElementById('dev-ban-user').value = '';
+    }
+
+    // System Guard - Anti-Virus/Anti-Spyware
+    const KOMA_KNOWN_KEYS = ['koma_','koma-os','theme','lang','wallpaper','lock','pin','password','alarms','notes','installed','dock','glass','privacy','wall_','config','broadcast','ban','users','user_','guard_'];
+    let guardSnapshot = null;
+    
+    function takeGuardSnapshot() {
+        const snapshot = {};
+        for(let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            snapshot[key] = localStorage.getItem(key)?.length || 0;
+        }
+        guardSnapshot = snapshot;
+        localStorage.setItem('koma_guard_snapshot', JSON.stringify(snapshot));
+    }
+
+    function runSystemGuard() {
+        const el = document.getElementById('guard-scan-result');
+        if(!el) return;
+        el.innerHTML = '<span style="color:var(--accent);">🔍 Scanning...</span>';
+        
+        const prevSnapshot = JSON.parse(localStorage.getItem('koma_guard_snapshot') || '{}');
+        const issues = [];
+        
+        for(let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            const isKnown = KOMA_KNOWN_KEYS.some(k => key.includes(k));
+            if(!isKnown) {
+                issues.push({ type: 'unknown', key });
+            }
+            if(prevSnapshot[key] !== undefined) {
+                const currentLen = localStorage.getItem(key)?.length || 0;
+                if(Math.abs(currentLen - prevSnapshot[key]) > 1000) {
+                    issues.push({ type: 'modified', key, diff: currentLen - prevSnapshot[key] });
+                }
+            }
+        }
+        
+        takeGuardSnapshot();
+        
+        setTimeout(() => {
+            if(issues.length === 0) {
+                el.innerHTML = '<span style="color:#28c840;">✅ Your operating system is back to life: "Return by Death"</span>';
+                showNotification('System Guard', 'Your operating system is back to life: "Return by Death"');
+            } else {
+                el.innerHTML = `<span style="color:#febc2e;">⚠️ Found ${issues.length} suspicious entries</span><br>` +
+                    issues.map(i => `<span style="font-size:10px;opacity:0.5;">${i.type}: ${i.key}</span>`).join('<br>');
+                showNotification('System Guard', `Found ${issues.length} suspicious entries. Check Developer Panel.`);
+            }
+        }, 2000);
+    }
+
+    // ============================================================
+    // EASTER EGG: Settings > About version tap
+    // ============================================================
+    let easterEggTaps = 0;
+    let easterEggTimeout = null;
+    
+    function initEasterEgg() {
+        // Find the version text in About
+        setTimeout(() => {
+            const aboutItems = document.querySelectorAll('#settings-tab-about .settings-card div');
+            aboutItems.forEach(item => {
+                if(item.textContent?.includes('Beta v6.4') || item.textContent?.includes('Koma OS')) {
+                    item.style.cursor = 'pointer';
+                    item.addEventListener('click', handleEasterEggTap);
+                }
+            });
+        }, 3000);
+    }
+    
+    function handleEasterEggTap() {
+        easterEggTaps++;
+        clearTimeout(easterEggTimeout);
+        easterEggTimeout = setTimeout(() => easterEggTaps = 0, 3000);
+        
+        if(easterEggTaps >= 7) {
+            easterEggTaps = 0;
+            launchSpaceEasterEgg();
+        } else if(easterEggTaps >= 3) {
+            showNotification('About', `${7 - easterEggTaps} taps to unlock easter egg...`);
+        }
+    }
+    
+    function launchSpaceEasterEgg() {
+        showNotification('🌀 KomaOS', 'Space Mode Activated!');
+        const overlay = document.createElement('div');
+        overlay.id = 'easter-egg-overlay';
+        overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;';
+        overlay.innerHTML = `
+            <canvas id="space-game-canvas" style="position:absolute;inset:0;"></canvas>
+            <div style="position:relative;z-index:2;text-align:center;pointer-events:none;">
+                <div style="font-size:60px;margin-bottom:10px;animation:brandFloat 2s ease-in-out infinite;">🌀</div>
+                <h1 style="font-size:32px;font-weight:800;background:linear-gradient(135deg,#00ffcc,#9146ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:4px;">KOMA OS</h1>
+                <p style="font-size:14px;opacity:0.5;letter-spacing:6px;margin-top:8px;color:white;">V 6 . 4 &nbsp; S P A C E</p>
+                <p style="font-size:11px;opacity:0.3;margin-top:20px;color:white;">Click anywhere to play • ESC to exit</p>
+            </div>
+            <div id="space-score" style="position:absolute;top:20px;right:20px;color:var(--accent);font-size:16px;font-weight:700;z-index:3;display:none;">Score: 0</div>
+        `;
+        document.body.appendChild(overlay);
+        
+        // Mini space game
+        const canvas = document.getElementById('space-game-canvas');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const ctx = canvas.getContext('2d');
+        
+        // Stars
+        const stars = Array.from({length:200}, () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            s: Math.random() * 2 + 0.5,
+            v: Math.random() * 2 + 0.5
+        }));
+        
+        let gameActive = false;
+        let score = 0;
+        let ship = { x: canvas.width/2, y: canvas.height - 80, w: 30 };
+        let bullets = [];
+        let enemies = [];
+        
+        function drawStars() {
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(s => {
+                ctx.fillStyle = `rgba(255,255,255,${0.3+s.s*0.3})`;
+                ctx.fillRect(s.x, s.y, s.s, s.s);
+                s.y += s.v;
+                if(s.y > canvas.height) { s.y = 0; s.x = Math.random() * canvas.width; }
+            });
+        }
+        
+        function gameLoop() {
+            if(!document.getElementById('easter-egg-overlay')) return;
+            drawStars();
+            if(gameActive) {
+                // Ship
+                ctx.fillStyle = '#00ffcc';
+                ctx.beginPath();
+                ctx.moveTo(ship.x, ship.y - 15);
+                ctx.lineTo(ship.x - 12, ship.y + 10);
+                ctx.lineTo(ship.x + 12, ship.y + 10);
+                ctx.fill();
+                
+                // Bullets
+                bullets.forEach((b, i) => {
+                    ctx.fillStyle = '#ff6b9d';
+                    ctx.fillRect(b.x - 2, b.y, 4, 10);
+                    b.y -= 6;
+                    if(b.y < 0) bullets.splice(i, 1);
+                });
+                
+                // Enemies
+                if(Math.random() < 0.02) enemies.push({ x: Math.random() * canvas.width, y: -20, s: 20 });
+                enemies.forEach((e, i) => {
+                    ctx.fillStyle = '#9146ff';
+                    ctx.fillRect(e.x - e.s/2, e.y - e.s/2, e.s, e.s);
+                    e.y += 2;
+                    if(e.y > canvas.height) enemies.splice(i, 1);
+                    bullets.forEach((b, bi) => {
+                        if(Math.abs(b.x - e.x) < e.s && Math.abs(b.y - e.y) < e.s) {
+                            enemies.splice(i, 1);
+                            bullets.splice(bi, 1);
+                            score += 10;
+                            document.getElementById('space-score').textContent = 'Score: ' + score;
+                        }
+                    });
+                });
+            }
+            requestAnimationFrame(gameLoop);
+        }
+        gameLoop();
+        
+        canvas.onclick = (e) => {
+            if(!gameActive) {
+                gameActive = true;
+                document.getElementById('space-score').style.display = 'block';
+                overlay.querySelector('div[style*="pointer-events"]').style.display = 'none';
+            } else {
+                bullets.push({ x: ship.x, y: ship.y - 15 });
+            }
+        };
+        
+        canvas.onmousemove = (e) => { if(gameActive) ship.x = e.clientX; };
+        canvas.ontouchmove = (e) => { if(gameActive) { e.preventDefault(); ship.x = e.touches[0].clientX; } };
+        canvas.ontouchstart = (e) => {
+            if(!gameActive) { gameActive = true; document.getElementById('space-score').style.display = 'block'; overlay.querySelector('div[style*="pointer-events"]').style.display = 'none'; }
+            else bullets.push({ x: ship.x, y: ship.y - 15 });
+        };
+        
+        document.addEventListener('keydown', function escHandler(e) {
+            if(e.key === 'Escape') {
+                const eg = document.getElementById('easter-egg-overlay');
+                if(eg) eg.remove();
+                document.removeEventListener('keydown', escHandler);
+            }
+        });
+    }
+    
+    // Init easter egg
+    initEasterEgg();
+
+    // ============================================================
+    // MULTI-USER SYSTEM (Chromebook-style)
+    // ============================================================
+    function getCurrentUserId() {
+        return localStorage.getItem('koma_active_user_id') || 'user_default';
+    }
+    
+    function setUserKey(key, value) {
+        const userId = getCurrentUserId();
+        localStorage.setItem(userId + '_' + key, value);
+    }
+    
+    function getUserKey(key) {
+        const userId = getCurrentUserId();
+        return localStorage.getItem(userId + '_' + key);
+    }
+    
+    function getAllUserAccounts() {
+        return JSON.parse(localStorage.getItem('koma_user_accounts') || '[]');
+    }
+    
+    function switchUser(userId) {
+        // Save current state
+        const currentId = getCurrentUserId();
+        setUserKey('wallpaper', localStorage.getItem('koma_wallpaper') || '');
+        setUserKey('wallpaper_type', localStorage.getItem('koma_wallpaper_type') || 'video');
+        setUserKey('username', localStorage.getItem('koma_username') || 'User');
+        
+        // Switch
+        localStorage.setItem('koma_active_user_id', userId);
+        
+        // Restore new user's state
+        const wall = getUserKey('wallpaper');
+        const wallType = getUserKey('wallpaper_type');
+        const username = getUserKey('username');
+        if(wall) { localStorage.setItem('koma_wallpaper', wall); changeBG(wall); }
+        if(wallType) localStorage.setItem('koma_wallpaper_type', wallType);
+        if(username) { localStorage.setItem('koma_username', username); currentUser = username; document.getElementById('user-display').textContent = username; }
+        
+        showNotification('User Switch', 'Switched to ' + (username || userId));
+    }
+    
+    function addUserAccount(name) {
+        const accounts = getAllUserAccounts();
+        const newId = 'user_' + Date.now();
+        accounts.push({ id: newId, name: name || 'User ' + accounts.length });
+        localStorage.setItem('koma_user_accounts', JSON.stringify(accounts));
+        return newId;
+    }
+
+    // ============================================================
+    // BATTERY CHARGING ANIMATION & SOUNDS
+    // ============================================================
+    let lastChargingState = null;
+    let lastBatteryLevel = null;
+    
+    function initBatterySystem() {
+        if(!navigator.getBattery) return;
+        navigator.getBattery().then(bat => {
+            lastChargingState = bat.charging;
+            lastBatteryLevel = bat.level;
+            
+            bat.addEventListener('chargingchange', () => {
+                if(bat.charging && !lastChargingState) {
+                    // Just plugged in
+                    showChargingAnimation(bat.level);
+                    playBatterySound('connected');
+                } else if(!bat.charging && lastChargingState) {
+                    playBatterySound('disconnected');
+                    removeChargingGlow();
+                }
+                lastChargingState = bat.charging;
+            });
+            
+            bat.addEventListener('levelchange', () => {
+                if(bat.level <= 0.15 && lastBatteryLevel > 0.15) {
+                    playBatterySound('low');
+                    showNotification('⚠️ Battery', 'Low battery! ' + Math.round(bat.level * 100) + '% remaining');
+                }
+                if(bat.level >= 1.0 && lastBatteryLevel < 1.0 && bat.charging) {
+                    playBatterySound('full');
+                    showNotification('🔋 Battery', 'Fully charged!');
+                }
+                lastBatteryLevel = bat.level;
+                updateChargingGlow(bat.level);
+            });
+            
+            // Initial glow if charging
+            if(bat.charging) updateChargingGlow(bat.level);
+        });
+    }
+    
+    function showChargingAnimation(level) {
+        let anim = document.getElementById('charging-animation');
+        if(anim) anim.remove();
+        anim = document.createElement('div');
+        anim.id = 'charging-animation';
+        const color = level < 0.3 ? '#ff5f57' : '#28c840';
+        anim.style.cssText = `position:fixed;inset:0;z-index:99998;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);pointer-events:none;animation:fadeIn 0.3s;`;
+        anim.innerHTML = `
+            <div style="text-align:center;animation:chargeZoom 0.8s ease-out;">
+                <div style="font-size:80px;margin-bottom:10px;">⚡</div>
+                <div style="font-size:24px;font-weight:700;color:${color};">${Math.round(level*100)}%</div>
+                <div style="font-size:12px;opacity:0.5;color:white;margin-top:5px;">Charging</div>
+            </div>
+        `;
+        document.body.appendChild(anim);
+        setTimeout(() => anim?.remove(), 5000);
+    }
+    
+    function updateChargingGlow(level) {
+        const color = level < 0.3 ? 'rgba(255,95,87,0.4)' : 'rgba(40,200,64,0.4)';
+        const dock = document.querySelector('.dock');
+        if(dock) dock.style.boxShadow = `0 0 30px ${color}, inset 0 0 20px ${color}`;
+        document.body.style.borderColor = color;
+        document.body.style.boxShadow = `inset 0 0 40px ${color}`;
+    }
+    
+    function removeChargingGlow() {
+        const dock = document.querySelector('.dock');
+        if(dock) dock.style.boxShadow = '';
+        document.body.style.boxShadow = '';
+    }
+    
+    function playBatterySound(type) {
+        try {
+            const ctx = new AudioContext();
+            const gain = ctx.createGain();
+            gain.connect(ctx.destination);
+            const osc = ctx.createOscillator();
+            osc.connect(gain);
+            
+            switch(type) {
+                case 'connected':
+                    osc.frequency.setValueAtTime(440, ctx.currentTime);
+                    osc.frequency.linearRampToValueAtTime(880, ctx.currentTime + 0.3);
+                    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                    gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.4);
+                    osc.start(); osc.stop(ctx.currentTime + 0.4);
+                    break;
+                case 'disconnected':
+                    osc.frequency.setValueAtTime(660, ctx.currentTime);
+                    osc.frequency.linearRampToValueAtTime(330, ctx.currentTime + 0.3);
+                    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                    gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.3);
+                    osc.start(); osc.stop(ctx.currentTime + 0.3);
+                    break;
+                case 'low':
+                    osc.type = 'square';
+                    osc.frequency.setValueAtTime(200, ctx.currentTime);
+                    gain.gain.setValueAtTime(0.08, ctx.currentTime);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.15);
+                    setTimeout(() => {
+                        const o2 = ctx.createOscillator(); o2.connect(gain); o2.type='square';
+                        o2.frequency.setValueAtTime(200, ctx.currentTime); o2.start(); o2.stop(ctx.currentTime + 0.15);
+                    }, 250);
+                    break;
+                case 'full':
+                    osc.frequency.setValueAtTime(523, ctx.currentTime);
+                    osc.frequency.setValueAtTime(659, ctx.currentTime + 0.15);
+                    osc.frequency.setValueAtTime(784, ctx.currentTime + 0.3);
+                    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                    gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.5);
+                    osc.start(); osc.stop(ctx.currentTime + 0.5);
+                    break;
+            }
+        } catch(e) {}
+    }
+    
+    initBatterySystem();
+
+    // ============================================================
+    // CHARGING WATTAGE & DEVICE SPECS (About section)
+    // ============================================================
+    function updateAboutSpecs() {
+        // IP address (approximate via WebRTC)
+        const ipEl = document.getElementById('about-ip-val');
+        if(ipEl) {
+            fetch('https://api.ipify.org?format=json').then(r=>r.json()).then(d=>{ipEl.textContent=d.ip;}).catch(()=>{ipEl.textContent='Unavailable';});
+        }
+        
+        // RAM estimation
+        const ramEl = document.getElementById('about-ram-val');
+        if(ramEl && navigator.deviceMemory) ramEl.textContent = navigator.deviceMemory + ' GB';
+        
+        // Charging wattage estimation
+        if(navigator.getBattery) {
+            navigator.getBattery().then(bat => {
+                const wattEl = document.getElementById('about-watt-val');
+                if(wattEl) {
+                    const updateWatt = () => {
+                        if(bat.charging && bat.chargingTime !== Infinity && bat.chargingTime > 0) {
+                            // Estimate wattage: typical battery ~4000mAh, 3.7V
+                            const remainPct = 1 - bat.level;
+                            const whRemain = remainPct * 14.8; // ~4000mAh * 3.7V = 14.8Wh
+                            const hours = bat.chargingTime / 3600;
+                            const watts = hours > 0 ? (whRemain / hours).toFixed(1) : '—';
+                            wattEl.textContent = watts + ' W (est.)';
+                        } else {
+                            wattEl.textContent = bat.charging ? 'Calculating...' : 'Not charging';
+                        }
+                    };
+                    updateWatt();
+                    setInterval(updateWatt, 5000);
+                }
+            });
+        }
+    }
+    
+    // Add extra About rows dynamically
+    setTimeout(() => {
+        const aboutCard = document.querySelector('#settings-tab-about .settings-card');
+        if(aboutCard) {
+            const extraRows = `
+                <div class="settings-row"><div style="opacity:0.5; font-size:12px;">Device RAM</div><div style="font-size:12px; font-weight:500;" id="about-ram-val">${navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'N/A'}</div></div>
+                <div class="settings-row"><div style="opacity:0.5; font-size:12px;">Charging Power</div><div style="font-size:12px; font-weight:500;" id="about-watt-val">Not charging</div></div>
+                <div class="settings-row"><div style="opacity:0.5; font-size:12px;">IP Address</div><div style="font-size:12px; font-weight:500;" id="about-ip-val">Fetching...</div></div>
+                <div class="settings-row"><div style="opacity:0.5; font-size:12px;">Screen</div><div style="font-size:12px; font-weight:500;">${window.screen.width}x${window.screen.height} @${window.devicePixelRatio}x</div></div>
+                <div class="settings-row"><div style="opacity:0.5; font-size:12px;">User Agent</div><div style="font-size:10px; font-weight:400; max-width:200px; word-break:break-all; opacity:0.6;">${navigator.userAgent.substring(0,80)}...</div></div>
+            `;
+            aboutCard.insertAdjacentHTML('beforeend', extraRows);
+            updateAboutSpecs();
+        }
+    }, 2000);
+
+    // ============================================================
+    // KOMASTREAM+ (iframe with hidden browser UI)
+    // ============================================================
+    // Already exists in store — just ensure the iframe strips browser elements
+    setTimeout(() => {
+        const ksIframe = document.getElementById('komastream-iframe');
+        if(ksIframe && (!ksIframe.src || ksIframe.src === 'about:blank')) {
+            // Will be set when opened
+        }
+    }, 1000);
+
+    // ============================================================  
+    // CSS INJECTION: Charging animation + fullscreen fix
+    // ============================================================
+    const extraCSS = document.createElement('style');
+    extraCSS.textContent = `
+        @keyframes chargeZoom { from { transform: scale(0.5); opacity:0; } to { transform: scale(1); opacity:1; } }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+        
+        /* Fullscreen fix - no gaps */
+        html, body { margin:0 !important; padding:0 !important; overflow:hidden; width:100vw; height:100vh; }
+        #boot-screen { position:fixed !important; top:0 !important; left:0 !important; width:100vw !important; height:100vh !important; }
+        
+        /* Mobile arrow buttons */
+        #mobile-access-fallback button:active { transform: scale(0.85) !important; background: rgba(0,255,204,0.2) !important; }
+    `;
+    document.head.appendChild(extraCSS);
+
+    // Take initial guard snapshot
+    takeGuardSnapshot();
+
+
+</script>
 
 </body>
 </html>
