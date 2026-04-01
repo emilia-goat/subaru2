@@ -6648,11 +6648,13 @@
     // ============================================================
     // WALLPAPER CODE GENERATOR (WallCode App)
     // ============================================================
-    const KOMA_DEFAULT_WALLCODES = {
+    const KOMA_PUBLIC_WALLCODES = {
         '62516': { name: 'GTA V Rain', type: 'gif', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/Grand%20Theft%20Auto%20V%20Rain%20GIF.gif' },
         '78015': { name: 'Manga Wallpaper', type: 'gif', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/Manga%20Wallpaper%20GIF%20(6).gif' },
         '62872': { name: 'Black Hole', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/black-hole.3840x2160.mp4' },
-        '47028': { name: 'Hunt Showdown', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/%E3%80%90Hunt-%20Showdown%E3%80%91Trait%20Icon%20Animation%E2%80%94%E2%80%94Hundred_Hands%23huntshowdow%20%23wallpaper%20%23steam%20%23animationart.mp4' },
+        '47028': { name: 'Hunt Showdown', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/%E3%80%90Hunt-%20Showdown%E3%80%91Trait%20Icon%20Animation%E2%80%94%E2%80%94Hundred_Hands%23huntshowdow%20%23wallpaper%20%23steam%20%23animationart.mp4' }
+    };
+    const KOMA_SECRET_WALLCODES = {
         '98626': { name: 'Black Hole Secret', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/black-hole.3840x2160.mp4' },
         '57297': { name: 'Minecraft Fox', type: 'image', url: 'https://images.unsplash.com/photo-1627483262112-039e9a0a0c2b?w=1920&q=80' },
         '89013': { name: 'Death Roots', type: 'image', url: 'https://images.unsplash.com/photo-1518709766631-a6a7f45921c3?w=1920&q=80' },
@@ -6663,6 +6665,7 @@
         '24317': { name: 'Mazda RX-7', type: 'image', url: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1920&q=80' },
         '09162': { name: 'Super Cars', type: 'image', url: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1920&q=80' }
     };
+    const KOMA_DEFAULT_WALLCODES = {...KOMA_PUBLIC_WALLCODES, ...KOMA_SECRET_WALLCODES};
 
     function getCustomWallcodes() { return JSON.parse(localStorage.getItem('koma_custom_wallcodes') || '{}'); }
     function saveCustomWallcodes(codes) { localStorage.setItem('koma_custom_wallcodes', JSON.stringify(codes)); }
