@@ -6101,26 +6101,88 @@
         setupLockUI();
     }
 
+    let authMode = 'login';
+    function toggleAuthMode() {
+        authMode = authMode === 'login' ? 'register' : 'login';
+        const btn = document.getElementById('auth-primary-btn');
+        const sec = document.getElementById('auth-secondary-btn');
+        const chan = document.getElementById('auth-channel-wrap');
+        const title = document.getElementById('auth-title');
+        const sub = document.getElementById('auth-subtitle');
+        if(authMode === 'register') {
+            btn.textContent = 'Create Account'; btn.onclick = () => handleAuth('register');
+            sec.textContent = 'Sign In Instead'; title.textContent = 'Create Account';
+            sub.textContent = 'Join the Koma OS universe';
+            if(chan) chan.style.display = 'block';
+        } else {
+            btn.textContent = 'Sign In'; btn.onclick = () => handleAuth('login');
+            sec.textContent = 'Create Account'; title.textContent = 'Koma OS';
+            sub.textContent = 'Sign in to your universe';
+            if(chan) chan.style.display = 'none';
+        }
+        // Animate card
+        const card = document.getElementById('auth-card-main');
+        card.style.animation = 'none'; card.offsetHeight; card.style.animation = 'authCardIn 0.5s ease';
+    }
+
     async function handleAuth(type) {
         const email = document.getElementById('auth-email').value;
         const pass = document.getElementById('auth-pass').value;
-        if(!email || !pass) return alert("Please fill all fields");
+        if(!email || !pass) { showNotification('Auth', 'Please fill all fields'); return; }
         try {
-            if(type === 'register') { const res = await window.komaAuth.createUserWithEmailAndPassword(window.komaAuth.auth, email, pass); await window.komaAuth.setDoc(window.komaAuth.doc(window.komaAuth.db, "users", res.user.uid), { email, created: new Date() }); alert("Account created!"); }
-            else { await window.komaAuth.signInWithEmailAndPassword(window.komaAuth.auth, email, pass); }
-            currentUser = email.split('@')[0]; document.getElementById('user-display').textContent = currentUser;
+            if(type === 'register') {
+                const channel = document.getElementById('auth-channel')?.value?.trim() || email.split('@')[0];
+                const { data, error } = await _sb.auth.signUp({ email, password: pass });
+                if(error) throw error;
+                if(data.user) {
+                    await _sb.from('koma_profiles').insert({ user_id: data.user.id, display_name: channel, language: currentLang });
+                }
+                currentUser = channel;
+            } else {
+                const { data, error } = await _sb.auth.signInWithPassword({ email, password: pass });
+                if(error) throw error;
+                const { data: profile } = await _sb.from('koma_profiles').select('*').eq('user_id', data.user.id).maybeSingle();
+                currentUser = profile?.display_name || email.split('@')[0];
+            }
+            document.getElementById('user-display').textContent = currentUser;
             localStorage.setItem('koma_authenticated', 'true');
             localStorage.setItem('koma_username', currentUser);
-            transitionLayer('auth-screen', 'oobe-screen');
-        } catch(e) { alert(e.message); }
+            if(type === 'register' || !localStorage.getItem('koma_lang')) {
+                transitionLayer('auth-screen', 'oobe-screen');
+            } else {
+                transitionLayer('auth-screen', 'lock-screen');
+            }
+        } catch(e) { showNotification('Auth Error', e.message || 'Authentication failed'); }
     }
 
-    function bypassAuth() {
-        currentUser = "Guest"; document.getElementById('user-display').textContent = currentUser;
-        localStorage.setItem('koma_authenticated', 'true');
-        localStorage.setItem('koma_username', 'Guest');
-        transitionLayer('auth-screen', 'oobe-screen');
+    function goToOobeStep2() {
+        document.getElementById('oobe-step-1').style.animation = 'fade-out 0.3s ease forwards';
+        setTimeout(() => {
+            document.getElementById('oobe-step-1').style.display = 'none';
+            document.getElementById('oobe-step-2').style.display = 'block';
+            document.getElementById('oobe-step-2').style.animation = 'authCardIn 0.5s ease';
+            const nick = document.getElementById('oobe-nickname');
+            if(nick) nick.value = currentUser || '';
+        }, 300);
     }
+
+    function finishOobeWithNickname() {
+        const nick = document.getElementById('oobe-nickname')?.value?.trim();
+        if(nick) {
+            currentUser = nick;
+            document.getElementById('user-display').textContent = nick;
+            localStorage.setItem('koma_username', nick);
+            // Update cloud profile
+            (async () => {
+                const { data: { user } } = await _sb.auth.getUser();
+                if(user) await _sb.from('koma_profiles').update({ display_name: nick }).eq('user_id', user.id);
+            })();
+        }
+        localStorage.setItem('koma_lang', currentLang);
+        localStorage.setItem('koma_region', document.getElementById('region-select')?.value || 'us');
+        transitionLayer('oobe-screen', 'lock-screen');
+    }
+
     function finishOobe() {
         localStorage.setItem('koma_lang', currentLang);
         transitionLayer('oobe-screen', 'lock-screen');
