@@ -3377,6 +3377,58 @@
                             </div>
 
                             <!-- About (dedicated tab) -->
+                            <!-- Update Log Tab -->
+                            <div id="settings-tab-updatelog" style="display:none;">
+                                <h2>Update Log</h2>
+                                <div class="settings-section">
+                                    <div class="settings-card" style="padding:20px;">
+                                        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+                                            <div style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                            </div>
+                                            <div>
+                                                <div style="font-size:16px;font-weight:700;">Koma OS v6.4</div>
+                                                <div style="font-size:11px;opacity:0.4;">Latest Updates &amp; Changes</div>
+                                            </div>
+                                        </div>
+                                        <div style="display:flex;flex-direction:column;gap:12px;">
+                                            <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:14px;border-left:3px solid var(--accent);">
+                                                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">1. New Interface</div>
+                                                <p style="font-size:11px;opacity:0.5;">Completely redesigned UI with modern animations, SVG icons, and a cleaner aesthetic across all screens.</p>
+                                            </div>
+                                            <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:14px;border-left:3px solid #febc2e;">
+                                                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">2. 4 New Apps</div>
+                                                <p style="font-size:11px;opacity:0.5;">KomaHub Store, KomaCall, Contacts, and WallCode apps added to the system.</p>
+                                            </div>
+                                            <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:14px;border-left:3px solid #28c840;">
+                                                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">3. Bug Fixes</div>
+                                                <p style="font-size:11px;opacity:0.5;">Fixed wallpaper persistence, language translations, auth flow, and lock screen issues.</p>
+                                            </div>
+                                            <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:14px;border-left:3px solid #9146ff;">
+                                                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">4. Koma OS x Star Stream Collab</div>
+                                                <p style="font-size:11px;opacity:0.5;">Integrated Star Stream as the native cinema experience with full iframe support.</p>
+                                            </div>
+                                            <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:14px;border-left:3px solid #ff6b9d;">
+                                                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">5. New UI Looks</div>
+                                                <p style="font-size:11px;opacity:0.5;">Auth screen, OOBE, lock screen, and boot sequence completely redesigned with smooth animations.</p>
+                                            </div>
+                                            <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:14px;border-left:3px solid var(--primary);">
+                                                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">6. 10 New Functions in Settings</div>
+                                                <p style="font-size:11px;opacity:0.5;">System Guard, Display Cast, Motion Privacy, Stealth Mode, Desktop Folders, Update Log, and more.</p>
+                                            </div>
+                                            <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:14px;border-left:3px solid #ff5f57;">
+                                                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">7. Cloud Backend</div>
+                                                <p style="font-size:11px;opacity:0.5;">Real-time announcements, bans, online user tracking, and persistent wallpaper storage via cloud.</p>
+                                            </div>
+                                            <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:14px;border-left:3px solid rgba(255,255,255,0.3);">
+                                                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">8. And More...</div>
+                                                <p style="font-size:11px;opacity:0.5;">Real terminal commands, Komafy improvements, KomaHub cloud uploads, nickname system, 9 secret wallpaper codes.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div id="settings-tab-about" style="display:none;">
                                 <h2>About This System</h2>
                                 <div class="settings-section">
@@ -3392,11 +3444,11 @@
                                         </div>
                                         <div class="settings-row"><div style="opacity:0.5; font-size:12px;">Kernel</div><div style="font-size:12px; font-weight:500;">KomaKernel 2.1</div></div>
                                         <div class="settings-row"><div style="opacity:0.5; font-size:12px;">Memory</div><div style="font-size:12px; font-weight:500;" id="about-memory-val">Calculating...</div></div>
-                                        <div class="settings-row"><div style="opacity:0.5; font-size:12px;">CPU Cores</div><div style="font-size:12px; font-weight:500;" id="about-cpu-val">—</div></div>
+                                        <div class="settings-row"><div style="opacity:0.5; font-size:12px;">CPU Cores</div><div style="font-size:12px; font-weight:500;" id="about-cpu-val">--</div></div>
                                         <div class="settings-row"><div style="opacity:0.5; font-size:12px;">Storage Used</div><div style="font-size:12px; font-weight:500;" id="about-storage-val">Estimating...</div></div>
                                         <div class="settings-row"><div style="opacity:0.5; font-size:12px;">Runtime</div><div style="font-size:12px; font-weight:500;">WebKit / Chromium</div></div>
                                         <div class="settings-row"><div style="opacity:0.5; font-size:12px;">Uptime</div><div style="font-size:12px; font-weight:500;" id="about-uptime-val">0s</div></div>
-                                        <div class="settings-row"><div style="opacity:0.5; font-size:12px;">Build</div><div style="font-size:12px; font-weight:500;">2026.03.29</div></div>
+                                        <div class="settings-row"><div style="opacity:0.5; font-size:12px;">Build</div><div style="font-size:12px; font-weight:500;">2026.04.02</div></div>
                                     </div>
                                 </div>
                                 <p style="font-size:10px; opacity:0.3; margin-top:20px; text-align:center;">&copy; 2026 Koma OS Studios</p>
