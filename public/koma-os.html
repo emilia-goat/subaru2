@@ -10270,21 +10270,23 @@
 
     
     // ============================================================
-    // OWNER DEVELOPER PANEL FUNCTIONS
+    // OWNER DEVELOPER PANEL FUNCTIONS — REAL SUPABASE
     // ============================================================
-    function refreshDevUserList() {
+    async function refreshDevUserList() {
         const el = document.getElementById('dev-user-list');
         if(!el) return;
-        const users = JSON.parse(localStorage.getItem('koma_all_users') || '[]');
-        const currentUser = localStorage.getItem('koma_username') || 'Guest';
-        const currentId = localStorage.getItem('koma_user_id') || 'local-' + Date.now();
-        if(!users.find(u => u.id === currentId)) {
-            users.push({ id: currentId, name: currentUser, lastSeen: Date.now() });
-            localStorage.setItem('koma_all_users', JSON.stringify(users));
+        el.innerHTML = '<span style="opacity:0.5;">Loading...</span>';
+        try {
+            const { data: profiles, error } = await _sb.from('koma_profiles').select('*').order('last_seen', { ascending: false }).limit(50);
+            if(error) throw error;
+            const onlineCount = (profiles || []).filter(p => p.is_online).length;
+            el.innerHTML = '<div style="margin-bottom:8px;padding:6px 10px;background:rgba(0,255,204,0.08);border-radius:8px;font-size:11px;"><span style="color:var(--accent);font-weight:600;">' + onlineCount + ' users online</span></div>' +
+                (profiles || []).map(u => '<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05);"><span>' + (u.display_name || 'User') + '</span><span style="display:flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:' + (u.is_online ? '#28c840' : '#666') + ';"></span><span style="opacity:0.4;font-size:10px;">' + (u.is_online ? 'online' : 'offline') + '</span></span></div>').join('') || '<p>No users found</p>';
+        } catch(e) {
+            el.innerHTML = '<span style="color:#ff5f57;">Error loading users: ' + e.message + '</span>';
         }
-        el.innerHTML = users.map(u => `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05);"><span>${u.name}</span><span style="opacity:0.4;">${u.id.substring(0,8)}...</span></div>`).join('') || '<p>No users tracked</p>';
     }
-    // Auto refresh on dev panel open
+
     const devObserver = new MutationObserver(() => {
         if(document.getElementById('dev-menu-overlay')?.classList.contains('active')) refreshDevUserList();
     });
@@ -10293,23 +10295,51 @@
         if(devOverlay) devObserver.observe(devOverlay, { attributes: true, attributeFilter: ['class'] });
     }, 2000);
 
-    function sendGlobalBroadcast() {
+    async function sendGlobalBroadcast() {
         const msg = document.getElementById('dev-broadcast-msg')?.value?.trim();
         if(!msg) return;
-        showNotification('📢 System Broadcast', msg);
-        localStorage.setItem('koma_last_broadcast', JSON.stringify({ msg, time: Date.now() }));
-        document.getElementById('dev-broadcast-msg').value = '';
+        try {
+            const { data: { user } } = await _sb.auth.getUser();
+            if(!user) { showNotification('Error', 'You must be logged in'); return; }
+            const { error } = await _sb.from('koma_announcements').insert({ sender_id: user.id, message: msg, type: 'broadcast' });
+            if(error) throw error;
+            showNotification('Broadcast', 'Announcement sent to all users');
+            document.getElementById('dev-broadcast-msg').value = '';
+        } catch(e) { showNotification('Error', e.message); }
     }
 
-    function tempBanUser() {
+    // Listen for real-time announcements
+    _sb.channel('announcements').on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'koma_announcements' }, (payload) => {
+        const ann = payload.new;
+        if(ann && ann.message) {
+            showNotification('System Announcement', ann.message);
+        }
+    }).subscribe();
+
+    async function tempBanUser() {
         const userId = document.getElementById('dev-ban-user')?.value?.trim();
         if(!userId) return;
-        const bans = JSON.parse(localStorage.getItem('koma_temp_bans') || '[]');
-        bans.push({ id: userId, bannedAt: Date.now(), expiresAt: Date.now() + 3600000 });
-        localStorage.setItem('koma_temp_bans', JSON.stringify(bans));
-        showNotification('Admin', `User ${userId} temporarily banned for 1 hour`);
-        document.getElementById('dev-ban-user').value = '';
+        try {
+            const { data: { user } } = await _sb.auth.getUser();
+            if(!user) { showNotification('Error', 'You must be logged in'); return; }
+            const { error } = await _sb.from('koma_bans').insert({ banned_user_id: userId, banned_by: user.id, reason: 'Temporary ban', expires_at: new Date(Date.now() + 3600000).toISOString() });
+            if(error) throw error;
+            showNotification('Admin', 'User ' + userId + ' banned for 1 hour');
+            document.getElementById('dev-ban-user').value = '';
+        } catch(e) { showNotification('Error', e.message); }
     }
+
+    // Update online presence
+    async function updateOnlinePresence(online) {
+        try {
+            const { data: { user } } = await _sb.auth.getUser();
+            if(!user) return;
+            await _sb.from('koma_profiles').update({ is_online: online, last_seen: new Date().toISOString() }).eq('user_id', user.id);
+        } catch(e) {}
+    }
+    setInterval(() => updateOnlinePresence(true), 30000);
+    window.addEventListener('beforeunload', () => updateOnlinePresence(false));
+    setTimeout(() => updateOnlinePresence(true), 3000);
 
     // System Guard - Anti-Virus/Anti-Spyware
     const KOMA_KNOWN_KEYS = ['koma_','koma-os','theme','lang','wallpaper','lock','pin','password','alarms','notes','installed','dock','glass','privacy','wall_','config','broadcast','ban','users','user_','guard_'];
