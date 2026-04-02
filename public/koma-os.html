@@ -2134,35 +2134,56 @@
 
     <!-- ===== OOBE ===== -->
     <div id="oobe-screen" class="system-layer">
-        <div class="oobe-card" id="oobe-1">
-            <div style="font-size: 50px; margin-bottom: 20px;">🌐</div>
-            <h1 data-t="oobe_welcome" style="font-size: 28px; font-weight: 700;">Personalize KomaOS</h1>
-            <p data-t="oobe_lang" style="opacity: 0.6; margin: 15px 0 10px;">Select Language / Selecciona Idioma</p>
-            <select id="lang-select" class="auth-input no-icon" onchange="applyLang(this.value)">
-                <option value="es">Español</option>
-                <option value="en">English</option>
-                <option value="ja">日本語</option>
-                <option value="fr">Français</option>
-                <option value="de">Deutsch</option>
-                <option value="pt">Português</option>
-                <option value="zh">中文</option>
-                <option value="ko">한국어</option>
-                <option value="ar">العربية</option>
-                <option value="hi">हिन्दी</option>
-                <option value="ru">Русский</option>
-                <option value="it">Italiano</option>
-            </select>
-            <p style="margin-top: 20px; opacity: 0.6;" data-t="oobe_region">Region</p>
-            <select id="region-select" class="auth-input no-icon">
-                <option value="latam">Latin America</option>
-                <option value="eu">Europe</option>
-                <option value="us">North America</option>
-                <option value="as">Asia</option>
-                <option value="me">Middle East</option>
-                <option value="af">Africa</option>
-                <option value="oc">Oceania</option>
-            </select>
-            <button class="koma-btn" style="margin-top: 30px; width: 100%;" onclick="finishOobe()" data-t="next">Next</button>
+        <!-- Step 1: Language & Region -->
+        <div class="oobe-card" id="oobe-step-1" style="animation:authCardIn 0.6s ease;">
+            <div style="width:60px;height:60px;border-radius:16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+            </div>
+            <h1 data-t="oobe_welcome" style="font-size:24px;font-weight:700;margin-bottom:6px;">Personalize Koma OS</h1>
+            <p data-t="oobe_lang" style="opacity:0.5;margin:0 0 20px;font-size:13px;">Select your language and region</p>
+            <div style="text-align:left;margin-bottom:14px;">
+                <label style="font-size:11px;opacity:0.5;display:block;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">Language</label>
+                <select id="lang-select" class="auth-input no-icon" onchange="applyLang(this.value)" style="padding:12px 16px;font-size:14px;">
+                    <option value="es">Espa&#241;ol</option>
+                    <option value="en">English</option>
+                    <option value="ja">&#26085;&#26412;&#35486;</option>
+                    <option value="fr">Fran&#231;ais</option>
+                    <option value="de">Deutsch</option>
+                    <option value="pt">Portugu&#234;s</option>
+                    <option value="zh">&#20013;&#25991;</option>
+                    <option value="ko">&#54620;&#44397;&#50612;</option>
+                    <option value="ar">&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</option>
+                    <option value="hi">&#2361;&#2367;&#2344;&#2381;&#2342;&#2368;</option>
+                    <option value="ru">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;</option>
+                    <option value="it">Italiano</option>
+                </select>
+            </div>
+            <div style="text-align:left;margin-bottom:20px;">
+                <label style="font-size:11px;opacity:0.5;display:block;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;" data-t="oobe_region">Region</label>
+                <select id="region-select" class="auth-input no-icon" style="padding:12px 16px;font-size:14px;">
+                    <option value="latam">Latin America</option>
+                    <option value="eu">Europe</option>
+                    <option value="us">North America</option>
+                    <option value="as">Asia</option>
+                    <option value="me">Middle East</option>
+                    <option value="af">Africa</option>
+                    <option value="oc">Oceania</option>
+                </select>
+            </div>
+            <button class="auth-btn-v2" style="background:white;color:#0a0a0f;width:100%;" onclick="goToOobeStep2()" data-t="next">Continue</button>
+        </div>
+        <!-- Step 2: Nickname -->
+        <div class="oobe-card" id="oobe-step-2" style="display:none;">
+            <div style="width:60px;height:60px;border-radius:16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <h1 style="font-size:24px;font-weight:700;margin-bottom:6px;">Choose a Nickname</h1>
+            <p style="opacity:0.5;margin:0 0 20px;font-size:13px;">This is how others will see you</p>
+            <div class="auth-input-wrap">
+                <span class="input-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                <input type="text" id="oobe-nickname" class="auth-input" placeholder="Enter your nickname..." maxlength="20">
+            </div>
+            <button class="auth-btn-v2" style="background:white;color:#0a0a0f;width:100%;margin-top:16px;" onclick="finishOobeWithNickname()">Get Started</button>
         </div>
     </div>
 
