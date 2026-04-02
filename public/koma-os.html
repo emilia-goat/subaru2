@@ -2192,12 +2192,14 @@
         <div class="lock-blur">
             <div id="lock-time">00:00</div>
             <div id="lock-date">Day, 00 Month</div>
-            <div class="lock-avatar">👤</div>
+            <div class="lock-avatar" style="font-size:0;">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
             <h3 id="user-display" style="font-weight: 400; font-size: 18px; opacity: 0.8;">User</h3>
             <div class="lock-widgets">
-                <div class="lock-widget">🎵 Komafy</div>
-                <div class="lock-widget">📡 Online</div>
-                <div class="lock-widget" id="lock-battery">🔋 100%</div>
+                <div class="lock-widget"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Komafy</div>
+                <div class="lock-widget"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px;"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Online</div>
+                <div class="lock-widget" id="lock-battery"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px;"><rect x="1" y="6" width="18" height="12" rx="2" ry="2"/><line x1="23" y1="13" x2="23" y2="11"/></svg>100%</div>
             </div>
             <!-- PIN/Password unlock area -->
             <div id="lock-auth-area" style="margin-top: 30px;">
@@ -2207,6 +2209,8 @@
                         <div class="pin-dot" id="pin-dot-1"></div>
                         <div class="pin-dot" id="pin-dot-2"></div>
                         <div class="pin-dot" id="pin-dot-3"></div>
+                        <div class="pin-dot" id="pin-dot-4"></div>
+                        <div class="pin-dot" id="pin-dot-5"></div>
                     </div>
                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 240px; margin: 0 auto;">
                         <button class="pin-key" onclick="enterPin('1')">1</button>
@@ -2218,24 +2222,25 @@
                         <button class="pin-key" onclick="enterPin('7')">7</button>
                         <button class="pin-key" onclick="enterPin('8')">8</button>
                         <button class="pin-key" onclick="enterPin('9')">9</button>
-                        <button class="pin-key" onclick="enterPin('clear')" style="font-size: 14px;">⌫</button>
+                        <button class="pin-key" onclick="enterPin('clear')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg></button>
                         <button class="pin-key" onclick="enterPin('0')">0</button>
-                        <button class="pin-key" onclick="enterPin('submit')" style="background: rgba(0,255,204,0.15); color: var(--accent);">→</button>
+                        <button class="pin-key" onclick="enterPin('submit')" style="background: rgba(255,255,255,0.15); color: white;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
                     </div>
                     <p id="pin-error" style="color: #ff5f57; font-size: 12px; margin-top: 10px; opacity: 0; transition: 0.3s;">Wrong PIN</p>
                 </div>
                 <div id="lock-password-display" style="display:none; margin-bottom: 15px;">
                     <div style="display: flex; gap: 10px; justify-content: center; max-width: 280px; margin: 0 auto;">
                         <input type="password" id="lock-pass-input" placeholder="Enter password..." style="flex:1; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:white; padding:12px 16px; border-radius:14px; outline:none; font-size:14px; backdrop-filter:blur(10px); transition:0.3s;" onkeypress="if(event.key==='Enter')checkLockPassword()">
-                        <button onclick="checkLockPassword()" style="background:rgba(0,255,204,0.15); border:1px solid rgba(0,255,204,0.3); color:var(--accent); padding:12px 18px; border-radius:14px; cursor:pointer; font-weight:700; transition:0.3s;">→</button>
+                        <button onclick="checkLockPassword()" style="background:white; border:none; color:#0a0a0f; padding:12px 18px; border-radius:14px; cursor:pointer; font-weight:700; transition:0.3s;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
                     </div>
                     <p id="pass-error" style="color: #ff5f57; font-size: 12px; margin-top: 10px; opacity: 0; transition: 0.3s;">Wrong password</p>
                 </div>
                 <div id="lock-no-security" style="cursor: pointer;" onclick="unlock()">
-                    <div class="lock-swipe-hint">▲ TAP TO UNLOCK ▲</div>
+                    <div class="lock-swipe-hint"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:6px;"><polyline points="18 15 12 9 6 15"/></svg>TAP TO UNLOCK</div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <!-- ===== DESKTOP ===== -->
