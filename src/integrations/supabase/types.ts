@@ -14,7 +14,162 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      koma_announcements: {
+        Row: {
+          created_at: string
+          id: string
+          message: string
+          sender_id: string
+          type: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message: string
+          sender_id: string
+          type?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string
+          sender_id?: string
+          type?: string | null
+        }
+        Relationships: []
+      }
+      koma_bans: {
+        Row: {
+          banned_by: string
+          banned_user_id: string
+          created_at: string
+          expires_at: string
+          id: string
+          reason: string | null
+        }
+        Insert: {
+          banned_by: string
+          banned_user_id: string
+          created_at?: string
+          expires_at: string
+          id?: string
+          reason?: string | null
+        }
+        Update: {
+          banned_by?: string
+          banned_user_id?: string
+          created_at?: string
+          expires_at?: string
+          id?: string
+          reason?: string | null
+        }
+        Relationships: []
+      }
+      koma_hub_packs: {
+        Row: {
+          created_at: string
+          description: string | null
+          download_count: number | null
+          file_path: string
+          file_size: number | null
+          id: string
+          name: string
+          pack_type: string | null
+          uploader_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          download_count?: number | null
+          file_path: string
+          file_size?: number | null
+          id?: string
+          name: string
+          pack_type?: string | null
+          uploader_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          download_count?: number | null
+          file_path?: string
+          file_size?: number | null
+          id?: string
+          name?: string
+          pack_type?: string | null
+          uploader_id?: string
+        }
+        Relationships: []
+      }
+      koma_profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          display_name: string
+          id: string
+          is_online: boolean | null
+          language: string | null
+          last_seen: string | null
+          region: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string
+          id?: string
+          is_online?: boolean | null
+          language?: string | null
+          last_seen?: string | null
+          region?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string
+          id?: string
+          is_online?: boolean | null
+          language?: string | null
+          last_seen?: string | null
+          region?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      koma_user_wallpapers: {
+        Row: {
+          created_at: string
+          id: string
+          updated_at: string
+          user_id: string
+          wallpaper_code: string | null
+          wallpaper_type: string | null
+          wallpaper_url: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_id: string
+          wallpaper_code?: string | null
+          wallpaper_type?: string | null
+          wallpaper_url?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_id?: string
+          wallpaper_code?: string | null
+          wallpaper_type?: string | null
+          wallpaper_url?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
