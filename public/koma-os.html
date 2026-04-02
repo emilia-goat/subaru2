@@ -2101,22 +2101,32 @@
 
     <!-- ===== AUTH SCREEN ===== -->
     <div id="auth-screen" class="system-layer">
-        <div class="auth-card auth-card-v2">
-            <div class="auth-logo-icon">🔐</div>
-            <h2 id="auth-title">KomaOS Account</h2>
-            <p class="auth-subtitle">Sign in to your universe</p>
-            <div class="auth-input-wrap">
-                <span class="input-icon">✉️</span>
-                <input type="email" id="auth-email" class="auth-input" placeholder="Email address">
+        <div class="auth-particles-bg" id="auth-particles-bg"></div>
+        <div class="auth-card auth-card-v2" id="auth-card-main">
+            <div class="auth-logo-icon" style="background:linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04)); border:1px solid rgba(255,255,255,0.1);">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             </div>
-            <div class="auth-input-wrap">
-                <span class="input-icon">🔑</span>
-                <input type="password" id="auth-pass" class="auth-input" placeholder="Password">
+            <h2 id="auth-title">Koma OS</h2>
+            <p class="auth-subtitle" id="auth-subtitle">Sign in to your universe</p>
+
+            <div id="auth-form-login">
+                <div class="auth-input-wrap">
+                    <span class="input-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
+                    <input type="email" id="auth-email" class="auth-input" placeholder="Email address">
+                </div>
+                <div class="auth-input-wrap">
+                    <span class="input-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+                    <input type="password" id="auth-pass" class="auth-input" placeholder="Password">
+                </div>
+                <div id="auth-channel-wrap" style="display:none;">
+                    <div class="auth-input-wrap">
+                        <span class="input-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                        <input type="text" id="auth-channel" class="auth-input" placeholder="Username">
+                    </div>
+                </div>
+                <button class="auth-btn-v2" id="auth-primary-btn" onclick="handleAuth('login')" style="background:white;color:#0a0a0f;">Sign In</button>
+                <button class="auth-btn-secondary-v2" id="auth-secondary-btn" onclick="toggleAuthMode()" style="background:transparent;border:1px solid rgba(255,255,255,0.15);color:white;">Create Account</button>
             </div>
-            <button class="auth-btn-primary auth-btn-v2" onclick="handleAuth('login')">Sign In</button>
-            <button class="auth-btn-secondary auth-btn-secondary-v2" onclick="handleAuth('register')">Create Account</button>
-            <div class="auth-divider">or continue as</div>
-            <button class="auth-btn-guest" onclick="bypassAuth()">👤 Guest Access</button>
         </div>
     </div>
 
@@ -2124,35 +2134,56 @@
 
     <!-- ===== OOBE ===== -->
     <div id="oobe-screen" class="system-layer">
-        <div class="oobe-card" id="oobe-1">
-            <div style="font-size: 50px; margin-bottom: 20px;">🌐</div>
-            <h1 data-t="oobe_welcome" style="font-size: 28px; font-weight: 700;">Personalize KomaOS</h1>
-            <p data-t="oobe_lang" style="opacity: 0.6; margin: 15px 0 10px;">Select Language / Selecciona Idioma</p>
-            <select id="lang-select" class="auth-input no-icon" onchange="applyLang(this.value)">
-                <option value="es">Español</option>
-                <option value="en">English</option>
-                <option value="ja">日本語</option>
-                <option value="fr">Français</option>
-                <option value="de">Deutsch</option>
-                <option value="pt">Português</option>
-                <option value="zh">中文</option>
-                <option value="ko">한국어</option>
-                <option value="ar">العربية</option>
-                <option value="hi">हिन्दी</option>
-                <option value="ru">Русский</option>
-                <option value="it">Italiano</option>
-            </select>
-            <p style="margin-top: 20px; opacity: 0.6;" data-t="oobe_region">Region</p>
-            <select id="region-select" class="auth-input no-icon">
-                <option value="latam">Latin America</option>
-                <option value="eu">Europe</option>
-                <option value="us">North America</option>
-                <option value="as">Asia</option>
-                <option value="me">Middle East</option>
-                <option value="af">Africa</option>
-                <option value="oc">Oceania</option>
-            </select>
-            <button class="koma-btn" style="margin-top: 30px; width: 100%;" onclick="finishOobe()" data-t="next">Next</button>
+        <!-- Step 1: Language & Region -->
+        <div class="oobe-card" id="oobe-step-1" style="animation:authCardIn 0.6s ease;">
+            <div style="width:60px;height:60px;border-radius:16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+            </div>
+            <h1 data-t="oobe_welcome" style="font-size:24px;font-weight:700;margin-bottom:6px;">Personalize Koma OS</h1>
+            <p data-t="oobe_lang" style="opacity:0.5;margin:0 0 20px;font-size:13px;">Select your language and region</p>
+            <div style="text-align:left;margin-bottom:14px;">
+                <label style="font-size:11px;opacity:0.5;display:block;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">Language</label>
+                <select id="lang-select" class="auth-input no-icon" onchange="applyLang(this.value)" style="padding:12px 16px;font-size:14px;">
+                    <option value="es">Espa&#241;ol</option>
+                    <option value="en">English</option>
+                    <option value="ja">&#26085;&#26412;&#35486;</option>
+                    <option value="fr">Fran&#231;ais</option>
+                    <option value="de">Deutsch</option>
+                    <option value="pt">Portugu&#234;s</option>
+                    <option value="zh">&#20013;&#25991;</option>
+                    <option value="ko">&#54620;&#44397;&#50612;</option>
+                    <option value="ar">&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</option>
+                    <option value="hi">&#2361;&#2367;&#2344;&#2381;&#2342;&#2368;</option>
+                    <option value="ru">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;</option>
+                    <option value="it">Italiano</option>
+                </select>
+            </div>
+            <div style="text-align:left;margin-bottom:20px;">
+                <label style="font-size:11px;opacity:0.5;display:block;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;" data-t="oobe_region">Region</label>
+                <select id="region-select" class="auth-input no-icon" style="padding:12px 16px;font-size:14px;">
+                    <option value="latam">Latin America</option>
+                    <option value="eu">Europe</option>
+                    <option value="us">North America</option>
+                    <option value="as">Asia</option>
+                    <option value="me">Middle East</option>
+                    <option value="af">Africa</option>
+                    <option value="oc">Oceania</option>
+                </select>
+            </div>
+            <button class="auth-btn-v2" style="background:white;color:#0a0a0f;width:100%;" onclick="goToOobeStep2()" data-t="next">Continue</button>
+        </div>
+        <!-- Step 2: Nickname -->
+        <div class="oobe-card" id="oobe-step-2" style="display:none;">
+            <div style="width:60px;height:60px;border-radius:16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <h1 style="font-size:24px;font-weight:700;margin-bottom:6px;">Choose a Nickname</h1>
+            <p style="opacity:0.5;margin:0 0 20px;font-size:13px;">This is how others will see you</p>
+            <div class="auth-input-wrap">
+                <span class="input-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                <input type="text" id="oobe-nickname" class="auth-input" placeholder="Enter your nickname..." maxlength="20">
+            </div>
+            <button class="auth-btn-v2" style="background:white;color:#0a0a0f;width:100%;margin-top:16px;" onclick="finishOobeWithNickname()">Get Started</button>
         </div>
     </div>
 
@@ -2161,12 +2192,14 @@
         <div class="lock-blur">
             <div id="lock-time">00:00</div>
             <div id="lock-date">Day, 00 Month</div>
-            <div class="lock-avatar">👤</div>
+            <div class="lock-avatar" style="font-size:0;">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
             <h3 id="user-display" style="font-weight: 400; font-size: 18px; opacity: 0.8;">User</h3>
             <div class="lock-widgets">
-                <div class="lock-widget">🎵 Komafy</div>
-                <div class="lock-widget">📡 Online</div>
-                <div class="lock-widget" id="lock-battery">🔋 100%</div>
+                <div class="lock-widget"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Komafy</div>
+                <div class="lock-widget"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px;"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Online</div>
+                <div class="lock-widget" id="lock-battery"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px;"><rect x="1" y="6" width="18" height="12" rx="2" ry="2"/><line x1="23" y1="13" x2="23" y2="11"/></svg>100%</div>
             </div>
             <!-- PIN/Password unlock area -->
             <div id="lock-auth-area" style="margin-top: 30px;">
@@ -2176,6 +2209,8 @@
                         <div class="pin-dot" id="pin-dot-1"></div>
                         <div class="pin-dot" id="pin-dot-2"></div>
                         <div class="pin-dot" id="pin-dot-3"></div>
+                        <div class="pin-dot" id="pin-dot-4"></div>
+                        <div class="pin-dot" id="pin-dot-5"></div>
                     </div>
                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 240px; margin: 0 auto;">
                         <button class="pin-key" onclick="enterPin('1')">1</button>
@@ -2187,24 +2222,25 @@
                         <button class="pin-key" onclick="enterPin('7')">7</button>
                         <button class="pin-key" onclick="enterPin('8')">8</button>
                         <button class="pin-key" onclick="enterPin('9')">9</button>
-                        <button class="pin-key" onclick="enterPin('clear')" style="font-size: 14px;">⌫</button>
+                        <button class="pin-key" onclick="enterPin('clear')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg></button>
                         <button class="pin-key" onclick="enterPin('0')">0</button>
-                        <button class="pin-key" onclick="enterPin('submit')" style="background: rgba(0,255,204,0.15); color: var(--accent);">→</button>
+                        <button class="pin-key" onclick="enterPin('submit')" style="background: rgba(255,255,255,0.15); color: white;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
                     </div>
                     <p id="pin-error" style="color: #ff5f57; font-size: 12px; margin-top: 10px; opacity: 0; transition: 0.3s;">Wrong PIN</p>
                 </div>
                 <div id="lock-password-display" style="display:none; margin-bottom: 15px;">
                     <div style="display: flex; gap: 10px; justify-content: center; max-width: 280px; margin: 0 auto;">
                         <input type="password" id="lock-pass-input" placeholder="Enter password..." style="flex:1; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:white; padding:12px 16px; border-radius:14px; outline:none; font-size:14px; backdrop-filter:blur(10px); transition:0.3s;" onkeypress="if(event.key==='Enter')checkLockPassword()">
-                        <button onclick="checkLockPassword()" style="background:rgba(0,255,204,0.15); border:1px solid rgba(0,255,204,0.3); color:var(--accent); padding:12px 18px; border-radius:14px; cursor:pointer; font-weight:700; transition:0.3s;">→</button>
+                        <button onclick="checkLockPassword()" style="background:white; border:none; color:#0a0a0f; padding:12px 18px; border-radius:14px; cursor:pointer; font-weight:700; transition:0.3s;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
                     </div>
                     <p id="pass-error" style="color: #ff5f57; font-size: 12px; margin-top: 10px; opacity: 0; transition: 0.3s;">Wrong password</p>
                 </div>
                 <div id="lock-no-security" style="cursor: pointer;" onclick="unlock()">
-                    <div class="lock-swipe-hint">▲ TAP TO UNLOCK ▲</div>
+                    <div class="lock-swipe-hint"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:6px;"><polyline points="18 15 12 9 6 15"/></svg>TAP TO UNLOCK</div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <!-- ===== DESKTOP ===== -->
@@ -2549,6 +2585,10 @@
                             <div class="settings-nav-item" onclick="showSettingsTab(this,'guard')">
                                 <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
                                 System Guard
+                            </div>
+                            <div class="settings-nav-item" onclick="showSettingsTab(this,'updatelog')">
+                                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                                Update Log
                             </div>
                             <div class="settings-nav-sep"></div>
                             <div class="settings-nav-item" onclick="showSettingsTab(this,'about')">
@@ -3337,6 +3377,58 @@
                             </div>
 
                             <!-- About (dedicated tab) -->
+                            <!-- Update Log Tab -->
+                            <div id="settings-tab-updatelog" style="display:none;">
+                                <h2>Update Log</h2>
+                                <div class="settings-section">
+                                    <div class="settings-card" style="padding:20px;">
+                                        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+                                            <div style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                            </div>
+                                            <div>
+                                                <div style="font-size:16px;font-weight:700;">Koma OS v6.4</div>
+                                                <div style="font-size:11px;opacity:0.4;">Latest Updates &amp; Changes</div>
+                                            </div>
+                                        </div>
+                                        <div style="display:flex;flex-direction:column;gap:12px;">
+                                            <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:14px;border-left:3px solid var(--accent);">
+                                                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">1. New Interface</div>
+                                                <p style="font-size:11px;opacity:0.5;">Completely redesigned UI with modern animations, SVG icons, and a cleaner aesthetic across all screens.</p>
+                                            </div>
+                                            <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:14px;border-left:3px solid #febc2e;">
+                                                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">2. 4 New Apps</div>
+                                                <p style="font-size:11px;opacity:0.5;">KomaHub Store, KomaCall, Contacts, and WallCode apps added to the system.</p>
+                                            </div>
+                                            <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:14px;border-left:3px solid #28c840;">
+                                                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">3. Bug Fixes</div>
+                                                <p style="font-size:11px;opacity:0.5;">Fixed wallpaper persistence, language translations, auth flow, and lock screen issues.</p>
+                                            </div>
+                                            <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:14px;border-left:3px solid #9146ff;">
+                                                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">4. Koma OS x Star Stream Collab</div>
+                                                <p style="font-size:11px;opacity:0.5;">Integrated Star Stream as the native cinema experience with full iframe support.</p>
+                                            </div>
+                                            <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:14px;border-left:3px solid #ff6b9d;">
+                                                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">5. New UI Looks</div>
+                                                <p style="font-size:11px;opacity:0.5;">Auth screen, OOBE, lock screen, and boot sequence completely redesigned with smooth animations.</p>
+                                            </div>
+                                            <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:14px;border-left:3px solid var(--primary);">
+                                                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">6. 10 New Functions in Settings</div>
+                                                <p style="font-size:11px;opacity:0.5;">System Guard, Display Cast, Motion Privacy, Stealth Mode, Desktop Folders, Update Log, and more.</p>
+                                            </div>
+                                            <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:14px;border-left:3px solid #ff5f57;">
+                                                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">7. Cloud Backend</div>
+                                                <p style="font-size:11px;opacity:0.5;">Real-time announcements, bans, online user tracking, and persistent wallpaper storage via cloud.</p>
+                                            </div>
+                                            <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:14px;border-left:3px solid rgba(255,255,255,0.3);">
+                                                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">8. And More...</div>
+                                                <p style="font-size:11px;opacity:0.5;">Real terminal commands, Komafy improvements, KomaHub cloud uploads, nickname system, 9 secret wallpaper codes.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div id="settings-tab-about" style="display:none;">
                                 <h2>About This System</h2>
                                 <div class="settings-section">
@@ -3352,11 +3444,11 @@
                                         </div>
                                         <div class="settings-row"><div style="opacity:0.5; font-size:12px;">Kernel</div><div style="font-size:12px; font-weight:500;">KomaKernel 2.1</div></div>
                                         <div class="settings-row"><div style="opacity:0.5; font-size:12px;">Memory</div><div style="font-size:12px; font-weight:500;" id="about-memory-val">Calculating...</div></div>
-                                        <div class="settings-row"><div style="opacity:0.5; font-size:12px;">CPU Cores</div><div style="font-size:12px; font-weight:500;" id="about-cpu-val">—</div></div>
+                                        <div class="settings-row"><div style="opacity:0.5; font-size:12px;">CPU Cores</div><div style="font-size:12px; font-weight:500;" id="about-cpu-val">--</div></div>
                                         <div class="settings-row"><div style="opacity:0.5; font-size:12px;">Storage Used</div><div style="font-size:12px; font-weight:500;" id="about-storage-val">Estimating...</div></div>
                                         <div class="settings-row"><div style="opacity:0.5; font-size:12px;">Runtime</div><div style="font-size:12px; font-weight:500;">WebKit / Chromium</div></div>
                                         <div class="settings-row"><div style="opacity:0.5; font-size:12px;">Uptime</div><div style="font-size:12px; font-weight:500;" id="about-uptime-val">0s</div></div>
-                                        <div class="settings-row"><div style="opacity:0.5; font-size:12px;">Build</div><div style="font-size:12px; font-weight:500;">2026.03.29</div></div>
+                                        <div class="settings-row"><div style="opacity:0.5; font-size:12px;">Build</div><div style="font-size:12px; font-weight:500;">2026.04.02</div></div>
                                     </div>
                                 </div>
                                 <p style="font-size:10px; opacity:0.3; margin-top:20px; text-align:center;">&copy; 2026 Koma OS Studios</p>
@@ -5238,18 +5330,126 @@
     // --- TERMINAL ---
     const termInput = document.getElementById('term-input');
     const termOutput = document.getElementById('term-output');
+    const termFS = {
+        '/': ['home', 'etc', 'var', 'usr', 'tmp'],
+        '/home': ['user'],
+        '/home/user': ['documents', 'downloads', 'music'],
+        '/etc': ['hosts', 'passwd', 'config.sys'],
+        '/var': ['log', 'cache'],
+        '/usr': ['bin', 'lib', 'share'],
+        '/tmp': []
+    };
+    let termCwd = '/home/user';
+    let termHistory = [];
+    let termHistIdx = -1;
+    let termEnv = { USER: 'koma', HOME: '/home/user', SHELL: '/bin/komabash', PATH: '/usr/bin:/bin', HOSTNAME: 'koma-os', OS: 'KomaOS v6.4' };
+
+    function termExec(cmd) {
+        const parts = cmd.trim().split(/\s+/);
+        const bin = parts[0];
+        const args = parts.slice(1);
+        
+        switch(bin) {
+            case 'help':
+                return 'Available commands:\n  help          Show this help\n  clear         Clear terminal\n  ls [dir]      List directory\n  cd [dir]      Change directory\n  pwd           Print working directory\n  echo [text]   Print text\n  cat [file]    Display file contents\n  whoami        Current user\n  hostname      System hostname\n  date          Current date/time\n  uptime        System uptime\n  neofetch      System info\n  env           Environment variables\n  export K=V    Set env variable\n  uname [-a]    System name\n  free          Memory info\n  df            Disk usage\n  ps            Running processes\n  kill [pid]    Kill process\n  ping [host]   Ping host\n  curl [url]    Fetch URL\n  color [hex]   Change system color\n  wallpaper     Show current wallpaper\n  reboot        Reboot system\n  exit          Close terminal';
+            case 'clear':
+                termOutput.innerHTML = '';
+                return '';
+            case 'ls':
+                const dir = args[0] ? (args[0].startsWith('/') ? args[0] : termCwd + '/' + args[0]).replace(/\/+/g,'/') : termCwd;
+                const entries = termFS[dir];
+                if(!entries) return 'ls: cannot access \'' + dir + '\': No such file or directory';
+                return entries.length ? entries.join('  ') : '(empty)';
+            case 'cd':
+                if(!args[0] || args[0] === '~') { termCwd = '/home/user'; return ''; }
+                if(args[0] === '..') { termCwd = termCwd.split('/').slice(0,-1).join('/') || '/'; return ''; }
+                const target = args[0].startsWith('/') ? args[0] : termCwd + '/' + args[0];
+                const norm = target.replace(/\/+/g,'/');
+                if(termFS[norm] !== undefined) { termCwd = norm; return ''; }
+                return 'cd: no such directory: ' + args[0];
+            case 'pwd': return termCwd;
+            case 'echo': return args.join(' ');
+            case 'cat':
+                if(!args[0]) return 'cat: missing operand';
+                if(args[0] === '/etc/hosts') return '127.0.0.1  localhost\n::1        localhost\n10.0.0.1   koma-os.local';
+                if(args[0] === '/etc/passwd') return 'koma:x:1000:1000:Koma User:/home/user:/bin/komabash';
+                if(args[0] === '/etc/config.sys') return '[system]\nversion=6.4\nui=liquid-glass\nkernel=KomaKernel-2.1';
+                return 'cat: ' + args[0] + ': No such file';
+            case 'whoami': return termEnv.USER;
+            case 'hostname': return termEnv.HOSTNAME;
+            case 'date': return new Date().toString();
+            case 'uptime':
+                const up = Math.floor((Date.now() - komaBootTime) / 1000);
+                const h = Math.floor(up/3600), m = Math.floor((up%3600)/60), s = up%60;
+                return 'up ' + h + 'h ' + m + 'm ' + s + 's';
+            case 'neofetch':
+                return '    \\  /    koma@koma-os\n     \\/     OS: KomaOS v6.4\n    /  \\    Kernel: KomaKernel 2.1\n   /    \\   Shell: KomaBash 1.0\n  /______\\  UI: Liquid Glass v3\n            Resolution: ' + window.innerWidth + 'x' + window.innerHeight + '\n            Uptime: ' + Math.floor((Date.now()-komaBootTime)/60000) + ' min\n            Memory: ' + (navigator.deviceMemory || '?') + ' GB\n            CPU: ' + (navigator.hardwareConcurrency || '?') + ' cores';
+            case 'env':
+                return Object.entries(termEnv).map(([k,v]) => k + '=' + v).join('\n');
+            case 'export':
+                if(!args[0] || !args[0].includes('=')) return 'Usage: export KEY=VALUE';
+                const [k,v] = args[0].split('='); termEnv[k] = v;
+                return '';
+            case 'uname':
+                if(args.includes('-a')) return 'KomaOS koma-os 6.4.0-koma #1 SMP Web KomaKernel 2.1';
+                return 'KomaOS';
+            case 'free':
+                const mem = navigator.deviceMemory || 4;
+                return '              total    used     free\nMem:       ' + (mem*1024) + 'MB   ' + Math.floor(mem*512) + 'MB   ' + Math.floor(mem*512) + 'MB\nSwap:         0MB      0MB      0MB';
+            case 'df':
+                const used = JSON.stringify(localStorage).length;
+                return 'Filesystem     Size   Used  Avail  Use%  Mounted on\n/dev/koma       5MB  ' + (used/1024).toFixed(0) + 'KB  ' + ((5*1024*1024-used)/1024).toFixed(0) + 'KB   ' + ((used/(5*1024*1024))*100).toFixed(0) + '%   /';
+            case 'ps':
+                const wins = document.querySelectorAll('.window:not(.hidden)');
+                let ps = 'PID   TTY    STAT  CMD\n  1   ?      Ss    init\n  2   ?      S     komakernel';
+                let pid = 100;
+                wins.forEach(w => { ps += '\n' + (pid++) + '   pts/0  S     ' + (w.querySelector('.win-header span')?.textContent?.trim() || 'window'); });
+                return ps;
+            case 'kill':
+                if(!args[0]) return 'kill: usage: kill pid';
+                return 'Process ' + args[0] + ' terminated';
+            case 'ping':
+                if(!args[0]) return 'ping: usage: ping hostname';
+                return 'PING ' + args[0] + ' (93.184.216.34): 56 data bytes\n64 bytes from 93.184.216.34: icmp_seq=0 ttl=56 time=' + (Math.random()*50+10).toFixed(1) + 'ms\n64 bytes from 93.184.216.34: icmp_seq=1 ttl=56 time=' + (Math.random()*50+10).toFixed(1) + 'ms\n--- ' + args[0] + ' ping statistics ---\n2 packets transmitted, 2 received, 0% loss';
+            case 'curl':
+                if(!args[0]) return 'curl: try \'curl --help\'';
+                return '<!DOCTYPE html><html><head><title>' + args[0] + '</title></head><body>Response from ' + args[0] + '</body></html>';
+            case 'color':
+                if(!args[0]) return 'Usage: color #hexcode';
+                document.documentElement.style.setProperty('--primary', args[0]);
+                return 'System color changed to ' + args[0];
+            case 'wallpaper':
+                return 'Current: ' + (localStorage.getItem('koma_wallpaper') || 'default');
+            case 'reboot':
+                setTimeout(() => location.reload(), 1000);
+                return 'Rebooting...';
+            case 'exit':
+                closeWin('win-terminal');
+                return 'Goodbye.';
+            default:
+                return bin + ': command not found. Type \'help\' for available commands.';
+        }
+    }
+
     if (termInput) {
-        termInput.addEventListener('keypress', (e) => {
+        termInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
-                const cmd = termInput.value.toLowerCase(); let resp = `<br><span style="color:var(--accent)">$</span> ${cmd}<br>`;
-                if (cmd === 'help') resp += "Commands: help, clear, neofetch, color [hex], vpn, exit";
-                else if (cmd === 'neofetch') resp += "OS: KomaOS v6.4<br>Kernel: Koma-Web-1.3<br>Shell: KomaBash<br>UI: Liquid Glass v3<br>Dock: macOS Sequoia";
-                else if (cmd === 'clear') { termOutput.innerHTML = ""; resp = ""; }
-                else if (cmd.startsWith('color ')) { document.documentElement.style.setProperty('--primary', cmd.split(' ')[1]); resp += "System color changed."; }
-                else if (cmd === 'vpn') { toggleVPN(); resp += vpnConnected ? "VPN Connected (219.100.37.207)" : "VPN Disconnected"; }
-                else resp += "Unknown command. Type 'help'.";
-                termOutput.innerHTML += resp; termInput.value = "";
+                const cmd = termInput.value;
+                termHistory.push(cmd);
+                termHistIdx = termHistory.length;
+                let resp = '<br><span style="color:var(--accent)">$</span> ' + cmd.replace(/</g,'&lt;') + '<br>';
+                const result = termExec(cmd);
+                if(result) resp += '<pre style="margin:0;white-space:pre-wrap;font-family:inherit;">' + result.replace(/</g,'&lt;').replace(/\n/g,'<br>') + '</pre>';
+                termOutput.innerHTML += resp;
+                termInput.value = '';
                 document.getElementById('term-body').scrollTop = document.getElementById('term-body').scrollHeight;
+            } else if(e.key === 'ArrowUp') {
+                e.preventDefault();
+                if(termHistIdx > 0) { termHistIdx--; termInput.value = termHistory[termHistIdx]; }
+            } else if(e.key === 'ArrowDown') {
+                e.preventDefault();
+                if(termHistIdx < termHistory.length - 1) { termHistIdx++; termInput.value = termHistory[termHistIdx]; }
+                else { termHistIdx = termHistory.length; termInput.value = ''; }
             }
         });
     }
@@ -5901,26 +6101,88 @@
         setupLockUI();
     }
 
+    let authMode = 'login';
+    function toggleAuthMode() {
+        authMode = authMode === 'login' ? 'register' : 'login';
+        const btn = document.getElementById('auth-primary-btn');
+        const sec = document.getElementById('auth-secondary-btn');
+        const chan = document.getElementById('auth-channel-wrap');
+        const title = document.getElementById('auth-title');
+        const sub = document.getElementById('auth-subtitle');
+        if(authMode === 'register') {
+            btn.textContent = 'Create Account'; btn.onclick = () => handleAuth('register');
+            sec.textContent = 'Sign In Instead'; title.textContent = 'Create Account';
+            sub.textContent = 'Join the Koma OS universe';
+            if(chan) chan.style.display = 'block';
+        } else {
+            btn.textContent = 'Sign In'; btn.onclick = () => handleAuth('login');
+            sec.textContent = 'Create Account'; title.textContent = 'Koma OS';
+            sub.textContent = 'Sign in to your universe';
+            if(chan) chan.style.display = 'none';
+        }
+        // Animate card
+        const card = document.getElementById('auth-card-main');
+        card.style.animation = 'none'; card.offsetHeight; card.style.animation = 'authCardIn 0.5s ease';
+    }
+
     async function handleAuth(type) {
         const email = document.getElementById('auth-email').value;
         const pass = document.getElementById('auth-pass').value;
-        if(!email || !pass) return alert("Please fill all fields");
+        if(!email || !pass) { showNotification('Auth', 'Please fill all fields'); return; }
         try {
-            if(type === 'register') { const res = await window.komaAuth.createUserWithEmailAndPassword(window.komaAuth.auth, email, pass); await window.komaAuth.setDoc(window.komaAuth.doc(window.komaAuth.db, "users", res.user.uid), { email, created: new Date() }); alert("Account created!"); }
-            else { await window.komaAuth.signInWithEmailAndPassword(window.komaAuth.auth, email, pass); }
-            currentUser = email.split('@')[0]; document.getElementById('user-display').textContent = currentUser;
+            if(type === 'register') {
+                const channel = document.getElementById('auth-channel')?.value?.trim() || email.split('@')[0];
+                const { data, error } = await _sb.auth.signUp({ email, password: pass });
+                if(error) throw error;
+                if(data.user) {
+                    await _sb.from('koma_profiles').insert({ user_id: data.user.id, display_name: channel, language: currentLang });
+                }
+                currentUser = channel;
+            } else {
+                const { data, error } = await _sb.auth.signInWithPassword({ email, password: pass });
+                if(error) throw error;
+                const { data: profile } = await _sb.from('koma_profiles').select('*').eq('user_id', data.user.id).maybeSingle();
+                currentUser = profile?.display_name || email.split('@')[0];
+            }
+            document.getElementById('user-display').textContent = currentUser;
             localStorage.setItem('koma_authenticated', 'true');
             localStorage.setItem('koma_username', currentUser);
-            transitionLayer('auth-screen', 'oobe-screen');
-        } catch(e) { alert(e.message); }
+            if(type === 'register' || !localStorage.getItem('koma_lang')) {
+                transitionLayer('auth-screen', 'oobe-screen');
+            } else {
+                transitionLayer('auth-screen', 'lock-screen');
+            }
+        } catch(e) { showNotification('Auth Error', e.message || 'Authentication failed'); }
     }
 
-    function bypassAuth() {
-        currentUser = "Guest"; document.getElementById('user-display').textContent = currentUser;
-        localStorage.setItem('koma_authenticated', 'true');
-        localStorage.setItem('koma_username', 'Guest');
-        transitionLayer('auth-screen', 'oobe-screen');
+    function goToOobeStep2() {
+        document.getElementById('oobe-step-1').style.animation = 'fade-out 0.3s ease forwards';
+        setTimeout(() => {
+            document.getElementById('oobe-step-1').style.display = 'none';
+            document.getElementById('oobe-step-2').style.display = 'block';
+            document.getElementById('oobe-step-2').style.animation = 'authCardIn 0.5s ease';
+            const nick = document.getElementById('oobe-nickname');
+            if(nick) nick.value = currentUser || '';
+        }, 300);
     }
+
+    function finishOobeWithNickname() {
+        const nick = document.getElementById('oobe-nickname')?.value?.trim();
+        if(nick) {
+            currentUser = nick;
+            document.getElementById('user-display').textContent = nick;
+            localStorage.setItem('koma_username', nick);
+            // Update cloud profile
+            (async () => {
+                const { data: { user } } = await _sb.auth.getUser();
+                if(user) await _sb.from('koma_profiles').update({ display_name: nick }).eq('user_id', user.id);
+            })();
+        }
+        localStorage.setItem('koma_lang', currentLang);
+        localStorage.setItem('koma_region', document.getElementById('region-select')?.value || 'us');
+        transitionLayer('oobe-screen', 'lock-screen');
+    }
+
     function finishOobe() {
         localStorage.setItem('koma_lang', currentLang);
         transitionLayer('oobe-screen', 'lock-screen');
@@ -10008,21 +10270,23 @@
 
     
     // ============================================================
-    // OWNER DEVELOPER PANEL FUNCTIONS
+    // OWNER DEVELOPER PANEL FUNCTIONS — REAL SUPABASE
     // ============================================================
-    function refreshDevUserList() {
+    async function refreshDevUserList() {
         const el = document.getElementById('dev-user-list');
         if(!el) return;
-        const users = JSON.parse(localStorage.getItem('koma_all_users') || '[]');
-        const currentUser = localStorage.getItem('koma_username') || 'Guest';
-        const currentId = localStorage.getItem('koma_user_id') || 'local-' + Date.now();
-        if(!users.find(u => u.id === currentId)) {
-            users.push({ id: currentId, name: currentUser, lastSeen: Date.now() });
-            localStorage.setItem('koma_all_users', JSON.stringify(users));
+        el.innerHTML = '<span style="opacity:0.5;">Loading...</span>';
+        try {
+            const { data: profiles, error } = await _sb.from('koma_profiles').select('*').order('last_seen', { ascending: false }).limit(50);
+            if(error) throw error;
+            const onlineCount = (profiles || []).filter(p => p.is_online).length;
+            el.innerHTML = '<div style="margin-bottom:8px;padding:6px 10px;background:rgba(0,255,204,0.08);border-radius:8px;font-size:11px;"><span style="color:var(--accent);font-weight:600;">' + onlineCount + ' users online</span></div>' +
+                (profiles || []).map(u => '<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05);"><span>' + (u.display_name || 'User') + '</span><span style="display:flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:' + (u.is_online ? '#28c840' : '#666') + ';"></span><span style="opacity:0.4;font-size:10px;">' + (u.is_online ? 'online' : 'offline') + '</span></span></div>').join('') || '<p>No users found</p>';
+        } catch(e) {
+            el.innerHTML = '<span style="color:#ff5f57;">Error loading users: ' + e.message + '</span>';
         }
-        el.innerHTML = users.map(u => `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05);"><span>${u.name}</span><span style="opacity:0.4;">${u.id.substring(0,8)}...</span></div>`).join('') || '<p>No users tracked</p>';
     }
-    // Auto refresh on dev panel open
+
     const devObserver = new MutationObserver(() => {
         if(document.getElementById('dev-menu-overlay')?.classList.contains('active')) refreshDevUserList();
     });
@@ -10031,23 +10295,51 @@
         if(devOverlay) devObserver.observe(devOverlay, { attributes: true, attributeFilter: ['class'] });
     }, 2000);
 
-    function sendGlobalBroadcast() {
+    async function sendGlobalBroadcast() {
         const msg = document.getElementById('dev-broadcast-msg')?.value?.trim();
         if(!msg) return;
-        showNotification('📢 System Broadcast', msg);
-        localStorage.setItem('koma_last_broadcast', JSON.stringify({ msg, time: Date.now() }));
-        document.getElementById('dev-broadcast-msg').value = '';
+        try {
+            const { data: { user } } = await _sb.auth.getUser();
+            if(!user) { showNotification('Error', 'You must be logged in'); return; }
+            const { error } = await _sb.from('koma_announcements').insert({ sender_id: user.id, message: msg, type: 'broadcast' });
+            if(error) throw error;
+            showNotification('Broadcast', 'Announcement sent to all users');
+            document.getElementById('dev-broadcast-msg').value = '';
+        } catch(e) { showNotification('Error', e.message); }
     }
 
-    function tempBanUser() {
+    // Listen for real-time announcements
+    _sb.channel('announcements').on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'koma_announcements' }, (payload) => {
+        const ann = payload.new;
+        if(ann && ann.message) {
+            showNotification('System Announcement', ann.message);
+        }
+    }).subscribe();
+
+    async function tempBanUser() {
         const userId = document.getElementById('dev-ban-user')?.value?.trim();
         if(!userId) return;
-        const bans = JSON.parse(localStorage.getItem('koma_temp_bans') || '[]');
-        bans.push({ id: userId, bannedAt: Date.now(), expiresAt: Date.now() + 3600000 });
-        localStorage.setItem('koma_temp_bans', JSON.stringify(bans));
-        showNotification('Admin', `User ${userId} temporarily banned for 1 hour`);
-        document.getElementById('dev-ban-user').value = '';
+        try {
+            const { data: { user } } = await _sb.auth.getUser();
+            if(!user) { showNotification('Error', 'You must be logged in'); return; }
+            const { error } = await _sb.from('koma_bans').insert({ banned_user_id: userId, banned_by: user.id, reason: 'Temporary ban', expires_at: new Date(Date.now() + 3600000).toISOString() });
+            if(error) throw error;
+            showNotification('Admin', 'User ' + userId + ' banned for 1 hour');
+            document.getElementById('dev-ban-user').value = '';
+        } catch(e) { showNotification('Error', e.message); }
     }
+
+    // Update online presence
+    async function updateOnlinePresence(online) {
+        try {
+            const { data: { user } } = await _sb.auth.getUser();
+            if(!user) return;
+            await _sb.from('koma_profiles').update({ is_online: online, last_seen: new Date().toISOString() }).eq('user_id', user.id);
+        } catch(e) {}
+    }
+    setInterval(() => updateOnlinePresence(true), 30000);
+    window.addEventListener('beforeunload', () => updateOnlinePresence(false));
+    setTimeout(() => updateOnlinePresence(true), 3000);
 
     // System Guard - Anti-Virus/Anti-Spyware
     const KOMA_KNOWN_KEYS = ['koma_','koma-os','theme','lang','wallpaper','lock','pin','password','alarms','notes','installed','dock','glass','privacy','wall_','config','broadcast','ban','users','user_','guard_'];
