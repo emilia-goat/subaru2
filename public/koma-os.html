@@ -596,60 +596,52 @@
         }
         .active { display: flex !important; }
 
-        /* ===== BOOTLOADER — CINEMATIC ===== */
+        /* ===== BOOTLOADER — MINIMAL DARK ===== */
         #boot-screen {
-            background: #2a2a2e; z-index: 10000; overflow: hidden; perspective: 1000px;
+            background: #111114; z-index: 10000; overflow: hidden; perspective: 1000px;
         }
         #boot-screen::before {
             content: ''; position: absolute; inset: 0;
-            background: radial-gradient(circle at 50% 50%, rgba(120,120,130,0.15) 0%, transparent 70%);
-            animation: bootPulse 3s ease-in-out infinite;
+            background: radial-gradient(ellipse at 50% 40%, rgba(255,255,255,0.03) 0%, transparent 60%);
         }
         @keyframes bootPulse {
             0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.2); }
+            50% { opacity: 0.6; transform: scale(1.1); }
         }
         .koma-brand {
-            font-size: 4.5rem; letter-spacing: 20px; color: var(--primary);
-            text-shadow: 0 0 40px var(--primary), 0 0 80px rgba(23,147,209,0.4);
+            font-size: 4.5rem; letter-spacing: 20px; color: rgba(255,255,255,0.8);
             animation: brandFloat 3s ease-in-out infinite; font-weight: 200;
         }
         @keyframes brandFloat {
-            0%, 100% { transform: translateY(0) rotateX(0); }
-            50% { transform: translateY(-10px) rotateX(3deg); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
         }
         .boot-particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
         .boot-particle {
-            position: absolute; width: 3px; height: 3px; background: var(--accent);
-            border-radius: 50%; opacity: 0; animation: particleRise 4s linear infinite;
+            position: absolute; width: 2px; height: 2px; background: rgba(255,255,255,0.3);
+            border-radius: 50%; opacity: 0; animation: particleRise 5s linear infinite;
         }
         @keyframes particleRise {
             0% { opacity: 0; transform: translateY(100vh) scale(0); }
-            20% { opacity: 1; }
-            100% { opacity: 0; transform: translateY(-20vh) scale(2); }
+            20% { opacity: 0.6; }
+            100% { opacity: 0; transform: translateY(-20vh) scale(1.5); }
         }
         .boot-ring {
-            position: absolute; width: 300px; height: 300px; border-radius: 50%;
-            border: 1px solid rgba(23,147,209,0.2); animation: ringExpand 4s ease-out infinite;
+            position: absolute; width: 250px; height: 250px; border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.05); animation: ringExpand 5s ease-out infinite;
         }
         @keyframes ringExpand {
-            0% { transform: scale(0.5); opacity: 0.8; }
+            0% { transform: scale(0.5); opacity: 0.5; }
             100% { transform: scale(3); opacity: 0; }
         }
         #boot-btn {
-            font-size: 16px; padding: 18px 50px; border-radius: 50px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border: none; color: #fff; cursor: pointer; font-weight: 700;
-            letter-spacing: 3px; text-transform: uppercase;
-            box-shadow: 0 0 40px rgba(23,147,209,0.5), 0 10px 30px rgba(0,0,0,0.5);
-            animation: btnGlow 2s ease-in-out infinite alternate;
+            font-size: 14px; padding: 16px 44px; border-radius: 12px;
+            background: white; border: none; color: #111; cursor: pointer; font-weight: 600;
+            letter-spacing: 2px; text-transform: uppercase;
+            box-shadow: 0 4px 20px rgba(255,255,255,0.1);
             transition: transform 0.3s, box-shadow 0.3s;
         }
-        #boot-btn:hover { transform: scale(1.08); box-shadow: 0 0 60px rgba(0,255,204,0.6); }
-        @keyframes btnGlow {
-            0% { box-shadow: 0 0 30px rgba(23,147,209,0.4); }
-            100% { box-shadow: 0 0 60px rgba(0,255,204,0.5); }
-        }
+        #boot-btn:hover { transform: scale(1.04); box-shadow: 0 6px 30px rgba(255,255,255,0.15); }
 
         /* ===== AUTH SCREEN — GLASSMORPHISM DELUXE ===== */
         #auth-screen {
@@ -2046,48 +2038,40 @@
         <div class="boot-ring" style="animation-delay: 0s;"></div>
         <div class="boot-ring" style="animation-delay: 1.5s;"></div>
         <div class="boot-ring" style="animation-delay: 3s;"></div>
-        <div style="position: relative; z-index: 10; text-align: center;">
-            <div style="width:80px;height:80px;border-radius:50%;background:transparent;border:2px solid rgba(255,149,0,0.5);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ff9500" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><rect x="15" y="2" width="6" height="6" rx="1" fill="none" stroke="#ff9500" stroke-width="1.5"/></svg>
+        <div style="position: relative; z-index: 10; text-align: center; max-width:380px; padding:0 20px;">
+            <!-- Minimal logo mark -->
+            <div style="width:72px;height:72px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;margin:0 auto 28px;backdrop-filter:blur(12px);background:rgba(255,255,255,0.04);animation:authCardIn 1s ease;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
             </div>
-            <h1 style="font-size:18px;font-weight:600;margin-bottom:5px;color:white;">Restricted Access Network</h1>
-            <p style="font-size: 13px; opacity: 0.4; letter-spacing: 8px; margin-top: 10px; color: var(--accent);">KOMAOS v6.4</p>
-            <!-- Keyboard Sequence Access (PC) / Access Code fallback (Mobile) -->
-            <div id="access-code-section" style="margin-top: 30px;">
-                <div style="background:#ff9500;width:calc(100% + 60px);margin-left:-30px;padding:20px 30px;text-align:center;margin-bottom:20px;">
-                    <p style="font-size:12px;opacity:0.8;color:white;">Oops,</p>
-                    <h2 style="font-size:22px;font-weight:700;margin:4px 0;color:white;">koma-os.system</h2>
-                    <p style="font-size:12px;opacity:0.7;color:white;">is not available until access sequence is provided.</p>
-                </div>
-                <div id="key-seq-ui">
-                    <p style="font-size: 13px; opacity: 0.6; letter-spacing: 1px; margin-bottom: 15px; color: rgba(255,255,255,0.7);">
-                        <svg style="display:inline;vertical-align:middle;margin-right:6px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff9500" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <h1 style="font-size:22px;font-weight:500;margin-bottom:6px;color:rgba(255,255,255,0.9);letter-spacing:0.5px;animation:authCardIn 1.2s ease;">Koma OS</h1>
+            <p style="font-size:12px;opacity:0.35;letter-spacing:6px;margin-top:8px;text-transform:uppercase;animation:authCardIn 1.4s ease;">v 6 . 4</p>
+            <!-- Access Sequence -->
+            <div id="access-code-section" style="margin-top: 36px;animation:authCardIn 1.6s ease;">
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;backdrop-filter:blur(8px);">
+                    <p style="font-size:12px;opacity:0.5;letter-spacing:1px;margin-bottom:14px;color:rgba(255,255,255,0.7);display:flex;align-items:center;justify-content:center;gap:8px;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                         Enter Sequence to Unlock
                     </p>
-                    <div id="key-seq-display" style="display:flex; gap:8px; justify-content:center; margin-bottom:15px; min-height:40px; flex-wrap:wrap;"></div>
-                    <p id="key-seq-hint" style="font-size:11px; opacity:0.35; letter-spacing:1px; color:rgba(255,255,255,0.5);">Use arrow keys: ↑ ↓ ↑ ↓</p>
-                    <p id="key-seq-emergency-hint" style="font-size:10px; opacity:0.25; margin-top:6px; color:rgba(255,255,255,0.4);">Emergency: ← ↑ ↓ ↑ ↓</p>
-                    <p id="access-code-error" style="color: #ff5f57; font-size: 12px; margin-top: 12px; opacity: 0; transition: 0.3s;">Invalid sequence</p>
-                </div>
-                <!-- Mobile fallback -->
-                <div id="mobile-access-fallback" style="display:none;">
-                    <p style="font-size: 13px; opacity: 0.6; letter-spacing: 1px; margin-bottom: 15px; color: rgba(255,255,255,0.7);">
-                        <svg style="display:inline;vertical-align:middle;margin-right:6px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff9500" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                        Tap the Sequence
-                    </p>
-                    <div style="display:grid; grid-template-columns:repeat(3,60px); gap:10px; justify-content:center; margin-bottom:15px;">
-                        <div></div>
-                        <button onclick="mobileKeyInput('up')" style="width:60px;height:60px;border-radius:14px;background:rgba(255,149,0,0.12);border:1px solid rgba(255,149,0,0.3);color:#ff9500;font-size:22px;cursor:pointer;backdrop-filter:blur(8px);transition:0.2s;" ontouchstart="this.style.transform='scale(0.9)'" ontouchend="this.style.transform='scale(1)'">↑</button>
-                        <div></div>
-                        <button onclick="mobileKeyInput('left')" style="width:60px;height:60px;border-radius:14px;background:rgba(255,149,0,0.12);border:1px solid rgba(255,149,0,0.3);color:#ff9500;font-size:22px;cursor:pointer;backdrop-filter:blur(8px);transition:0.2s;" ontouchstart="this.style.transform='scale(0.9)'" ontouchend="this.style.transform='scale(1)'">←</button>
-                        <button onclick="mobileKeyInput('down')" style="width:60px;height:60px;border-radius:14px;background:rgba(255,149,0,0.12);border:1px solid rgba(255,149,0,0.3);color:#ff9500;font-size:22px;cursor:pointer;backdrop-filter:blur(8px);transition:0.2s;" ontouchstart="this.style.transform='scale(0.9)'" ontouchend="this.style.transform='scale(1)'">↓</button>
-                        <button onclick="mobileKeyInput('right')" style="width:60px;height:60px;border-radius:14px;background:rgba(255,149,0,0.12);border:1px solid rgba(255,149,0,0.3);color:#ff9500;font-size:22px;cursor:pointer;backdrop-filter:blur(8px);transition:0.2s;" ontouchstart="this.style.transform='scale(0.9)'" ontouchend="this.style.transform='scale(1)'">→</button>
+                    <div id="key-seq-ui">
+                        <div id="key-seq-display" style="display:flex; gap:8px; justify-content:center; margin-bottom:14px; min-height:40px; flex-wrap:wrap;"></div>
+                        <p id="key-seq-hint" style="font-size:11px; opacity:0.25; letter-spacing:1px; color:rgba(255,255,255,0.5);">Use arrow keys: &#8593; &#8595; &#8593; &#8595;</p>
+                        <p id="key-seq-emergency-hint" style="font-size:10px; opacity:0.18; margin-top:6px; color:rgba(255,255,255,0.4);">Emergency: &#8592; &#8593; &#8595; &#8593; &#8595;</p>
                     </div>
-                    <div id="mobile-seq-display" style="display:flex; gap:8px; justify-content:center; margin-bottom:10px; min-height:30px;"></div>
-                    <button onclick="mobileSeqBuffer=[];renderMobileSeq();" style="font-size:12px;padding:8px 20px;border-radius:20px;background:rgba(255,95,87,0.2);border:1px solid rgba(255,95,87,0.3);color:#ff5f57;cursor:pointer;">Reset</button>
+                    <!-- Mobile fallback -->
+                    <div id="mobile-access-fallback" style="display:none;">
+                        <div style="display:grid; grid-template-columns:repeat(3,56px); gap:8px; justify-content:center; margin-bottom:14px;">
+                            <div></div>
+                            <button onclick="mobileKeyInput('up')" style="width:56px;height:56px;border-radius:14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);font-size:18px;cursor:pointer;backdrop-filter:blur(8px);transition:0.2s;" ontouchstart="this.style.transform='scale(0.9)';this.style.background='rgba(255,255,255,0.12)'" ontouchend="this.style.transform='scale(1)';this.style.background='rgba(255,255,255,0.06)'">&#8593;</button>
+                            <div></div>
+                            <button onclick="mobileKeyInput('left')" style="width:56px;height:56px;border-radius:14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);font-size:18px;cursor:pointer;backdrop-filter:blur(8px);transition:0.2s;" ontouchstart="this.style.transform='scale(0.9)';this.style.background='rgba(255,255,255,0.12)'" ontouchend="this.style.transform='scale(1)';this.style.background='rgba(255,255,255,0.06)'">&#8592;</button>
+                            <button onclick="mobileKeyInput('down')" style="width:56px;height:56px;border-radius:14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);font-size:18px;cursor:pointer;backdrop-filter:blur(8px);transition:0.2s;" ontouchstart="this.style.transform='scale(0.9)';this.style.background='rgba(255,255,255,0.12)'" ontouchend="this.style.transform='scale(1)';this.style.background='rgba(255,255,255,0.06)'">&#8595;</button>
+                            <button onclick="mobileKeyInput('right')" style="width:56px;height:56px;border-radius:14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);font-size:18px;cursor:pointer;backdrop-filter:blur(8px);transition:0.2s;" ontouchstart="this.style.transform='scale(0.9)';this.style.background='rgba(255,255,255,0.12)'" ontouchend="this.style.transform='scale(1)';this.style.background='rgba(255,255,255,0.06)'">&#8594;</button>
+                        </div>
+                        <div id="mobile-seq-display" style="display:flex; gap:8px; justify-content:center; margin-bottom:10px; min-height:30px;"></div>
+                        <button onclick="mobileSeqBuffer=[];renderMobileSeq();" style="font-size:11px;padding:6px 16px;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.5);cursor:pointer;">Reset</button>
+                    </div>
+                    <p id="access-code-error" style="color: #ff5f57; font-size: 12px; margin-top: 10px; opacity: 0; transition: 0.3s;">Invalid sequence</p>
                 </div>
-                <p style="font-size:12px;color:#ff9500;margin-top:15px;opacity:0.7;">Access restricted. Provide valid sequence to continue.</p>
-                <p style="font-size:11px;opacity:0.3;margin-top:8px;">Administrator Console Access v4.2</p>
             </div>
             <div style="margin-top: 20px; display: none;" id="boot-btn-wrap">
                 <button id="boot-btn">INITIALIZE SYSTEM</button>
@@ -2103,34 +2087,39 @@
     <div id="auth-screen" class="system-layer">
         <div class="auth-particles-bg" id="auth-particles-bg"></div>
         <div class="auth-card auth-card-v2" id="auth-card-main">
-            <div class="auth-logo-icon" style="background:linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04)); border:1px solid rgba(255,255,255,0.1);">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <div class="auth-logo-icon" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             </div>
             <h2 id="auth-title">Koma OS</h2>
             <p class="auth-subtitle" id="auth-subtitle">Sign in to your universe</p>
 
             <div id="auth-form-login">
                 <div class="auth-input-wrap">
-                    <span class="input-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
-                    <input type="email" id="auth-email" class="auth-input" placeholder="Email address">
+                    <span class="input-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                    <input type="text" id="auth-username" class="auth-input" placeholder="Username" autocomplete="username">
                 </div>
                 <div class="auth-input-wrap">
                     <span class="input-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
-                    <input type="password" id="auth-pass" class="auth-input" placeholder="Password">
+                    <input type="password" id="auth-pass" class="auth-input" placeholder="Password" oninput="updatePasswordMeter(this.value)">
                 </div>
-                <div id="auth-channel-wrap" style="display:none;">
+                <!-- Password strength meter (register mode only) -->
+                <div id="auth-pw-meter" style="display:none;margin:6px 0 10px;">
+                    <div style="height:4px;border-radius:2px;background:rgba(255,255,255,0.08);overflow:hidden;"><div id="auth-pw-meter-fill" style="height:100%;width:0%;border-radius:2px;transition:width 0.3s,background 0.3s;"></div></div>
+                    <p id="auth-pw-meter-label" style="font-size:10px;opacity:0.4;margin-top:4px;text-align:left;"></p>
+                </div>
+                <!-- Email (optional, register only) -->
+                <div id="auth-email-wrap" style="display:none;">
                     <div class="auth-input-wrap">
-                        <span class="input-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
-                        <input type="text" id="auth-channel" class="auth-input" placeholder="Username">
+                        <span class="input-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
+                        <input type="email" id="auth-email" class="auth-input" placeholder="Email (optional, for recovery)">
                     </div>
                 </div>
+                <div id="auth-username-error" style="color:#ff5f57;font-size:11px;text-align:left;margin:4px 0;opacity:0;transition:0.3s;height:0;overflow:hidden;"></div>
                 <button class="auth-btn-v2" id="auth-primary-btn" onclick="handleAuth('login')" style="background:white;color:#0a0a0f;">Sign In</button>
                 <button class="auth-btn-secondary-v2" id="auth-secondary-btn" onclick="toggleAuthMode()" style="background:transparent;border:1px solid rgba(255,255,255,0.15);color:white;">Create Account</button>
             </div>
         </div>
     </div>
-
-    <!-- Access code is now integrated into boot screen -->
 
     <!-- ===== OOBE ===== -->
     <div id="oobe-screen" class="system-layer">
@@ -2445,6 +2434,9 @@
                             <div class="komafy-nav-item" id="knav-upload" onclick="setKomafyNav(this); showKomafyUploadScreen();">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Upload
                             </div>
+                            <div class="komafy-nav-item" id="knav-animated" onclick="setKomafyNav(this); showAnimatedCovers();">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="22" y2="7"/><line x1="2" y1="17" x2="22" y2="17"/></svg> Animated Covers
+                            </div>
                             <div style="flex:1;"></div>
                             <div class="komafy-nav-item" onclick="showKomafySettings();">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-3.54 1.42l-.06-.06a1.65 1.65 0 0 0-2.82 1.18V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1.08-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0-.18-2.46c-.2-.14-.44-.24-.72-.36H3a2 2 0 0 1 0-4h.09c.49-.04.94-.27 1.27-.66a1.65 1.65 0 0 0-.18-2.16l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 2.82-1.18V3a2 2 0 0 1 4 0v.09c.04.49.27.94.66 1.27a1.65 1.65 0 0 0 2.16-.18l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06c-.42.5-.53 1.2-.18 1.82V9c.18.36.51.64.9.72H21a2 2 0 0 1 0 4h-.09c-.49.04-.94.27-1.27.66z"/></svg> Settings
@@ -2470,34 +2462,74 @@
                             <button class="np-btn" onclick="toggleRepeat()" id="np-repeat-btn" style="font-size:14px; opacity:0.4;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></button>
                         </div>
                     </div>
-                    <!-- Full Screen Player -->
-                    <div id="komafy-full-player" style="display:none; position:absolute; inset:0; background:linear-gradient(180deg, #1a1a2e 0%, #0a0a0a 100%); z-index:20; flex-direction:column; align-items:center; justify-content:center; padding:40px;">
-                        <button onclick="closeFullPlayer()" style="position:absolute; top:15px; left:15px; background:none; border:none; color:white; font-size:14px; cursor:pointer; opacity:0.5;">▼ Minimize</button>
-                        <button onclick="toggleLyricsPanel()" style="position:absolute; top:15px; right:15px; background:none; border:none; color:white; font-size:14px; cursor:pointer; opacity:0.5;">♪ Lyrics</button>
-                        <img id="fp-cover" src="" style="width:220px; height:220px; border-radius:16px; object-fit:cover; box-shadow:0 20px 60px rgba(0,0,0,0.6); margin-bottom:30px;">
-                        <div id="fp-title" style="font-size:20px; font-weight:700; margin-bottom:4px; text-align:center; max-width:300px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">—</div>
-                        <div id="fp-artist" style="font-size:14px; opacity:0.5; margin-bottom:24px;">—</div>
-                        <div style="width:100%; max-width:340px; margin-bottom:20px;">
-                            <div style="display:flex; justify-content:space-between; font-size:11px; opacity:0.4; margin-bottom:4px;"><span id="fp-current-time">0:00</span><span id="fp-duration">0:00</span></div>
-                            <div onclick="seekKomafy(event)" style="width:100%; height:5px; background:rgba(255,255,255,0.1); border-radius:3px; cursor:pointer; position:relative;">
-                                <div id="fp-progress-fill" style="height:100%; background:#1DB954; border-radius:3px; width:0%; transition:width 0.3s;"></div>
+                    <!-- Full Screen Player — Spotify/Apple Music Style -->
+                    <div id="komafy-full-player" style="display:none; position:absolute; inset:0; z-index:20; flex-direction:column; overflow:hidden;">
+                        <!-- Dynamic gradient background derived from cover -->
+                        <div id="fp-bg-gradient" style="position:absolute;inset:0;background:linear-gradient(180deg, #1a1a2e 0%, #0a0a0a 100%);z-index:0;transition:background 0.8s;"></div>
+                        <div style="position:absolute;inset:0;background:rgba(0,0,0,0.4);z-index:1;"></div>
+                        <!-- Header bar -->
+                        <div style="position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:16px 20px;">
+                            <button onclick="closeFullPlayer()" style="background:none;border:none;color:white;cursor:pointer;opacity:0.6;display:flex;align-items:center;gap:6px;font-size:13px;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                            </button>
+                            <span style="font-size:11px;opacity:0.4;text-transform:uppercase;letter-spacing:2px;">Now Playing</span>
+                            <button onclick="toggleLyricsPanel()" style="background:none;border:none;color:white;cursor:pointer;opacity:0.6;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                            </button>
+                        </div>
+                        <!-- Cover art -->
+                        <div style="position:relative;z-index:2;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 30px;">
+                            <img id="fp-cover" src="" style="width:min(280px, 65vw); height:min(280px, 65vw); border-radius:12px; object-fit:cover; box-shadow:0 24px 60px rgba(0,0,0,0.5);">
+                        </div>
+                        <!-- Song info & controls -->
+                        <div style="position:relative;z-index:2;padding:0 30px 40px;">
+                            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;">
+                                <div style="flex:1;min-width:0;">
+                                    <div id="fp-title" style="font-size:20px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">—</div>
+                                    <div id="fp-artist" style="font-size:14px;opacity:0.5;margin-top:2px;">—</div>
+                                </div>
+                                <button onclick="toggleLikeSong()" id="fp-like-btn" style="background:none;border:none;color:white;cursor:pointer;opacity:0.4;margin-top:4px;">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                                </button>
                             </div>
-                        </div>
-                        <div style="display:flex; align-items:center; gap:28px;">
-                            <button onclick="toggleShuffle()" id="fp-shuffle-btn" style="background:none; border:none; color:white; font-size:16px; cursor:pointer; opacity:0.4;">🔀</button>
-                            <button onclick="playPrevSong()" style="background:none; border:none; color:white; font-size:22px; cursor:pointer;">⏮</button>
-                            <button onclick="togglePlayPause()" id="fp-play-btn" style="width:56px; height:56px; border-radius:50%; background:#1DB954; border:none; color:white; font-size:24px; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(29,185,84,0.4);">▶</button>
-                            <button onclick="playNextSong()" style="background:none; border:none; color:white; font-size:22px; cursor:pointer;">⏭</button>
-                            <button onclick="toggleRepeat()" id="fp-repeat-btn" style="background:none; border:none; color:white; font-size:16px; cursor:pointer; opacity:0.4;">🔁</button>
-                        </div>
-                        <div style="display:flex; align-items:center; gap:8px; margin-top:20px; width:100%; max-width:200px;">
-                            <span style="font-size:12px; opacity:0.4;">🔊</span>
-                            <input type="range" min="0" max="100" value="80" oninput="if(currentAudio) currentAudio.volume=this.value/100" style="flex:1; accent-color:#1DB954;">
+                            <!-- Progress bar -->
+                            <div onclick="seekKomafy(event)" style="width:100%;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;cursor:pointer;position:relative;margin-bottom:8px;">
+                                <div id="fp-progress-fill" style="height:100%;background:white;border-radius:2px;width:0%;transition:width 0.3s;position:relative;">
+                                    <div style="position:absolute;right:-5px;top:-3px;width:10px;height:10px;border-radius:50%;background:white;opacity:0;transition:opacity 0.2s;"></div>
+                                </div>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;font-size:11px;opacity:0.4;margin-bottom:24px;"><span id="fp-current-time">0:00</span><span id="fp-duration">0:00</span></div>
+                            <!-- Main controls -->
+                            <div style="display:flex;align-items:center;justify-content:center;gap:32px;">
+                                <button onclick="toggleShuffle()" id="fp-shuffle-btn" style="background:none;border:none;color:white;cursor:pointer;opacity:0.4;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
+                                </button>
+                                <button onclick="playPrevSong()" style="background:none;border:none;color:white;cursor:pointer;">
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="19 20 9 12 19 4 19 20"/><rect x="5" y="4" width="2" height="16"/></svg>
+                                </button>
+                                <button onclick="togglePlayPause()" id="fp-play-btn" style="width:60px;height:60px;border-radius:50%;background:white;border:none;color:#111;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(255,255,255,0.2);">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#111" stroke="none"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                                </button>
+                                <button onclick="playNextSong()" style="background:none;border:none;color:white;cursor:pointer;">
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 4 15 12 5 20 5 4"/><rect x="17" y="4" width="2" height="16"/></svg>
+                                </button>
+                                <button onclick="toggleRepeat()" id="fp-repeat-btn" style="background:none;border:none;color:white;cursor:pointer;opacity:0.4;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+                                </button>
+                            </div>
+                            <!-- Volume -->
+                            <div style="display:flex;align-items:center;gap:8px;margin-top:20px;justify-content:center;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/></svg>
+                                <input type="range" min="0" max="100" value="80" oninput="if(currentAudio) currentAudio.volume=this.value/100" style="width:120px;accent-color:white;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                            </div>
                         </div>
                     </div>
                     <!-- Lyrics Panel -->
                     <div class="lyrics-panel" id="lyrics-panel">
-                        <button onclick="document.getElementById('lyrics-panel').classList.remove('show')" style="position:absolute; top:15px; right:15px; background:none; border:none; color:white; font-size:20px; cursor:pointer; opacity:0.5;">✕</button>
+                        <button onclick="document.getElementById('lyrics-panel').classList.remove('show')" style="position:absolute; top:15px; right:15px; background:none; border:none; color:white; cursor:pointer; opacity:0.5;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        </button>
                         <div id="lyrics-render"></div>
                     </div>
                     <!-- Mini Floating Player -->
@@ -3421,8 +3453,16 @@
                                                 <p style="font-size:11px;opacity:0.5;">Real-time announcements, bans, online user tracking, and persistent wallpaper storage via cloud.</p>
                                             </div>
                                             <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:14px;border-left:3px solid rgba(255,255,255,0.3);">
-                                                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">8. And More...</div>
-                                                <p style="font-size:11px;opacity:0.5;">Real terminal commands, Komafy improvements, KomaHub cloud uploads, nickname system, 9 secret wallpaper codes.</p>
+                                                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">8. Xbox Emulator</div>
+                                                <p style="font-size:11px;opacity:0.5;">Upload and play HTML games with Xbox-style boot, login, and control mode selection.</p>
+                                            </div>
+                                            <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:14px;border-left:3px solid #6366f1;">
+                                                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">9. Username Auth + Password Meter</div>
+                                                <p style="font-size:11px;opacity:0.5;">Login with username instead of email. Password strength indicator and duplicate username detection.</p>
+                                            </div>
+                                            <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:14px;border-left:3px solid #ec4899;">
+                                                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">10. And More...</div>
+                                                <p style="font-size:11px;opacity:0.5;">Komafy full player redesign, Animated Covers section, KomaCall number generator, centered announcements, admin user IDs, 2 new wallcodes.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -4471,6 +4511,9 @@
                         <button onclick="komacallDial('#')" class="calc-btn" style="height:50px;font-size:20px;">#</button>
                     </div>
                     <div style="display:flex;gap:10px;justify-content:center;">
+                        <button onclick="komacallGenerateNumber()" style="width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);cursor:pointer;display:flex;align-items:center;justify-content:center;" title="Generate random number">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+                        </button>
                         <button onclick="komacallMakeCall()" style="width:60px;height:60px;border-radius:50%;background:#28c840;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                         </button>
@@ -4500,6 +4543,18 @@
                 </div>
             </div>
 
+            <!-- XBOX EMULATOR -->
+            <div id="win-xbox" class="window hidden liquid-glass" style="width: 600px; height: 450px; top: 60px; left: 200px;">
+                <div class="win-header">
+                    <span style="font-weight:700;display:flex;align-items:center;gap:6px;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0e7a0d" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M6.5 6.5c2-1.5 3.5-2 5.5-2s3.5.5 5.5 2c-2 3-3.5 5-5.5 8-2-3-3.5-5-5.5-8z"/></svg>
+                        Xbox Emulator
+                    </span>
+                    <div class="win-btns"><div class="win-btn min" onclick="minWin('win-xbox')"></div><div class="win-btn max" onclick="maxWin('win-xbox')"></div><div class="win-btn close" onclick="closeWin('win-xbox')"></div></div>
+                </div>
+                <div class="win-body" style="padding:0;overflow:hidden;position:relative;" id="xbox-body"></div>
+            </div>
+
         </main>
 
         <!-- APP LAUNCHER -->
@@ -4521,6 +4576,7 @@
                 <div class="launch-icon" draggable="true" data-app-name="KomaHub" data-app-icon="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" data-app-win="win-komahub" onclick="openApp('win-komahub')"><img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png"><span>KomaHub</span></div>
                 <div class="launch-icon" draggable="true" data-app-name="KomaCall" data-app-icon="https://cdn-icons-png.flaticon.com/512/724/724664.png" data-app-win="win-komacall" onclick="openApp('win-komacall')"><img src="https://cdn-icons-png.flaticon.com/512/724/724664.png"><span>KomaCall</span></div>
                 <div class="launch-icon" draggable="true" data-app-name="Contacts" data-app-icon="https://cdn-icons-png.flaticon.com/512/1077/1077114.png" data-app-win="win-contacts" onclick="openApp('win-contacts')"><img src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png"><span>Contacts</span></div>
+                <div class="launch-icon" draggable="true" data-app-name="Xbox Emulator" data-app-icon="https://cdn-icons-png.flaticon.com/512/5969/5969017.png" data-app-win="win-xbox" onclick="openApp('win-xbox'); initXboxApp();"><img src="https://cdn-icons-png.flaticon.com/512/5969/5969017.png"><span>Xbox</span></div>
             </div>
         </div>
 
@@ -6106,43 +6162,83 @@
         authMode = authMode === 'login' ? 'register' : 'login';
         const btn = document.getElementById('auth-primary-btn');
         const sec = document.getElementById('auth-secondary-btn');
-        const chan = document.getElementById('auth-channel-wrap');
+        const emailWrap = document.getElementById('auth-email-wrap');
+        const pwMeter = document.getElementById('auth-pw-meter');
         const title = document.getElementById('auth-title');
         const sub = document.getElementById('auth-subtitle');
+        const errEl = document.getElementById('auth-username-error');
+        if(errEl) { errEl.style.opacity='0'; errEl.style.height='0'; }
         if(authMode === 'register') {
             btn.textContent = 'Create Account'; btn.onclick = () => handleAuth('register');
             sec.textContent = 'Sign In Instead'; title.textContent = 'Create Account';
-            sub.textContent = 'Join the Koma OS universe';
-            if(chan) chan.style.display = 'block';
+            sub.textContent = 'Pick a username to get started';
+            if(emailWrap) emailWrap.style.display = 'block';
+            if(pwMeter) pwMeter.style.display = 'block';
         } else {
             btn.textContent = 'Sign In'; btn.onclick = () => handleAuth('login');
             sec.textContent = 'Create Account'; title.textContent = 'Koma OS';
             sub.textContent = 'Sign in to your universe';
-            if(chan) chan.style.display = 'none';
+            if(emailWrap) emailWrap.style.display = 'none';
+            if(pwMeter) pwMeter.style.display = 'none';
         }
-        // Animate card
         const card = document.getElementById('auth-card-main');
         card.style.animation = 'none'; card.offsetHeight; card.style.animation = 'authCardIn 0.5s ease';
     }
 
+    function updatePasswordMeter(pw) {
+        if(authMode !== 'register') return;
+        const fill = document.getElementById('auth-pw-meter-fill');
+        const label = document.getElementById('auth-pw-meter-label');
+        if(!fill || !label) return;
+        let score = 0;
+        if(pw.length >= 6) score++;
+        if(pw.length >= 10) score++;
+        if(/[A-Z]/.test(pw)) score++;
+        if(/[0-9]/.test(pw)) score++;
+        if(/[^A-Za-z0-9]/.test(pw)) score++;
+        const levels = ['Very Weak','Weak','Fair','Strong','Very Strong'];
+        const colors = ['#ff5f57','#ff9500','#febc2e','#28c840','#1DB954'];
+        const pct = Math.min(100, score * 20);
+        fill.style.width = pct + '%';
+        fill.style.background = colors[Math.min(score, 4)];
+        label.textContent = pw.length > 0 ? levels[Math.min(score, 4)] : '';
+    }
+
     async function handleAuth(type) {
-        const email = document.getElementById('auth-email').value;
+        const username = document.getElementById('auth-username')?.value?.trim();
         const pass = document.getElementById('auth-pass').value;
-        if(!email || !pass) { showNotification('Auth', 'Please fill all fields'); return; }
+        const errEl = document.getElementById('auth-username-error');
+        if(!username || !pass) { showNotification('Auth', 'Please fill all fields'); return; }
+        if(pass.length < 6) { showNotification('Auth', 'Password must be at least 6 characters'); return; }
+        
+        // Use username as a fake email for Supabase: username@komaos.local
+        const fakeEmail = username.toLowerCase().replace(/[^a-z0-9_.-]/g, '') + '@komaos.local';
+        
         try {
             if(type === 'register') {
-                const channel = document.getElementById('auth-channel')?.value?.trim() || email.split('@')[0];
-                const { data, error } = await _sb.auth.signUp({ email, password: pass });
+                // Check if username already exists
+                const { data: existing } = await _sb.from('koma_profiles').select('id').eq('display_name', username).maybeSingle();
+                if(existing) {
+                    if(errEl) { errEl.textContent = 'Username already in use, try a different one'; errEl.style.opacity='1'; errEl.style.height='auto'; }
+                    return;
+                }
+                if(errEl) { errEl.style.opacity='0'; errEl.style.height='0'; }
+                
+                const { data, error } = await _sb.auth.signUp({ email: fakeEmail, password: pass });
                 if(error) throw error;
                 if(data.user) {
-                    await _sb.from('koma_profiles').insert({ user_id: data.user.id, display_name: channel, language: currentLang });
+                    const realEmail = document.getElementById('auth-email')?.value?.trim() || null;
+                    await _sb.from('koma_profiles').insert({ user_id: data.user.id, display_name: username, language: currentLang });
                 }
-                currentUser = channel;
+                currentUser = username;
             } else {
-                const { data, error } = await _sb.auth.signInWithPassword({ email, password: pass });
-                if(error) throw error;
+                const { data, error } = await _sb.auth.signInWithPassword({ email: fakeEmail, password: pass });
+                if(error) {
+                    if(error.message.includes('Invalid login')) throw new Error('Invalid username or password');
+                    throw error;
+                }
                 const { data: profile } = await _sb.from('koma_profiles').select('*').eq('user_id', data.user.id).maybeSingle();
-                currentUser = profile?.display_name || email.split('@')[0];
+                currentUser = profile?.display_name || username;
             }
             document.getElementById('user-display').textContent = currentUser;
             localStorage.setItem('koma_authenticated', 'true');
@@ -6172,7 +6268,6 @@
             currentUser = nick;
             document.getElementById('user-display').textContent = nick;
             localStorage.setItem('koma_username', nick);
-            // Update cloud profile
             (async () => {
                 const { data: { user } } = await _sb.auth.getUser();
                 if(user) await _sb.from('koma_profiles').update({ display_name: nick }).eq('user_id', user.id);
@@ -7176,7 +7271,9 @@
         '78000': { name: 'Mikami Death Note', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/mikami-death-note3840x2160.mp4' },
         '36148': { name: 'Supra Edit', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/ssstik.io_%40drvnx1_1774939471973.mp4' },
         '24317': { name: 'Mazda RX-7', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/ssstik.io_%40moren_228_1774939403411.mp4' },
-        '09162': { name: 'Super Cars', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/ssstik.io_%40micrpt_1774939563415.mp4' }
+        '09162': { name: 'Super Cars', type: 'video', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/komaos-wallpapers-code/main/ssstik.io_%40micrpt_1774939563415.mp4' },
+        '64278': { name: 'Sunset Pinkish Sky', type: 'image', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/Miku-station-images-/main/IMG_1092.webp' },
+        '46288': { name: 'Orange Pinkish Sunset', type: 'image', url: 'https://raw.githubusercontent.com/alexis2003martinezz-blip/Miku-station-images-/main/IMG_1083.jpg' }
     };
     const KOMA_DEFAULT_WALLCODES = {...KOMA_PUBLIC_WALLCODES, ...KOMA_SECRET_WALLCODES};
 
@@ -10280,8 +10377,17 @@
             const { data: profiles, error } = await _sb.from('koma_profiles').select('*').order('last_seen', { ascending: false }).limit(50);
             if(error) throw error;
             const onlineCount = (profiles || []).filter(p => p.is_online).length;
-            el.innerHTML = '<div style="margin-bottom:8px;padding:6px 10px;background:rgba(0,255,204,0.08);border-radius:8px;font-size:11px;"><span style="color:var(--accent);font-weight:600;">' + onlineCount + ' users online</span></div>' +
-                (profiles || []).map(u => '<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05);"><span>' + (u.display_name || 'User') + '</span><span style="display:flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:' + (u.is_online ? '#28c840' : '#666') + ';"></span><span style="opacity:0.4;font-size:10px;">' + (u.is_online ? 'online' : 'offline') + '</span></span></div>').join('') || '<p>No users found</p>';
+            el.innerHTML = '<div style="margin-bottom:10px;padding:8px 12px;background:rgba(0,255,204,0.08);border-radius:10px;font-size:12px;display:flex;justify-content:space-between;"><span style="color:var(--accent);font-weight:600;">' + onlineCount + ' users online</span><span style="opacity:0.4;">' + (profiles||[]).length + ' total</span></div>' +
+                (profiles || []).map(u => {
+                    const shortId = u.user_id ? u.user_id.substring(0,8) : '—';
+                    return '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);">' +
+                        '<div style="display:flex;align-items:center;gap:8px;">' +
+                        '<span style="width:6px;height:6px;border-radius:50%;background:' + (u.is_online ? '#28c840' : '#555') + ';flex-shrink:0;"></span>' +
+                        '<span style="font-size:12px;">' + (u.display_name || 'User') + '</span></div>' +
+                        '<div style="display:flex;align-items:center;gap:6px;">' +
+                        '<code style="font-size:9px;opacity:0.35;background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;cursor:pointer;" title="Click to copy full ID" onclick="navigator.clipboard.writeText(\'' + u.user_id + '\');showNotification(\'Admin\',\'User ID copied\')">' + shortId + '</code>' +
+                        '<span style="opacity:0.3;font-size:10px;">' + (u.is_online ? 'online' : 'offline') + '</span></div></div>';
+                }).join('') || '<p>No users found</p>';
         } catch(e) {
             el.innerHTML = '<span style="color:#ff5f57;">Error loading users: ' + e.message + '</span>';
         }
@@ -10308,13 +10414,25 @@
         } catch(e) { showNotification('Error', e.message); }
     }
 
-    // Listen for real-time announcements
+    // Listen for real-time announcements — show centered overlay with OK button
     _sb.channel('announcements').on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'koma_announcements' }, (payload) => {
         const ann = payload.new;
         if(ann && ann.message) {
-            showNotification('System Announcement', ann.message);
+            showAnnouncementOverlay(ann.message);
         }
     }).subscribe();
+
+    function showAnnouncementOverlay(message) {
+        let overlay = document.createElement('div');
+        overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.7);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;animation:authCardIn 0.4s ease;';
+        overlay.innerHTML = '<div style="background:rgba(20,20,25,0.95);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:30px 36px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.5);">' +
+            '<div style="width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">' +
+            '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>' +
+            '<h3 style="font-size:16px;font-weight:600;margin-bottom:8px;">System Announcement</h3>' +
+            '<p style="font-size:14px;opacity:0.7;line-height:1.5;margin-bottom:24px;">' + message.replace(/</g,'&lt;') + '</p>' +
+            '<button onclick="this.closest(\'div[style]\').parentElement.remove()" style="background:white;color:#111;border:none;border-radius:10px;padding:10px 40px;font-size:14px;font-weight:600;cursor:pointer;">OK</button></div>';
+        document.body.appendChild(overlay);
+    }
 
     async function tempBanUser() {
         const userId = document.getElementById('dev-ban-user')?.value?.trim();
@@ -11086,6 +11204,167 @@
     const spinCSS = document.createElement('style');
     spinCSS.textContent = '@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } .spin-icon { animation: spin 1s linear infinite; }';
     document.head.appendChild(spinCSS);
+
+    // ============================================================
+    // KOMAFY: ANIMATED COVERS SECTION
+    // ============================================================
+    function showAnimatedCovers() {
+        const content = document.getElementById('komafy-content');
+        if(!content) return;
+        content.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:40px;text-align:center;">' +
+            '<div style="width:80px;height:80px;border-radius:20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;margin-bottom:24px;">' +
+            '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg></div>' +
+            '<h2 style="font-size:20px;font-weight:700;margin-bottom:8px;">Animated Covers</h2>' +
+            '<p style="font-size:14px;opacity:0.5;margin-bottom:20px;">Coming soon!</p>' +
+            '<p style="font-size:28px;margin-bottom:16px;">&#128064;</p>' +
+            '<p style="font-size:12px;opacity:0.3;">Animated album covers are being prepared. Stay tuned for updates.</p></div>';
+    }
+
+    // ============================================================
+    // KOMACALL: PHONE NUMBER GENERATOR
+    // ============================================================
+    function komacallGenerateNumber() {
+        const prefix = document.getElementById('komacall-prefix')?.value || '+1';
+        let num = '';
+        for(let i = 0; i < 10; i++) num += Math.floor(Math.random() * 10);
+        // Format as XXX-XXX-XXXX
+        const formatted = num.substring(0,3) + '-' + num.substring(3,6) + '-' + num.substring(6);
+        const input = document.getElementById('komacall-number');
+        if(input) input.value = formatted;
+        showNotification('KomaCall', 'Random number generated: ' + prefix + ' ' + formatted);
+    }
+
+    // ============================================================
+    // XBOX EMULATOR APP
+    // ============================================================
+    let xboxState = { loggedIn: false, user: '', controlMode: null };
+
+    function initXboxApp() {
+        const body = document.getElementById('xbox-body');
+        if(!body) return;
+        if(xboxState.loggedIn) { showXboxHome(); return; }
+        // Boot screen
+        body.innerHTML = '<div style="background:#0e7a0d;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:authCardIn 0.8s ease;">' +
+            '<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M6.5 6.5c2-1.5 3.5-2 5.5-2s3.5.5 5.5 2c-2 3-3.5 5-5.5 8-2-3-3.5-5-5.5-8z"/></svg>' +
+            '<div style="margin-top:20px;width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,0.2);overflow:hidden;"><div style="width:0%;height:100%;background:white;border-radius:2px;animation:xboxBoot 2.5s ease-in-out forwards;"></div></div>' +
+            '</div>';
+        const style = document.createElement('style');
+        style.textContent = '@keyframes xboxBoot { 0% { width:0%; } 100% { width:100%; } }';
+        document.head.appendChild(style);
+        setTimeout(() => showXboxAuth(), 3000);
+    }
+
+    function showXboxAuth() {
+        const body = document.getElementById('xbox-body');
+        body.innerHTML = '<div style="background:linear-gradient(180deg,#1a1a1a,#111);position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;animation:authCardIn 0.5s ease;">' +
+            '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0e7a0d" stroke-width="1.5" style="margin-bottom:20px;"><circle cx="12" cy="12" r="10"/><path d="M6.5 6.5c2-1.5 3.5-2 5.5-2s3.5.5 5.5 2c-2 3-3.5 5-5.5 8-2-3-3.5-5-5.5-8z"/></svg>' +
+            '<h2 style="font-size:18px;font-weight:600;margin-bottom:6px;">Sign in</h2>' +
+            '<p style="font-size:12px;opacity:0.4;margin-bottom:20px;">Use your Koma OS account</p>' +
+            '<input type="text" id="xbox-user" placeholder="Gamertag" class="auth-input no-icon" style="max-width:260px;margin-bottom:10px;text-align:center;">' +
+            '<button onclick="xboxLogin()" style="background:white;color:#111;border:none;border-radius:10px;padding:10px 36px;font-size:13px;font-weight:600;cursor:pointer;margin-top:10px;">Sign In</button>' +
+            '</div>';
+    }
+
+    function xboxLogin() {
+        const user = document.getElementById('xbox-user')?.value?.trim() || currentUser || 'Player';
+        xboxState.loggedIn = true;
+        xboxState.user = user;
+        showXboxControlSelect();
+    }
+
+    function showXboxControlSelect() {
+        const body = document.getElementById('xbox-body');
+        body.innerHTML = '<div style="background:#111;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;animation:authCardIn 0.5s ease;">' +
+            '<h2 style="font-size:16px;font-weight:600;margin-bottom:6px;">Welcome, ' + xboxState.user + '</h2>' +
+            '<p style="font-size:12px;opacity:0.4;margin-bottom:24px;">How do you want to navigate?</p>' +
+            '<div style="display:flex;gap:16px;">' +
+            '<button onclick="xboxState.controlMode=\'mouse\';showXboxHome()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:20px;color:white;cursor:pointer;text-align:center;width:120px;">' +
+            '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" style="margin-bottom:8px;display:block;margin:0 auto 8px;"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/></svg>' +
+            '<span style="font-size:12px;font-weight:600;">Mouse</span></button>' +
+            '<button onclick="xboxState.controlMode=\'keyboard\';showXboxHome()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:20px;color:white;cursor:pointer;text-align:center;width:120px;">' +
+            '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" style="margin-bottom:8px;display:block;margin:0 auto 8px;"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"/><line x1="6" y1="8" x2="6" y2="8"/><line x1="10" y1="8" x2="10" y2="8"/><line x1="14" y1="8" x2="14" y2="8"/><line x1="18" y1="8" x2="18" y2="8"/><line x1="6" y1="16" x2="18" y2="16"/></svg>' +
+            '<span style="font-size:12px;font-weight:600;">Keyboard</span></button></div></div>';
+    }
+
+    function showXboxHome() {
+        const body = document.getElementById('xbox-body');
+        const games = JSON.parse(localStorage.getItem('koma_xbox_games') || '[]');
+        const gamesList = games.map((g,i) => '<div onclick="launchXboxGame(' + i + ')" style="background:rgba(255,255,255,0.06);border-radius:12px;padding:16px;cursor:pointer;transition:0.2s;border:1px solid rgba(255,255,255,0.06);" onmouseover="this.style.borderColor=\'rgba(14,122,13,0.4)\'" onmouseout="this.style.borderColor=\'rgba(255,255,255,0.06)\'">' +
+            '<div style="font-size:13px;font-weight:600;">' + g.name + '</div>' +
+            '<div style="font-size:10px;opacity:0.4;margin-top:2px;">HTML Game</div></div>').join('');
+
+        body.innerHTML = '<div style="background:#111;position:absolute;inset:0;overflow-y:auto;padding:20px;">' +
+            '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">' +
+            '<div><h2 style="font-size:16px;font-weight:600;">My Games</h2><p style="font-size:11px;opacity:0.4;">' + xboxState.user + ' | ' + (xboxState.controlMode || 'mouse') + ' mode</p></div>' +
+            '<div style="display:flex;gap:8px;">' +
+            '<button onclick="xboxUploadGame()" style="background:white;color:#111;border:none;border-radius:8px;padding:6px 14px;font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px;">' +
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Upload Game</button>' +
+            '<button onclick="showXboxSettings()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px 10px;cursor:pointer;color:white;">' +
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1.08-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0-.18-2.46H3a2 2 0 0 1 0-4h.09c.49-.04.94-.27 1.27-.66a1.65 1.65 0 0 0-.18-2.16l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68V3a2 2 0 0 1 4 0v.09c.04.49.27.94.66 1.27a1.65 1.65 0 0 0 2.16-.18l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.18.36.51.64.9.72H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button></div></div>' +
+            (games.length ? '<div style="display:grid;gap:10px;">' + gamesList + '</div>' :
+            '<div style="text-align:center;padding:40px 20px;opacity:0.4;"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="margin:0 auto 12px;display:block;"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="12" y1="9" x2="12" y2="15"/></svg><p style="font-size:13px;">No games yet</p><p style="font-size:11px;margin-top:4px;">Upload an HTML game to get started</p></div>') +
+            '</div>';
+    }
+
+    function xboxUploadGame() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.html,.htm';
+        input.onchange = (e) => {
+            const file = e.target.files[0];
+            if(!file) return;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                const games = JSON.parse(localStorage.getItem('koma_xbox_games') || '[]');
+                games.push({ name: file.name.replace(/\.[^/.]+$/, ''), html: ev.target.result });
+                localStorage.setItem('koma_xbox_games', JSON.stringify(games));
+                showXboxHome();
+                showNotification('Xbox', file.name + ' added to library');
+            };
+            reader.readAsText(file);
+        };
+        input.click();
+    }
+
+    function launchXboxGame(idx) {
+        const games = JSON.parse(localStorage.getItem('koma_xbox_games') || '[]');
+        const game = games[idx];
+        if(!game) return;
+        const body = document.getElementById('xbox-body');
+        body.innerHTML = '<div style="position:absolute;inset:0;background:#000;">' +
+            '<button onclick="showXboxHome()" style="position:absolute;top:8px;left:8px;z-index:10;background:rgba(255,255,255,0.1);border:none;border-radius:8px;padding:6px 12px;color:white;cursor:pointer;font-size:11px;display:flex;align-items:center;gap:4px;">' +
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg> Back</button>' +
+            '<iframe id="xbox-game-frame" style="width:100%;height:100%;border:none;" sandbox="allow-scripts allow-same-origin"></iframe></div>';
+        const frame = document.getElementById('xbox-game-frame');
+        frame.srcdoc = game.html;
+    }
+
+    function showXboxSettings() {
+        const body = document.getElementById('xbox-body');
+        body.innerHTML = '<div style="background:#111;position:absolute;inset:0;padding:20px;overflow-y:auto;">' +
+            '<button onclick="showXboxHome()" style="background:none;border:none;color:white;cursor:pointer;opacity:0.5;margin-bottom:16px;display:flex;align-items:center;gap:6px;font-size:12px;">' +
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg> Back</button>' +
+            '<h2 style="font-size:16px;font-weight:600;margin-bottom:16px;">Settings</h2>' +
+            '<div style="background:rgba(255,255,255,0.04);border-radius:12px;padding:16px;margin-bottom:12px;">' +
+            '<div style="font-size:13px;font-weight:600;margin-bottom:8px;">Control Mode</div>' +
+            '<div style="display:flex;gap:10px;">' +
+            '<button onclick="xboxState.controlMode=\'mouse\';showNotification(\'Xbox\',\'Mouse mode\')" style="background:' + (xboxState.controlMode==='mouse'?'white':'rgba(255,255,255,0.06)') + ';color:' + (xboxState.controlMode==='mouse'?'#111':'white') + ';border:none;border-radius:8px;padding:8px 16px;font-size:12px;cursor:pointer;">Mouse</button>' +
+            '<button onclick="xboxState.controlMode=\'keyboard\';showNotification(\'Xbox\',\'Keyboard mode\')" style="background:' + (xboxState.controlMode==='keyboard'?'white':'rgba(255,255,255,0.06)') + ';color:' + (xboxState.controlMode==='keyboard'?'#111':'white') + ';border:none;border-radius:8px;padding:8px 16px;font-size:12px;cursor:pointer;">Keyboard</button></div></div>' +
+            '<div style="background:rgba(255,255,255,0.04);border-radius:12px;padding:16px;">' +
+            '<div style="font-size:13px;font-weight:600;margin-bottom:4px;">Gamertag</div>' +
+            '<p style="font-size:12px;opacity:0.5;">' + xboxState.user + '</p></div>' +
+            '<button onclick="xboxState.loggedIn=false;initXboxApp()" style="background:rgba(255,95,87,0.15);border:1px solid rgba(255,95,87,0.2);border-radius:10px;padding:10px;color:#ff5f57;font-size:12px;cursor:pointer;width:100%;margin-top:16px;">Sign Out</button></div>';
+    }
+
+    // Toggle like on full player
+    function toggleLikeSong() {
+        const btn = document.getElementById('fp-like-btn');
+        if(!btn) return;
+        const isLiked = btn.style.opacity === '1';
+        btn.style.opacity = isLiked ? '0.4' : '1';
+        if(btn.querySelector('svg')) btn.querySelector('svg').setAttribute('fill', isLiked ? 'none' : 'currentColor');
+        showNotification('Komafy', isLiked ? 'Removed from My List' : 'Added to My List');
+    }
 
 </script>
 
