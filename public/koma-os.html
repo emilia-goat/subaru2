@@ -10351,8 +10351,17 @@
             const { data: profiles, error } = await _sb.from('koma_profiles').select('*').order('last_seen', { ascending: false }).limit(50);
             if(error) throw error;
             const onlineCount = (profiles || []).filter(p => p.is_online).length;
-            el.innerHTML = '<div style="margin-bottom:8px;padding:6px 10px;background:rgba(0,255,204,0.08);border-radius:8px;font-size:11px;"><span style="color:var(--accent);font-weight:600;">' + onlineCount + ' users online</span></div>' +
-                (profiles || []).map(u => '<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05);"><span>' + (u.display_name || 'User') + '</span><span style="display:flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:' + (u.is_online ? '#28c840' : '#666') + ';"></span><span style="opacity:0.4;font-size:10px;">' + (u.is_online ? 'online' : 'offline') + '</span></span></div>').join('') || '<p>No users found</p>';
+            el.innerHTML = '<div style="margin-bottom:10px;padding:8px 12px;background:rgba(0,255,204,0.08);border-radius:10px;font-size:12px;display:flex;justify-content:space-between;"><span style="color:var(--accent);font-weight:600;">' + onlineCount + ' users online</span><span style="opacity:0.4;">' + (profiles||[]).length + ' total</span></div>' +
+                (profiles || []).map(u => {
+                    const shortId = u.user_id ? u.user_id.substring(0,8) : '—';
+                    return '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);">' +
+                        '<div style="display:flex;align-items:center;gap:8px;">' +
+                        '<span style="width:6px;height:6px;border-radius:50%;background:' + (u.is_online ? '#28c840' : '#555') + ';flex-shrink:0;"></span>' +
+                        '<span style="font-size:12px;">' + (u.display_name || 'User') + '</span></div>' +
+                        '<div style="display:flex;align-items:center;gap:6px;">' +
+                        '<code style="font-size:9px;opacity:0.35;background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;cursor:pointer;" title="Click to copy full ID" onclick="navigator.clipboard.writeText(\'' + u.user_id + '\');showNotification(\'Admin\',\'User ID copied\')">' + shortId + '</code>' +
+                        '<span style="opacity:0.3;font-size:10px;">' + (u.is_online ? 'online' : 'offline') + '</span></div></div>';
+                }).join('') || '<p>No users found</p>';
         } catch(e) {
             el.innerHTML = '<span style="color:#ff5f57;">Error loading users: ' + e.message + '</span>';
         }
@@ -10379,13 +10388,25 @@
         } catch(e) { showNotification('Error', e.message); }
     }
 
-    // Listen for real-time announcements
+    // Listen for real-time announcements — show centered overlay with OK button
     _sb.channel('announcements').on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'koma_announcements' }, (payload) => {
         const ann = payload.new;
         if(ann && ann.message) {
-            showNotification('System Announcement', ann.message);
+            showAnnouncementOverlay(ann.message);
         }
     }).subscribe();
+
+    function showAnnouncementOverlay(message) {
+        let overlay = document.createElement('div');
+        overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.7);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;animation:authCardIn 0.4s ease;';
+        overlay.innerHTML = '<div style="background:rgba(20,20,25,0.95);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:30px 36px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.5);">' +
+            '<div style="width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">' +
+            '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>' +
+            '<h3 style="font-size:16px;font-weight:600;margin-bottom:8px;">System Announcement</h3>' +
+            '<p style="font-size:14px;opacity:0.7;line-height:1.5;margin-bottom:24px;">' + message.replace(/</g,'&lt;') + '</p>' +
+            '<button onclick="this.closest(\'div[style]\').parentElement.remove()" style="background:white;color:#111;border:none;border-radius:10px;padding:10px 40px;font-size:14px;font-weight:600;cursor:pointer;">OK</button></div>';
+        document.body.appendChild(overlay);
+    }
 
     async function tempBanUser() {
         const userId = document.getElementById('dev-ban-user')?.value?.trim();
