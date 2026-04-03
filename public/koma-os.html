@@ -6138,43 +6138,83 @@
         authMode = authMode === 'login' ? 'register' : 'login';
         const btn = document.getElementById('auth-primary-btn');
         const sec = document.getElementById('auth-secondary-btn');
-        const chan = document.getElementById('auth-channel-wrap');
+        const emailWrap = document.getElementById('auth-email-wrap');
+        const pwMeter = document.getElementById('auth-pw-meter');
         const title = document.getElementById('auth-title');
         const sub = document.getElementById('auth-subtitle');
+        const errEl = document.getElementById('auth-username-error');
+        if(errEl) { errEl.style.opacity='0'; errEl.style.height='0'; }
         if(authMode === 'register') {
             btn.textContent = 'Create Account'; btn.onclick = () => handleAuth('register');
             sec.textContent = 'Sign In Instead'; title.textContent = 'Create Account';
-            sub.textContent = 'Join the Koma OS universe';
-            if(chan) chan.style.display = 'block';
+            sub.textContent = 'Pick a username to get started';
+            if(emailWrap) emailWrap.style.display = 'block';
+            if(pwMeter) pwMeter.style.display = 'block';
         } else {
             btn.textContent = 'Sign In'; btn.onclick = () => handleAuth('login');
             sec.textContent = 'Create Account'; title.textContent = 'Koma OS';
             sub.textContent = 'Sign in to your universe';
-            if(chan) chan.style.display = 'none';
+            if(emailWrap) emailWrap.style.display = 'none';
+            if(pwMeter) pwMeter.style.display = 'none';
         }
-        // Animate card
         const card = document.getElementById('auth-card-main');
         card.style.animation = 'none'; card.offsetHeight; card.style.animation = 'authCardIn 0.5s ease';
     }
 
+    function updatePasswordMeter(pw) {
+        if(authMode !== 'register') return;
+        const fill = document.getElementById('auth-pw-meter-fill');
+        const label = document.getElementById('auth-pw-meter-label');
+        if(!fill || !label) return;
+        let score = 0;
+        if(pw.length >= 6) score++;
+        if(pw.length >= 10) score++;
+        if(/[A-Z]/.test(pw)) score++;
+        if(/[0-9]/.test(pw)) score++;
+        if(/[^A-Za-z0-9]/.test(pw)) score++;
+        const levels = ['Very Weak','Weak','Fair','Strong','Very Strong'];
+        const colors = ['#ff5f57','#ff9500','#febc2e','#28c840','#1DB954'];
+        const pct = Math.min(100, score * 20);
+        fill.style.width = pct + '%';
+        fill.style.background = colors[Math.min(score, 4)];
+        label.textContent = pw.length > 0 ? levels[Math.min(score, 4)] : '';
+    }
+
     async function handleAuth(type) {
-        const email = document.getElementById('auth-email').value;
+        const username = document.getElementById('auth-username')?.value?.trim();
         const pass = document.getElementById('auth-pass').value;
-        if(!email || !pass) { showNotification('Auth', 'Please fill all fields'); return; }
+        const errEl = document.getElementById('auth-username-error');
+        if(!username || !pass) { showNotification('Auth', 'Please fill all fields'); return; }
+        if(pass.length < 6) { showNotification('Auth', 'Password must be at least 6 characters'); return; }
+        
+        // Use username as a fake email for Supabase: username@komaos.local
+        const fakeEmail = username.toLowerCase().replace(/[^a-z0-9_.-]/g, '') + '@komaos.local';
+        
         try {
             if(type === 'register') {
-                const channel = document.getElementById('auth-channel')?.value?.trim() || email.split('@')[0];
-                const { data, error } = await _sb.auth.signUp({ email, password: pass });
+                // Check if username already exists
+                const { data: existing } = await _sb.from('koma_profiles').select('id').eq('display_name', username).maybeSingle();
+                if(existing) {
+                    if(errEl) { errEl.textContent = 'Username already in use, try a different one'; errEl.style.opacity='1'; errEl.style.height='auto'; }
+                    return;
+                }
+                if(errEl) { errEl.style.opacity='0'; errEl.style.height='0'; }
+                
+                const { data, error } = await _sb.auth.signUp({ email: fakeEmail, password: pass });
                 if(error) throw error;
                 if(data.user) {
-                    await _sb.from('koma_profiles').insert({ user_id: data.user.id, display_name: channel, language: currentLang });
+                    const realEmail = document.getElementById('auth-email')?.value?.trim() || null;
+                    await _sb.from('koma_profiles').insert({ user_id: data.user.id, display_name: username, language: currentLang });
                 }
-                currentUser = channel;
+                currentUser = username;
             } else {
-                const { data, error } = await _sb.auth.signInWithPassword({ email, password: pass });
-                if(error) throw error;
+                const { data, error } = await _sb.auth.signInWithPassword({ email: fakeEmail, password: pass });
+                if(error) {
+                    if(error.message.includes('Invalid login')) throw new Error('Invalid username or password');
+                    throw error;
+                }
                 const { data: profile } = await _sb.from('koma_profiles').select('*').eq('user_id', data.user.id).maybeSingle();
-                currentUser = profile?.display_name || email.split('@')[0];
+                currentUser = profile?.display_name || username;
             }
             document.getElementById('user-display').textContent = currentUser;
             localStorage.setItem('koma_authenticated', 'true');
@@ -6204,7 +6244,6 @@
             currentUser = nick;
             document.getElementById('user-display').textContent = nick;
             localStorage.setItem('koma_username', nick);
-            // Update cloud profile
             (async () => {
                 const { data: { user } } = await _sb.auth.getUser();
                 if(user) await _sb.from('koma_profiles').update({ display_name: nick }).eq('user_id', user.id);
