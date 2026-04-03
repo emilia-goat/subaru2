@@ -11181,6 +11181,167 @@
     spinCSS.textContent = '@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } .spin-icon { animation: spin 1s linear infinite; }';
     document.head.appendChild(spinCSS);
 
+    // ============================================================
+    // KOMAFY: ANIMATED COVERS SECTION
+    // ============================================================
+    function showAnimatedCovers() {
+        const content = document.getElementById('komafy-content');
+        if(!content) return;
+        content.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:40px;text-align:center;">' +
+            '<div style="width:80px;height:80px;border-radius:20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;margin-bottom:24px;">' +
+            '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg></div>' +
+            '<h2 style="font-size:20px;font-weight:700;margin-bottom:8px;">Animated Covers</h2>' +
+            '<p style="font-size:14px;opacity:0.5;margin-bottom:20px;">Coming soon!</p>' +
+            '<p style="font-size:28px;margin-bottom:16px;">&#128064;</p>' +
+            '<p style="font-size:12px;opacity:0.3;">Animated album covers are being prepared. Stay tuned for updates.</p></div>';
+    }
+
+    // ============================================================
+    // KOMACALL: PHONE NUMBER GENERATOR
+    // ============================================================
+    function komacallGenerateNumber() {
+        const prefix = document.getElementById('komacall-prefix')?.value || '+1';
+        let num = '';
+        for(let i = 0; i < 10; i++) num += Math.floor(Math.random() * 10);
+        // Format as XXX-XXX-XXXX
+        const formatted = num.substring(0,3) + '-' + num.substring(3,6) + '-' + num.substring(6);
+        const input = document.getElementById('komacall-number');
+        if(input) input.value = formatted;
+        showNotification('KomaCall', 'Random number generated: ' + prefix + ' ' + formatted);
+    }
+
+    // ============================================================
+    // XBOX EMULATOR APP
+    // ============================================================
+    let xboxState = { loggedIn: false, user: '', controlMode: null };
+
+    function initXboxApp() {
+        const body = document.getElementById('xbox-body');
+        if(!body) return;
+        if(xboxState.loggedIn) { showXboxHome(); return; }
+        // Boot screen
+        body.innerHTML = '<div style="background:#0e7a0d;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:authCardIn 0.8s ease;">' +
+            '<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M6.5 6.5c2-1.5 3.5-2 5.5-2s3.5.5 5.5 2c-2 3-3.5 5-5.5 8-2-3-3.5-5-5.5-8z"/></svg>' +
+            '<div style="margin-top:20px;width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,0.2);overflow:hidden;"><div style="width:0%;height:100%;background:white;border-radius:2px;animation:xboxBoot 2.5s ease-in-out forwards;"></div></div>' +
+            '</div>';
+        const style = document.createElement('style');
+        style.textContent = '@keyframes xboxBoot { 0% { width:0%; } 100% { width:100%; } }';
+        document.head.appendChild(style);
+        setTimeout(() => showXboxAuth(), 3000);
+    }
+
+    function showXboxAuth() {
+        const body = document.getElementById('xbox-body');
+        body.innerHTML = '<div style="background:linear-gradient(180deg,#1a1a1a,#111);position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;animation:authCardIn 0.5s ease;">' +
+            '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0e7a0d" stroke-width="1.5" style="margin-bottom:20px;"><circle cx="12" cy="12" r="10"/><path d="M6.5 6.5c2-1.5 3.5-2 5.5-2s3.5.5 5.5 2c-2 3-3.5 5-5.5 8-2-3-3.5-5-5.5-8z"/></svg>' +
+            '<h2 style="font-size:18px;font-weight:600;margin-bottom:6px;">Sign in</h2>' +
+            '<p style="font-size:12px;opacity:0.4;margin-bottom:20px;">Use your Koma OS account</p>' +
+            '<input type="text" id="xbox-user" placeholder="Gamertag" class="auth-input no-icon" style="max-width:260px;margin-bottom:10px;text-align:center;">' +
+            '<button onclick="xboxLogin()" style="background:white;color:#111;border:none;border-radius:10px;padding:10px 36px;font-size:13px;font-weight:600;cursor:pointer;margin-top:10px;">Sign In</button>' +
+            '</div>';
+    }
+
+    function xboxLogin() {
+        const user = document.getElementById('xbox-user')?.value?.trim() || currentUser || 'Player';
+        xboxState.loggedIn = true;
+        xboxState.user = user;
+        showXboxControlSelect();
+    }
+
+    function showXboxControlSelect() {
+        const body = document.getElementById('xbox-body');
+        body.innerHTML = '<div style="background:#111;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;animation:authCardIn 0.5s ease;">' +
+            '<h2 style="font-size:16px;font-weight:600;margin-bottom:6px;">Welcome, ' + xboxState.user + '</h2>' +
+            '<p style="font-size:12px;opacity:0.4;margin-bottom:24px;">How do you want to navigate?</p>' +
+            '<div style="display:flex;gap:16px;">' +
+            '<button onclick="xboxState.controlMode=\'mouse\';showXboxHome()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:20px;color:white;cursor:pointer;text-align:center;width:120px;">' +
+            '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" style="margin-bottom:8px;display:block;margin:0 auto 8px;"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/></svg>' +
+            '<span style="font-size:12px;font-weight:600;">Mouse</span></button>' +
+            '<button onclick="xboxState.controlMode=\'keyboard\';showXboxHome()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:20px;color:white;cursor:pointer;text-align:center;width:120px;">' +
+            '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" style="margin-bottom:8px;display:block;margin:0 auto 8px;"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"/><line x1="6" y1="8" x2="6" y2="8"/><line x1="10" y1="8" x2="10" y2="8"/><line x1="14" y1="8" x2="14" y2="8"/><line x1="18" y1="8" x2="18" y2="8"/><line x1="6" y1="16" x2="18" y2="16"/></svg>' +
+            '<span style="font-size:12px;font-weight:600;">Keyboard</span></button></div></div>';
+    }
+
+    function showXboxHome() {
+        const body = document.getElementById('xbox-body');
+        const games = JSON.parse(localStorage.getItem('koma_xbox_games') || '[]');
+        const gamesList = games.map((g,i) => '<div onclick="launchXboxGame(' + i + ')" style="background:rgba(255,255,255,0.06);border-radius:12px;padding:16px;cursor:pointer;transition:0.2s;border:1px solid rgba(255,255,255,0.06);" onmouseover="this.style.borderColor=\'rgba(14,122,13,0.4)\'" onmouseout="this.style.borderColor=\'rgba(255,255,255,0.06)\'">' +
+            '<div style="font-size:13px;font-weight:600;">' + g.name + '</div>' +
+            '<div style="font-size:10px;opacity:0.4;margin-top:2px;">HTML Game</div></div>').join('');
+
+        body.innerHTML = '<div style="background:#111;position:absolute;inset:0;overflow-y:auto;padding:20px;">' +
+            '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">' +
+            '<div><h2 style="font-size:16px;font-weight:600;">My Games</h2><p style="font-size:11px;opacity:0.4;">' + xboxState.user + ' | ' + (xboxState.controlMode || 'mouse') + ' mode</p></div>' +
+            '<div style="display:flex;gap:8px;">' +
+            '<button onclick="xboxUploadGame()" style="background:white;color:#111;border:none;border-radius:8px;padding:6px 14px;font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px;">' +
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Upload Game</button>' +
+            '<button onclick="showXboxSettings()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px 10px;cursor:pointer;color:white;">' +
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1.08-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0-.18-2.46H3a2 2 0 0 1 0-4h.09c.49-.04.94-.27 1.27-.66a1.65 1.65 0 0 0-.18-2.16l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68V3a2 2 0 0 1 4 0v.09c.04.49.27.94.66 1.27a1.65 1.65 0 0 0 2.16-.18l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.18.36.51.64.9.72H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button></div></div>' +
+            (games.length ? '<div style="display:grid;gap:10px;">' + gamesList + '</div>' :
+            '<div style="text-align:center;padding:40px 20px;opacity:0.4;"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="margin:0 auto 12px;display:block;"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="12" y1="9" x2="12" y2="15"/></svg><p style="font-size:13px;">No games yet</p><p style="font-size:11px;margin-top:4px;">Upload an HTML game to get started</p></div>') +
+            '</div>';
+    }
+
+    function xboxUploadGame() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.html,.htm';
+        input.onchange = (e) => {
+            const file = e.target.files[0];
+            if(!file) return;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                const games = JSON.parse(localStorage.getItem('koma_xbox_games') || '[]');
+                games.push({ name: file.name.replace(/\.[^/.]+$/, ''), html: ev.target.result });
+                localStorage.setItem('koma_xbox_games', JSON.stringify(games));
+                showXboxHome();
+                showNotification('Xbox', file.name + ' added to library');
+            };
+            reader.readAsText(file);
+        };
+        input.click();
+    }
+
+    function launchXboxGame(idx) {
+        const games = JSON.parse(localStorage.getItem('koma_xbox_games') || '[]');
+        const game = games[idx];
+        if(!game) return;
+        const body = document.getElementById('xbox-body');
+        body.innerHTML = '<div style="position:absolute;inset:0;background:#000;">' +
+            '<button onclick="showXboxHome()" style="position:absolute;top:8px;left:8px;z-index:10;background:rgba(255,255,255,0.1);border:none;border-radius:8px;padding:6px 12px;color:white;cursor:pointer;font-size:11px;display:flex;align-items:center;gap:4px;">' +
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg> Back</button>' +
+            '<iframe id="xbox-game-frame" style="width:100%;height:100%;border:none;" sandbox="allow-scripts allow-same-origin"></iframe></div>';
+        const frame = document.getElementById('xbox-game-frame');
+        frame.srcdoc = game.html;
+    }
+
+    function showXboxSettings() {
+        const body = document.getElementById('xbox-body');
+        body.innerHTML = '<div style="background:#111;position:absolute;inset:0;padding:20px;overflow-y:auto;">' +
+            '<button onclick="showXboxHome()" style="background:none;border:none;color:white;cursor:pointer;opacity:0.5;margin-bottom:16px;display:flex;align-items:center;gap:6px;font-size:12px;">' +
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg> Back</button>' +
+            '<h2 style="font-size:16px;font-weight:600;margin-bottom:16px;">Settings</h2>' +
+            '<div style="background:rgba(255,255,255,0.04);border-radius:12px;padding:16px;margin-bottom:12px;">' +
+            '<div style="font-size:13px;font-weight:600;margin-bottom:8px;">Control Mode</div>' +
+            '<div style="display:flex;gap:10px;">' +
+            '<button onclick="xboxState.controlMode=\'mouse\';showNotification(\'Xbox\',\'Mouse mode\')" style="background:' + (xboxState.controlMode==='mouse'?'white':'rgba(255,255,255,0.06)') + ';color:' + (xboxState.controlMode==='mouse'?'#111':'white') + ';border:none;border-radius:8px;padding:8px 16px;font-size:12px;cursor:pointer;">Mouse</button>' +
+            '<button onclick="xboxState.controlMode=\'keyboard\';showNotification(\'Xbox\',\'Keyboard mode\')" style="background:' + (xboxState.controlMode==='keyboard'?'white':'rgba(255,255,255,0.06)') + ';color:' + (xboxState.controlMode==='keyboard'?'#111':'white') + ';border:none;border-radius:8px;padding:8px 16px;font-size:12px;cursor:pointer;">Keyboard</button></div></div>' +
+            '<div style="background:rgba(255,255,255,0.04);border-radius:12px;padding:16px;">' +
+            '<div style="font-size:13px;font-weight:600;margin-bottom:4px;">Gamertag</div>' +
+            '<p style="font-size:12px;opacity:0.5;">' + xboxState.user + '</p></div>' +
+            '<button onclick="xboxState.loggedIn=false;initXboxApp()" style="background:rgba(255,95,87,0.15);border:1px solid rgba(255,95,87,0.2);border-radius:10px;padding:10px;color:#ff5f57;font-size:12px;cursor:pointer;width:100%;margin-top:16px;">Sign Out</button></div>';
+    }
+
+    // Toggle like on full player
+    function toggleLikeSong() {
+        const btn = document.getElementById('fp-like-btn');
+        if(!btn) return;
+        const isLiked = btn.style.opacity === '1';
+        btn.style.opacity = isLiked ? '0.4' : '1';
+        if(btn.querySelector('svg')) btn.querySelector('svg').setAttribute('fill', isLiked ? 'none' : 'currentColor');
+        showNotification('Komafy', isLiked ? 'Removed from My List' : 'Added to My List');
+    }
+
 </script>
 
 </body>
