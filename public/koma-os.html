@@ -2087,34 +2087,39 @@
     <div id="auth-screen" class="system-layer">
         <div class="auth-particles-bg" id="auth-particles-bg"></div>
         <div class="auth-card auth-card-v2" id="auth-card-main">
-            <div class="auth-logo-icon" style="background:linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04)); border:1px solid rgba(255,255,255,0.1);">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <div class="auth-logo-icon" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             </div>
             <h2 id="auth-title">Koma OS</h2>
             <p class="auth-subtitle" id="auth-subtitle">Sign in to your universe</p>
 
             <div id="auth-form-login">
                 <div class="auth-input-wrap">
-                    <span class="input-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
-                    <input type="email" id="auth-email" class="auth-input" placeholder="Email address">
+                    <span class="input-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                    <input type="text" id="auth-username" class="auth-input" placeholder="Username" autocomplete="username">
                 </div>
                 <div class="auth-input-wrap">
                     <span class="input-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
-                    <input type="password" id="auth-pass" class="auth-input" placeholder="Password">
+                    <input type="password" id="auth-pass" class="auth-input" placeholder="Password" oninput="updatePasswordMeter(this.value)">
                 </div>
-                <div id="auth-channel-wrap" style="display:none;">
+                <!-- Password strength meter (register mode only) -->
+                <div id="auth-pw-meter" style="display:none;margin:6px 0 10px;">
+                    <div style="height:4px;border-radius:2px;background:rgba(255,255,255,0.08);overflow:hidden;"><div id="auth-pw-meter-fill" style="height:100%;width:0%;border-radius:2px;transition:width 0.3s,background 0.3s;"></div></div>
+                    <p id="auth-pw-meter-label" style="font-size:10px;opacity:0.4;margin-top:4px;text-align:left;"></p>
+                </div>
+                <!-- Email (optional, register only) -->
+                <div id="auth-email-wrap" style="display:none;">
                     <div class="auth-input-wrap">
-                        <span class="input-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
-                        <input type="text" id="auth-channel" class="auth-input" placeholder="Username">
+                        <span class="input-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
+                        <input type="email" id="auth-email" class="auth-input" placeholder="Email (optional, for recovery)">
                     </div>
                 </div>
+                <div id="auth-username-error" style="color:#ff5f57;font-size:11px;text-align:left;margin:4px 0;opacity:0;transition:0.3s;height:0;overflow:hidden;"></div>
                 <button class="auth-btn-v2" id="auth-primary-btn" onclick="handleAuth('login')" style="background:white;color:#0a0a0f;">Sign In</button>
                 <button class="auth-btn-secondary-v2" id="auth-secondary-btn" onclick="toggleAuthMode()" style="background:transparent;border:1px solid rgba(255,255,255,0.15);color:white;">Create Account</button>
             </div>
         </div>
     </div>
-
-    <!-- Access code is now integrated into boot screen -->
 
     <!-- ===== OOBE ===== -->
     <div id="oobe-screen" class="system-layer">
