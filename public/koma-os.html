@@ -7405,7 +7405,7 @@
             </div>
 
             <div style="background:rgba(255,255,255,0.04); border-radius:14px; padding:16px; margin-bottom:16px;">
-                <p style="font-size:13px; font-weight:600; margin-bottom:10px;">📥 Apply Wallpaper by Code</p>
+                <p style="font-size:13px; font-weight:600; margin-bottom:10px;"><svg style="display:inline;vertical-align:middle;margin-right:6px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Apply Wallpaper by Code</p>
                 <div style="display:flex; gap:10px;">
                     <input type="text" id="wallcode-apply-input" placeholder="Enter code (e.g. 62516)..." class="auth-input no-icon" style="flex:1;">
                     <button class="koma-btn" onclick="applyWallcode()">Apply</button>
@@ -7433,7 +7433,7 @@
 
             ${Object.keys(customCodes).length > 0 ? `
             <div style="background:rgba(255,255,255,0.04); border-radius:14px; padding:16px;">
-                <p style="font-size:13px; font-weight:600; margin-bottom:12px;">📋 Your Custom Codes</p>
+                <p style="font-size:13px; font-weight:600; margin-bottom:12px;"><svg style="display:inline;vertical-align:middle;margin-right:6px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>Your Custom Codes</p>
                 <div style="display:grid; gap:8px;">
                     ${Object.entries(customCodes).map(([code, data]) => `
                         <div style="display:flex; align-items:center; gap:12px; padding:10px; background:rgba(255,255,255,0.04); border-radius:10px;">
