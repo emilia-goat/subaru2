@@ -2029,7 +2029,8 @@
 </head>
 <body onload="initSystem()">
 
-    <video id="bg-video" autoplay loop muted src="https://raw.githubusercontent.com/alexis2003martinezz-blip/Miku-station-music-storage1/main/YTDown.com_YouTube_Black-Dragon-4K-Live-Wallpaper_Media_9y4UGT0GW6Y_001_1080p.mp4"></video>
+    <video id="bg-video" autoplay loop muted src="https://raw.githubusercontent.com/alexis2003martinezz-blip/Miku-station-images-/main/1775348656635.webp" style="display:none;"></video>
+    <div id="bg-static" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-2;background:url('https://raw.githubusercontent.com/alexis2003martinezz-blip/Miku-station-images-/main/1775348656635.webp') center/cover no-repeat;"></div>
     <div id="brightness-overlay"></div>
 
     <!-- ===== BOOT SCREEN ===== -->
@@ -5947,7 +5948,7 @@
                     const pct = Math.round(bat.level * 100);
                     const isCharging = bat.charging;
                     const el = document.getElementById('lock-battery');
-                    if(el) el.textContent = `${isCharging ? '⚡' : '🔋'} ${pct}%`;
+                    if(el) el.textContent = `${isCharging ? '\u26A1' : ''} ${pct}%`;
                     const fill = document.getElementById('bat-fill');
                     const bolt = document.getElementById('bat-bolt');
                     const pctText = document.getElementById('bat-pct-text');
