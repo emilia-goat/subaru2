@@ -7471,10 +7471,22 @@
         applyWallcodeByCode(code);
     }
 
+    // Unlocked secret wallcodes persistence
+    function getUnlockedWallcodes() { return JSON.parse(localStorage.getItem('koma_unlocked_wallcodes') || '{}'); }
+    function saveUnlockedWallcode(code, data) {
+        const unlocked = getUnlockedWallcodes();
+        unlocked[code] = data;
+        localStorage.setItem('koma_unlocked_wallcodes', JSON.stringify(unlocked));
+    }
+
     function applyWallcodeByCode(code) {
         const allCodes = {...KOMA_DEFAULT_WALLCODES, ...getCustomWallcodes()};
         const data = allCodes[code];
         if(!data) { showNotification('WallCode', 'Code not found!'); return; }
+        // Save as unlocked so user can reuse without retyping
+        if(KOMA_SECRET_WALLCODES[code]) {
+            saveUnlockedWallcode(code, data);
+        }
         const video = document.getElementById('bg-video');
         if(data.type === 'video') {
             video.src = data.url;
