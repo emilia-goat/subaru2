@@ -5216,33 +5216,81 @@
     function browserRefresh() { const iframe = document.getElementById('koma-iframe'); iframe.src = iframe.src; }
 
     // --- STORE ---
-    function animateMacDownload(btn, appName, icon, url) {
+    function animateMacDownload(btn, appName, icon, url, nativeType) {
         btn.classList.add('downloading'); btn.innerText = "Loading...";
         setTimeout(() => {
             btn.classList.remove('downloading'); btn.innerText = "OPEN";
-            btn.onclick = () => openWebApp(appName, url);
+            if(nativeType === 'nikehub-native') {
+                btn.onclick = () => openNikeHubNative();
+            } else {
+                btn.onclick = () => openWebApp(appName, url);
+            }
             // Add to Container
             const launchIcon = document.createElement('div');
             launchIcon.className = 'launch-icon';
             launchIcon.setAttribute('draggable', 'true');
             launchIcon.setAttribute('data-app-name', appName);
-            launchIcon.setAttribute('data-app-url', url);
+            launchIcon.setAttribute('data-app-url', url || '');
             launchIcon.setAttribute('data-app-icon', icon);
             launchIcon.innerHTML = `<img src="${icon}"><span>${appName}</span>`;
-            launchIcon.onclick = () => openWebApp(appName, url);
+            if(nativeType === 'nikehub-native') {
+                launchIcon.onclick = () => openNikeHubNative();
+            } else {
+                launchIcon.onclick = () => openWebApp(appName, url);
+            }
             launchIcon.addEventListener('dragstart', (e) => {
-                e.dataTransfer.setData('text/plain', JSON.stringify({name: appName, url: url, icon: icon}));
+                e.dataTransfer.setData('text/plain', JSON.stringify({name: appName, url: url || '', icon: icon}));
                 e.dataTransfer.effectAllowed = 'move';
             });
             document.getElementById('launcher-container').appendChild(launchIcon);
             // Persist to localStorage
             const installed = JSON.parse(localStorage.getItem('koma_installed_apps') || '[]');
             if(!installed.find(a => a.name === appName)) {
-                installed.push({name: appName, url: url, icon: icon});
+                installed.push({name: appName, url: url || '', icon: icon, nativeType: nativeType || null});
                 localStorage.setItem('koma_installed_apps', JSON.stringify(installed));
             }
             showNotification("Store", appName + " installed.");
         }, 2200);
+    }
+
+    // NikeHub native screen (no iframe, just a link)
+    function openNikeHubNative() {
+        const win = document.getElementById('win-webview');
+        document.getElementById('webview-title').innerText = 'Nikehub';
+        document.getElementById('koma-iframe').src = '';
+        document.getElementById('koma-iframe').style.display = 'none';
+        openWin('win-webview');
+        const body = win.querySelector('.win-body');
+        let nativeEl = body.querySelector('.nikehub-native');
+        if(!nativeEl) {
+            nativeEl = document.createElement('div');
+            nativeEl.className = 'nikehub-native';
+            nativeEl.style.cssText = 'position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#111 0%,#1a1a1a 100%);color:white;text-align:center;padding:30px;';
+            nativeEl.innerHTML = `
+                <img src="https://img.samsungapps.com/productNew/000008695306/ENG/IconImage_20260303010327547_NEW_WAP_ICON_512_512.png" style="width:80px;height:80px;border-radius:20px;margin-bottom:20px;box-shadow:0 8px 30px rgba(0,0,0,0.5);">
+                <h2 style="font-size:24px;font-weight:700;margin:0 0 8px;">Nikehub</h2>
+                <p style="font-size:13px;opacity:0.5;margin:0 0 24px;max-width:280px;">Sports news, gear, and exclusive drops. Visit the official Nike website.</p>
+                <a href="https://www.nike.com" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:white;color:#111;font-weight:700;font-size:14px;border-radius:12px;text-decoration:none;box-shadow:0 4px 15px rgba(255,255,255,0.1);transition:0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    Visit Nike.com
+                </a>
+                <p style="font-size:10px;opacity:0.25;margin-top:20px;">Credits: Nike, Inc. All rights reserved.</p>
+            `;
+            body.appendChild(nativeEl);
+        } else {
+            nativeEl.style.display = 'flex';
+        }
+        // Clean up when window closes
+        const origClose = closeWin;
+        const patchedClose = (id) => {
+            if(id === 'win-webview') {
+                const el = body.querySelector('.nikehub-native');
+                if(el) el.style.display = 'none';
+                document.getElementById('koma-iframe').style.display = '';
+            }
+            origClose(id);
+        };
+        closeWin = patchedClose;
     }
     function animateWallDownload(btn, url) {
         btn.classList.add('downloading'); btn.innerText = "Downloading...";
