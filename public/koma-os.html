@@ -6582,7 +6582,7 @@
     function scanScreen() { let t = ""; document.querySelectorAll('.window:not(.hidden):not(.ai-window)').forEach(w => t += w.innerText + " "); return t || "Desktop seems empty."; }
     async function fetchWiki(term) { try { const r = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(term)}`); const d = await r.json(); return d.extract || "Not found on Wikipedia."; } catch { return "Wikipedia connection error."; } }
     function addToDock(id, icon, action) { const d = document.querySelector('.dock'); if(!document.getElementById('dock-item-'+id)) { const i = document.createElement('div'); i.id = 'dock-item-'+id; i.className = 'dock-item'; i.innerHTML = `<img src="${icon}">`; i.onclick = action; d.appendChild(i); } }
-    function clearAIChat() { aiConversation = []; document.getElementById('ai-messages').innerHTML = '<div class="ai-bubble bot">Hello! I\'m Koma AI 🤖 Powered by EdgeOne AI. Ask me anything!</div>'; }
+    function clearAIChat() { aiConversation = []; document.getElementById('ai-messages').innerHTML = '<div class="ai-bubble bot">Hello! I\'m Koma AI. Powered by EdgeOne AI. Ask me anything!</div>'; }
 
     // --- AIRDROP ANIMATION ---
     function showAirdropAnimation() {
