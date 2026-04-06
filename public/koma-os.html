@@ -4578,6 +4578,26 @@
 
         <!-- APP LAUNCHER -->
         <div id="win-app-launcher" class="hidden">
+            <!-- GAMEPAD CUSTOMIZER -->
+            <div id="win-gamepad" class="window hidden liquid-glass" style="width: 500px; height: 450px; top: 60px; left: 250px;">
+                <div class="win-header">
+                    <span class="win-title">Gamepad Settings</span>
+                    <div class="win-btns"><div class="win-btn min" onclick="minWin('win-gamepad')"></div><div class="win-btn max" onclick="maxWin('win-gamepad')"></div><div class="win-btn close" onclick="closeWin('win-gamepad')"></div></div>
+                </div>
+                <div class="win-body" id="gamepad-body" style="padding:20px;overflow-y:auto;">
+                    <div style="text-align:center;padding:40px 20px;">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.2" style="margin-bottom:16px;"><path d="M6 12h4m-2-2v4m7-1h.01M18 11h.01"/><rect x="2" y="6" width="20" height="12" rx="4" stroke-width="1.5"/></svg>
+                        <h3 style="font-size:16px;font-weight:600;margin:0 0 6px;">Controller Hub</h3>
+                        <p style="font-size:12px;opacity:0.4;margin:0 0 20px;">Connect a USB or Bluetooth controller to customize buttons</p>
+                        <div id="gamepad-status" style="font-size:12px;padding:10px 16px;background:rgba(255,255,255,0.04);border-radius:10px;color:rgba(255,255,255,0.5);">No controller detected</div>
+                        <div id="gamepad-mapping" style="display:none;margin-top:20px;text-align:left;"></div>
+                        <div style="margin-top:24px;">
+                            <button id="gamepad-vmouse-btn" onclick="toggleVirtualMouse()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:10px 20px;color:white;cursor:pointer;font-size:12px;">Enable Virtual Mouse</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div id="launcher-container">
                 <div class="launch-icon" draggable="true" data-app-name="Settings" data-app-icon="https://cdn.jim-nielsen.com/macos/512/system-preferences-2021-06-03.png?rf=1024" data-app-win="win-settings" onclick="openApp('win-settings')"><img src="https://cdn.jim-nielsen.com/macos/512/system-preferences-2021-06-03.png?rf=1024"><span>Settings</span></div>
                 <div class="launch-icon" draggable="true" data-app-name="Calculator" data-app-icon="https://images.icon-icons.com/3053/PNG/256/calculator_macos_bigsur_icon_190313.png" data-app-win="win-calc" onclick="openApp('win-calc')"><img src="https://images.icon-icons.com/3053/PNG/256/calculator_macos_bigsur_icon_190313.png"><span>Calculator</span></div>
