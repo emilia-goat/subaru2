@@ -4613,9 +4613,11 @@
                 <div class="dock-item" onclick="openApp('win-files')"><img src="https://images.icon-icons.com/2963/PNG/512/macos_big_sur_wpaper_folder_icon_186058.png"></div>
                 <div class="dock-item" onclick="openApp('win-settings')"><img src="https://cdn.jim-nielsen.com/macos/512/system-preferences-2021-06-03.png?rf=1024"></div>
                 <div class="dock-item" onclick="openPaint()" title="Paint"><img src="https://cdn-icons-png.flaticon.com/512/16075/16075971.png"></div>
+                <div class="dock-item" onclick="openApp('win-komacall')"><img src="https://help.apple.com/assets/69022D37F8883CCD0800AD11/69022D39A66C612A5405F6B8/en_US/abf196bfb9b2a65bd64ed7ad0bfdb333.png"></div>
                 <div class="dock-sep"></div>
-                <div class="dock-item" onclick="openApp('win-notes')"><img src="https://cdn.jim-nielsen.com/macos/512/notes-2020-11-13.png?rf=1024"></div>
-                <div class="dock-item" onclick="openWebApp('Koma Browser', 'https://darkfat.com')"><img src="https://cdn-icons-png.flaticon.com/512/718/718064.png"></div>
+                <div class="dock-item" onclick="openApp('win-notes')"><img src="https://images.icon-icons.com/3053/PNG/512/notes_macos_bigsur_icon_189901.png"></div>
+                <div class="dock-item" onclick="openWebApp('Koma Browser', 'https://improved-invention-7vq956x5g95wcrjjv.github.dev/pf-signin?id=tidy-book-60l4nzh&cluster=use&name=improved-invention-7vq956x5g95wcrjjv&port=8080&pb=https%3A%2F%2Fimproved-invention-7vq956x5g95wcrjjv-8080.app.github.dev%2Fauth%2Fpostback%2Ftunnel%3Ftunnel%3D1&cid=e944e264-6734-476a-9508-83d1d55e1eea')"><img src="https://play-lh.googleusercontent.com/VxUyAlymIKRRQt3dlZklsiyapiPh6kPEVnRl9wKSmLXAFHu9jiENWO44VuhNwGLVMLU"></div>
+                <div class="dock-item" onclick="openApp('win-gamepad')" title="Gamepad"><img src="https://cdn-icons-png.flaticon.com/512/8293/8293566.png"></div>
             </div>
         </footer>
     </div>
@@ -5031,6 +5033,8 @@
     function changeBG(url) { 
         const vid = document.getElementById('bg-video');
         vid.style.display = 'none';
+        const bgStatic = document.getElementById('bg-static');
+        if(bgStatic) bgStatic.style.display = 'none';
         document.body.style.background = `url('${url}') center/cover no-repeat fixed`; 
     }
     function changeBGPersist(url) {
@@ -5255,7 +5259,7 @@
         }, 2200);
     }
 
-    // NikeHub native screen (no iframe, just a link)
+    // NikeHub native screen - Unblock game website by Nike
     function openNikeHubNative() {
         const win = document.getElementById('win-webview');
         document.getElementById('webview-title').innerText = 'Nikehub';
@@ -5267,16 +5271,19 @@
         if(!nativeEl) {
             nativeEl = document.createElement('div');
             nativeEl.className = 'nikehub-native';
-            nativeEl.style.cssText = 'position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#111 0%,#1a1a1a 100%);color:white;text-align:center;padding:30px;';
+            nativeEl.style.cssText = 'position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a0a0f 0%,#151520 50%,#0a0a0f 100%);color:white;text-align:center;padding:30px;';
             nativeEl.innerHTML = `
-                <img src="https://img.samsungapps.com/productNew/000008695306/ENG/IconImage_20260303010327547_NEW_WAP_ICON_512_512.png" style="width:80px;height:80px;border-radius:20px;margin-bottom:20px;box-shadow:0 8px 30px rgba(0,0,0,0.5);">
-                <h2 style="font-size:24px;font-weight:700;margin:0 0 8px;">Nikehub</h2>
-                <p style="font-size:13px;opacity:0.5;margin:0 0 24px;max-width:280px;">Sports news, gear, and exclusive drops. Visit the official Nike website.</p>
-                <a href="https://www.nike.com" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:white;color:#111;font-weight:700;font-size:14px;border-radius:12px;text-decoration:none;box-shadow:0 4px 15px rgba(255,255,255,0.1);transition:0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <div style="width:100px;height:100px;border-radius:24px;background:linear-gradient(135deg,#1a1a2e,#16213e);display:flex;align-items:center;justify-content:center;margin-bottom:24px;box-shadow:0 12px 40px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.08);">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                </div>
+                <h2 style="font-size:26px;font-weight:800;margin:0 0 6px;letter-spacing:-0.5px;">Nikehub</h2>
+                <p style="font-size:11px;opacity:0.35;margin:0 0 6px;text-transform:uppercase;letter-spacing:2px;">Unblocked Games</p>
+                <p style="font-size:13px;opacity:0.5;margin:0 0 28px;max-width:300px;line-height:1.5;">Access unblocked games and web tools. Powered by Nike.</p>
+                <a href="https://securly.pages.dev/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;padding:16px 40px;background:linear-gradient(135deg,#fff,#f0f0f0);color:#111;font-weight:700;font-size:15px;border-radius:14px;text-decoration:none;box-shadow:0 6px 25px rgba(255,255,255,0.15);transition:0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                    Visit Nike.com
+                    Open Nikehub
                 </a>
-                <p style="font-size:10px;opacity:0.25;margin-top:20px;">Credits: Nike, Inc. All rights reserved.</p>
+                <p style="font-size:10px;opacity:0.2;margin-top:24px;">Credits: Nike. All rights reserved.</p>
             `;
             body.appendChild(nativeEl);
         } else {
@@ -10869,7 +10876,12 @@
         anim.style.cssText = `position:fixed;inset:0;z-index:99998;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);pointer-events:none;animation:fadeIn 0.3s;`;
         anim.innerHTML = `
             <div style="text-align:center;animation:chargeZoom 0.8s ease-out;">
-                <div style="font-size:80px;margin-bottom:10px;">⚡</div>
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" style="margin-bottom:10px;">
+                    <rect x="2" y="6" width="16" height="12" rx="2" stroke="${color}" stroke-width="1.5" fill="none"/>
+                    <line x1="22" y1="11" x2="22" y2="13" stroke="${color}" stroke-width="2" stroke-linecap="round"/>
+                    <rect x="4" y="8" width="${Math.round(level*12)}" height="8" rx="1" fill="${color}" opacity="0.8"/>
+                    <polygon points="12,8 9,13 11,13 10,16 14,11 12,11 13,8" fill="white" stroke="none"/>
+                </svg>
                 <div style="font-size:24px;font-weight:700;color:${color};">${Math.round(level*100)}%</div>
                 <div style="font-size:12px;opacity:0.5;color:white;margin-top:5px;">Charging</div>
             </div>
