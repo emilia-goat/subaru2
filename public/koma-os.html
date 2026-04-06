@@ -11530,7 +11530,102 @@
         showNotification('Komafy', isLiked ? 'Removed from My List' : 'Added to My List');
     }
 
-</script>
+    // ============================================================
+    // GAMEPAD DETECTION & VIRTUAL MOUSE
+    // ============================================================
+    let virtualMouseEnabled = false;
+    let virtualMouseEl = null;
+    let gamepadAnimShown = false;
+    
+    window.addEventListener('gamepadconnected', (e) => {
+        const gp = e.gamepad;
+        showNotification('Controller', gp.id.substring(0, 30) + ' connected');
+        // Show connection animation
+        if(!gamepadAnimShown) {
+            gamepadAnimShown = true;
+            const overlay = document.createElement('div');
+            overlay.style.cssText = 'position:fixed;inset:0;z-index:99998;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.75);pointer-events:none;animation:fadeIn 0.3s;';
+            overlay.innerHTML = `
+                <div style="text-align:center;animation:chargeZoom 0.6s ease-out;">
+                    <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="#5ac8fa" stroke-width="1.5" style="margin-bottom:12px;filter:drop-shadow(0 0 20px rgba(90,200,250,0.5));">
+                        <path d="M6 12h4m-2-2v4m7-1h.01M18 11h.01"/>
+                        <rect x="2" y="6" width="20" height="12" rx="4"/>
+                    </svg>
+                    <div style="font-size:18px;font-weight:700;color:#5ac8fa;">Controller Connected</div>
+                    <div style="font-size:12px;opacity:0.5;color:white;margin-top:6px;">${gp.id.substring(0, 40)}</div>
+                </div>`;
+            document.body.appendChild(overlay);
+            setTimeout(() => overlay.remove(), 3000);
+        }
+        // Update gamepad settings panel
+        const status = document.getElementById('gamepad-status');
+        if(status) {
+            status.style.color = '#28c840';
+            status.textContent = 'Connected: ' + gp.id.substring(0, 35);
+        }
+        const mapping = document.getElementById('gamepad-mapping');
+        if(mapping) {
+            mapping.style.display = 'block';
+            mapping.innerHTML = '<h4 style="font-size:13px;font-weight:600;margin-bottom:10px;">Button Mapping</h4>' +
+                '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">' +
+                ['A - Confirm','B - Back','X - Action 1','Y - Action 2','LB - Tab Left','RB - Tab Right','Start - Menu','Select - Quick Access'].map(b => 
+                    '<div style="background:rgba(255,255,255,0.04);padding:8px 12px;border-radius:8px;font-size:11px;opacity:0.7;">' + b + '</div>'
+                ).join('') + '</div>';
+        }
+    });
+    
+    window.addEventListener('gamepaddisconnected', (e) => {
+        showNotification('Controller', 'Controller disconnected');
+        gamepadAnimShown = false;
+        const status = document.getElementById('gamepad-status');
+        if(status) { status.style.color = 'rgba(255,255,255,0.5)'; status.textContent = 'No controller detected'; }
+        const mapping = document.getElementById('gamepad-mapping');
+        if(mapping) mapping.style.display = 'none';
+        if(virtualMouseEnabled) toggleVirtualMouse();
+    });
+    
+    function toggleVirtualMouse() {
+        virtualMouseEnabled = !virtualMouseEnabled;
+        const btn = document.getElementById('gamepad-vmouse-btn');
+        if(virtualMouseEnabled) {
+            if(btn) { btn.textContent = 'Disable Virtual Mouse'; btn.style.background = 'rgba(40,200,64,0.15)'; btn.style.borderColor = 'rgba(40,200,64,0.3)'; }
+            if(!virtualMouseEl) {
+                virtualMouseEl = document.createElement('div');
+                virtualMouseEl.id = 'virtual-mouse-cursor';
+                virtualMouseEl.style.cssText = 'position:fixed;width:20px;height:20px;border-radius:50%;border:2px solid #5ac8fa;background:rgba(90,200,250,0.2);z-index:99999;pointer-events:none;transition:0.05s;left:50%;top:50%;transform:translate(-50%,-50%);box-shadow:0 0 10px rgba(90,200,250,0.3);';
+                document.body.appendChild(virtualMouseEl);
+            }
+            virtualMouseEl.style.display = 'block';
+            requestAnimationFrame(gamepadMouseLoop);
+        } else {
+            if(btn) { btn.textContent = 'Enable Virtual Mouse'; btn.style.background = 'rgba(255,255,255,0.06)'; btn.style.borderColor = 'rgba(255,255,255,0.1)'; }
+            if(virtualMouseEl) virtualMouseEl.style.display = 'none';
+        }
+    }
+    
+    let vmX = window.innerWidth / 2, vmY = window.innerHeight / 2;
+    function gamepadMouseLoop() {
+        if(!virtualMouseEnabled) return;
+        const gamepads = navigator.getGamepads();
+        const gp = gamepads[0];
+        if(gp) {
+            const lx = gp.axes[0], ly = gp.axes[1];
+            const speed = 8;
+            if(Math.abs(lx) > 0.15) vmX += lx * speed;
+            if(Math.abs(ly) > 0.15) vmY += ly * speed;
+            vmX = Math.max(0, Math.min(window.innerWidth, vmX));
+            vmY = Math.max(0, Math.min(window.innerHeight, vmY));
+            if(virtualMouseEl) { virtualMouseEl.style.left = vmX + 'px'; virtualMouseEl.style.top = vmY + 'px'; }
+            // A button click
+            if(gp.buttons[0] && gp.buttons[0].pressed) {
+                const el = document.elementFromPoint(vmX, vmY);
+                if(el) el.click();
+            }
+        }
+        requestAnimationFrame(gamepadMouseLoop);
+    }
+
+
 
 </body>
 </html>
