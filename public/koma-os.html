@@ -1570,11 +1570,11 @@
             .top-bar-item:nth-child(n+4) { display: none; }
             #control-center { width: 92vw; right: 4vw; }
             .window { width: 96vw !important; left: 2vw !important; height: 80vh !important; top: 30px !important; border-radius: 14px !important; }
-            .window.maximized { width: 100vw !important; height: 100vh !important; left: 0 !important; top: 0 !important; border-radius: 0 !important; }
-            .dock { gap: 6px; padding: 6px 12px; }
-            .dock-item { width: 42px; height: 42px; }
-            .dock-item img { width: 32px; height: 32px; }
-            #dock-container { padding-bottom: env(safe-area-inset-bottom, 8px); }
+            .window.maximized { width: 100vw !important; height: calc(100vh - 28px) !important; left: 0 !important; top: 28px !important; border-radius: 0 !important; }
+            .dock { gap: 4px; padding: 4px 8px; }
+            .dock-item { width: 36px; height: 36px; }
+            .dock-item img { width: 28px; height: 28px; }
+            #dock-container { padding-bottom: env(safe-area-inset-bottom, 4px); }
             #win-app-launcher { padding: 20px 10px; }
             #launcher-container { grid-template-columns: repeat(4, 1fr) !important; gap: 15px !important; }
             .launch-icon img { width: 48px !important; height: 48px !important; }
@@ -1608,6 +1608,11 @@
             #launcher-container { grid-template-columns: repeat(3, 1fr) !important; }
             .cc-grid { grid-template-columns: 1fr !important; }
             .store-card-new { flex-direction: column; text-align: center; gap: 8px; }
+            .dock { gap: 3px; padding: 3px 6px; border-radius: 14px; }
+            .dock-item { width: 32px; height: 32px; }
+            .dock-item img { width: 24px; height: 24px; border-radius: 8px; }
+            .dock-item:hover { transform: translateY(-8px) scale(1.2); }
+            .dock-sep { height: 22px; margin: 0 2px; }
         }
 
         /* TV / Large screens */
