@@ -2204,8 +2204,6 @@
                         <div class="pin-dot" id="pin-dot-1"></div>
                         <div class="pin-dot" id="pin-dot-2"></div>
                         <div class="pin-dot" id="pin-dot-3"></div>
-                        <div class="pin-dot" id="pin-dot-4"></div>
-                        <div class="pin-dot" id="pin-dot-5"></div>
                     </div>
                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 240px; margin: 0 auto;">
                         <button class="pin-key" onclick="enterPin('1')">1</button>
@@ -3744,6 +3742,10 @@
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5" fill="none"/><circle cx="8.5" cy="7.5" r="2.5" fill="none"/><circle cx="6.5" cy="12.5" r="2.5" fill="none"/><path d="M12 22s8-4 8-10a8 8 0 0 0-16 0c0 6 8 10 8 10z"/></svg>
                             Themes
                         </div>
+                        <div class="store-nav-item" onclick="switchStoreTab('myapps', this)">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            My Apps
+                        </div>
                         <div style="border-top: 0.5px solid rgba(255,255,255,0.06); margin: 16px 0; padding-top: 12px;">
                             <p style="font-size: 10px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.3; margin-bottom: 8px;">Status</p>
                             <p style="font-size: 12px; opacity: 0.5;">12 available</p>
@@ -3986,6 +3988,13 @@
                                     <div style="flex:1;"><strong>Light Mode</strong><p style="font-size:10px; opacity:0.4; margin:2px 0 0;">Clean and bright</p></div>
                                 </div>
                             </div>
+                        </div>
+
+                        <!-- MY APPS TAB -->
+                        <div id="store-tab-myapps" style="display:none;">
+                            <h3 style="font-weight: 700; margin: 0 0 8px;">My Apps</h3>
+                            <p style="font-size:12px;opacity:0.4;margin-bottom:20px;">Apps you've downloaded from the Koma Store</p>
+                            <div id="myapps-list"></div>
                         </div>
                     </div>
                 </div>
@@ -5060,7 +5069,12 @@
         vid.style.display = 'none';
         const bgStatic = document.getElementById('bg-static');
         if(bgStatic) bgStatic.style.display = 'none';
-        document.body.style.background = `url('${url}') center/cover no-repeat fixed`; 
+        document.body.style.background = `url('${url}') center/cover no-repeat fixed`;
+    }
+    function showDefaultWallpaper() {
+        const bgStatic = document.getElementById('bg-static');
+        if(bgStatic) { bgStatic.style.display = 'block'; }
+        document.body.style.background = 'none';
     }
     function changeBGPersist(url) {
         if(!url || !url.trim()) return;
@@ -5619,7 +5633,8 @@
     // --- WALLPAPER PERSISTENCE ---
     document.addEventListener('DOMContentLoaded', () => { 
         const savedWall = localStorage.getItem('koma_wallpaper'); 
-        if(savedWall) changeBG(savedWall); 
+        if(savedWall) changeBG(savedWall);
+        else showDefaultWallpaper();
         initDockAutoHide(); 
     });
     function initDockAutoHide() {
@@ -5687,7 +5702,7 @@
                 if(iframeContainer) {
                     iframeContainer.style.display = 'block';
                     const iframe = document.getElementById('star-stream-iframe');
-                    if(iframe && !iframe.src) iframe.src = 'https://star-stream-flow.base44.app/';
+                    if(iframe && !iframe.src) iframe.src = 'https://star-stream-p61.caffeine.xyz/';
                 }
             }, 800);
         }, 3000);
@@ -8734,10 +8749,11 @@
     function switchStoreTab(tab, el) {
         document.querySelectorAll('.store-nav-item').forEach(n => n.classList.remove('active'));
         if(el) el.classList.add('active');
-        ['featured','apps','games','walls','themes'].forEach(t => {
+        ['featured','apps','games','walls','themes','myapps'].forEach(t => {
             const panel = document.getElementById('store-tab-' + t);
             if(panel) panel.style.display = (t === tab) ? 'block' : 'none';
         });
+        if(tab === 'myapps') renderMyApps();
     }
 
     // ============================================================
@@ -11366,12 +11382,15 @@
         const content = document.getElementById('komafy-content');
         if(!content) return;
         content.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:40px;text-align:center;">' +
-            '<div style="width:80px;height:80px;border-radius:20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;margin-bottom:24px;">' +
+            '<div style="width:80px;height:80px;border-radius:20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;margin-bottom:24px;animation:brandFloat 3s ease-in-out infinite;">' +
             '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg></div>' +
             '<h2 style="font-size:20px;font-weight:700;margin-bottom:8px;">Animated Covers</h2>' +
-            '<p style="font-size:14px;opacity:0.5;margin-bottom:20px;">Coming soon!</p>' +
-            '<p style="font-size:28px;margin-bottom:16px;">&#128064;</p>' +
-            '<p style="font-size:12px;opacity:0.3;">Animated album covers are being prepared. Stay tuned for updates.</p></div>';
+            '<div style="display:inline-block;padding:8px 20px;border-radius:20px;background:linear-gradient(135deg,rgba(145,70,255,0.15),rgba(255,107,157,0.15));border:1px solid rgba(145,70,255,0.2);margin-bottom:16px;">' +
+            '<span style="font-size:13px;font-weight:600;background:linear-gradient(135deg,#9146ff,#ff6b9d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Coming Soon</span></div>' +
+            '<p style="font-size:13px;opacity:0.5;margin-bottom:20px;max-width:300px;line-height:1.6;">Animated album covers with real-time visualizations are being developed. Stay tuned!</p>' +
+            '<div style="display:flex;gap:8px;align-items:center;opacity:0.3;">' +
+            '<div style="width:8px;height:8px;border-radius:50%;background:#9146ff;animation:chargePulse 1.5s infinite;"></div>' +
+            '<span style="font-size:11px;">In development</span></div></div>';
     }
 
     // ============================================================
@@ -11625,6 +11644,161 @@
         requestAnimationFrame(gamepadMouseLoop);
     }
 
+
+    // ============================================================
+    // MY APPS — Show installed apps in Store
+    // ============================================================
+    function renderMyApps() {
+        const el = document.getElementById('myapps-list');
+        if(!el) return;
+        const installed = JSON.parse(localStorage.getItem('koma_installed_apps') || '[]');
+        if(installed.length === 0) {
+            el.innerHTML = '<div style="text-align:center;padding:60px 20px;opacity:0.4;"><p style="font-size:14px;font-weight:600;">No apps downloaded yet</p><p style="font-size:12px;margin-top:4px;">Browse the store to find apps!</p></div>';
+            return;
+        }
+        el.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;">' +
+            installed.map(app => '<div class="store-card-new"><img src="' + (app.icon||'') + '" style="width:48px;height:48px;border-radius:12px;object-fit:cover;"><div style="flex:1;min-width:0;"><strong style="font-size:13px;">' + app.name + '</strong><p style="font-size:10px;opacity:0.4;margin:2px 0 0;">Installed</p></div><button class="store-get-btn" style="background:rgba(255,255,255,0.08);color:white;border-color:rgba(255,255,255,0.15);" onclick="uninstallApp(\'' + app.name.replace(/'/g,"\\'") + '\')">Remove</button></div>').join('') + '</div>';
+    }
+    function uninstallApp(name) {
+        let installed = JSON.parse(localStorage.getItem('koma_installed_apps') || '[]');
+        installed = installed.filter(a => a.name !== name);
+        localStorage.setItem('koma_installed_apps', JSON.stringify(installed));
+        const li = document.querySelector('#launcher-container [data-app-name="' + name + '"]');
+        if(li) li.remove();
+        showNotification('Store', name + ' uninstalled');
+        renderMyApps();
+    }
+
+    // ============================================================
+    // CONTROL CENTER — DYNAMIC NOW PLAYING
+    // ============================================================
+    setInterval(() => {
+        const titleEl = document.getElementById('cc-np-title2');
+        const artistEl = document.getElementById('cc-np-artist2');
+        const coverEl = document.getElementById('cc-np-cover2');
+        if(!titleEl) return;
+        if(typeof currentSongIndex !== 'undefined' && typeof library !== 'undefined' && library[currentSongIndex]) {
+            const song = library[currentSongIndex];
+            const audio = document.getElementById('kf-audio');
+            const isPlaying = audio && !audio.paused;
+            titleEl.textContent = song.title || 'Unknown';
+            artistEl.textContent = (isPlaying ? '▶ ' : '⏸ ') + (song.artist || 'Komafy');
+            if(coverEl && song.cover) coverEl.src = song.cover;
+            if(coverEl) coverEl.style.animation = isPlaying ? 'avatarPulse 2s ease-in-out infinite' : 'none';
+        }
+    }, 1500);
+
+    // ============================================================
+    // BAN SCREEN — Banned users see access denied
+    // ============================================================
+    async function checkUserBan() {
+        try {
+            const { data: { user } } = await _sb.auth.getUser();
+            if(!user) return;
+            const { data: bans } = await _sb.from('koma_bans').select('*').eq('banned_user_id', user.id).order('created_at', { ascending: false }).limit(1);
+            if(bans && bans.length > 0) {
+                const ban = bans[0];
+                const expiresAt = new Date(ban.expires_at);
+                if(expiresAt > new Date()) { showBanScreen(ban.reason || 'Breaking the rules', expiresAt); }
+            }
+        } catch(e) {}
+    }
+    function showBanScreen(reason, expiresAt) {
+        if(document.getElementById('ban-screen-overlay')) return;
+        const timeLeft = Math.max(0, Math.ceil((expiresAt - Date.now()) / 60000));
+        const overlay = document.createElement('div');
+        overlay.id = 'ban-screen-overlay';
+        overlay.style.cssText = 'position:fixed;inset:0;z-index:999999;background:linear-gradient(135deg,#0a0000,#1a0000,#0a0000);display:flex;align-items:center;justify-content:center;color:white;';
+        overlay.innerHTML = '<div style="text-align:center;max-width:400px;padding:40px;animation:authCardIn 0.8s ease;"><div style="width:80px;height:80px;border-radius:50%;background:rgba(255,95,87,0.15);border:2px solid rgba(255,95,87,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ff5f57" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div><h1 style="font-size:28px;font-weight:800;color:#ff5f57;margin-bottom:8px;">ACCESS DENIED</h1><p style="font-size:16px;opacity:0.7;margin-bottom:24px;">You are breaking the rules</p><div style="background:rgba(255,95,87,0.08);border:1px solid rgba(255,95,87,0.2);border-radius:14px;padding:20px;margin-bottom:24px;"><p style="font-size:13px;opacity:0.5;margin-bottom:4px;">Reason:</p><p style="font-size:14px;font-weight:600;">' + reason + '</p></div><p style="font-size:14px;opacity:0.5;">Time remaining: <strong style="color:#ff5f57;" id="ban-timer">' + timeLeft + ' minutes</strong></p><p style="font-size:11px;opacity:0.2;margin-top:30px;">Contact an administrator if you believe this is an error.</p></div>';
+        document.body.appendChild(overlay);
+        const banCheck = setInterval(() => { if(new Date() >= expiresAt) { clearInterval(banCheck); overlay.remove(); showNotification('System','Ban expired. Welcome back.'); } else { const t = document.getElementById('ban-timer'); if(t) t.textContent = Math.max(0, Math.ceil((expiresAt - Date.now())/60000)) + ' minutes'; } }, 30000);
+    }
+    document.addEventListener('DOMContentLoaded', () => setTimeout(checkUserBan, 4000));
+    _sb.channel('bans').on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'koma_bans' }, async (payload) => {
+        try { const { data: { user } } = await _sb.auth.getUser(); if(user && payload.new.banned_user_id === user.id) showBanScreen(payload.new.reason || 'Breaking the rules', new Date(payload.new.expires_at)); } catch(e) {}
+    }).subscribe();
+
+    // ============================================================
+    // ADMIN WARNINGS + COPYRIGHT
+    // ============================================================
+    async function sendWarning() {
+        const userId = document.getElementById('dev-warn-user')?.value?.trim();
+        const msg = document.getElementById('dev-warn-msg')?.value?.trim();
+        if(!userId || !msg) return showNotification('Admin','Enter user ID and message');
+        try { const { data:{user} } = await _sb.auth.getUser(); if(!user) return; await _sb.from('koma_announcements').insert({sender_id:user.id, message:'⚠️ WARNING: '+msg, type:'warning'}); showNotification('Admin','Warning sent'); document.getElementById('dev-warn-user').value=''; document.getElementById('dev-warn-msg').value=''; } catch(e) { showNotification('Error',e.message); }
+    }
+    document.addEventListener('DOMContentLoaded', () => setTimeout(() => {
+        const banSection = document.getElementById('dev-ban-list')?.parentElement;
+        if(banSection && !document.getElementById('dev-warn-section')) {
+            const w = document.createElement('div'); w.id='dev-warn-section'; w.style.cssText='background:rgba(255,255,255,0.04);border-radius:14px;padding:16px;margin-bottom:12px;';
+            w.innerHTML='<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#febc2e" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span style="font-size:13px;font-weight:600;">Send Warning</span></div><div style="display:flex;gap:8px;"><input type="text" id="dev-warn-user" placeholder="User ID..." class="auth-input no-icon" style="width:140px;height:36px;font-size:12px;"><input type="text" id="dev-warn-msg" placeholder="Warning message..." class="auth-input no-icon" style="flex:1;height:36px;font-size:12px;"><button onclick="sendWarning()" class="koma-btn" style="padding:0 16px;font-size:12px;background:rgba(254,188,46,0.2);border-color:rgba(254,188,46,0.3);color:#febc2e;white-space:nowrap;">Warn</button></div>';
+            banSection.insertAdjacentElement('afterend', w);
+        }
+        // Copyright in About
+        const aboutTab = document.getElementById('settings-tab-about');
+        if(aboutTab && !aboutTab.querySelector('.copyright-notice')) { const cp = document.createElement('div'); cp.className='copyright-notice'; cp.style.cssText='margin-top:20px;padding:16px;background:rgba(255,255,255,0.03);border-radius:12px;border:1px solid rgba(255,255,255,0.06);text-align:center;'; cp.innerHTML='<p style="font-size:11px;opacity:0.4;">© 2026 KomaStream Studios. All rights reserved.</p><p style="font-size:10px;opacity:0.25;margin-top:4px;">This software is protected by copyright law. Unauthorized use is prohibited.</p>'; aboutTab.appendChild(cp); }
+    }, 3000));
+
+    // ============================================================
+    // KOMA DRIVE — Simple file storage
+    // ============================================================
+    function openKomaDrive() {
+        openApp('win-webview');
+        document.getElementById('webview-title').innerText = 'Koma Drive';
+        document.getElementById('koma-iframe').style.display = 'none';
+        document.getElementById('koma-iframe').src = '';
+        const win = document.getElementById('win-webview');
+        const body = win.querySelector('.win-body');
+        let driveEl = body.querySelector('.koma-drive-native');
+        if(!driveEl) { driveEl = document.createElement('div'); driveEl.className='koma-drive-native'; driveEl.style.cssText='position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;background:rgba(10,10,15,0.98);color:white;overflow:hidden;'; body.appendChild(driveEl); }
+        else driveEl.style.display = 'flex';
+        renderKomaDrive(driveEl);
+        const origClose = closeWin;
+        closeWin = function(id) { if(id==='win-webview'){const el=body.querySelector('.koma-drive-native');if(el)el.style.display='none';document.getElementById('koma-iframe').style.display='';} origClose(id); };
+    }
+    function renderKomaDrive(container) {
+        const files = JSON.parse(localStorage.getItem('koma_drive_files') || '[]');
+        const fmtSize = (b) => { if(!b) return '—'; if(b<1024) return b+' B'; if(b<1048576) return (b/1024).toFixed(1)+' KB'; return (b/1048576).toFixed(1)+' MB'; };
+        container.innerHTML = '<div style="padding:20px;flex:1;overflow-y:auto;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;"><div><h2 style="font-size:22px;font-weight:700;margin:0;">Koma Drive</h2><p style="font-size:12px;opacity:0.4;margin-top:2px;">Your personal cloud storage</p></div><button onclick="document.getElementById(\'kdrive-input\').click()" style="display:flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(0,255,204,0.1);border:1px solid rgba(0,255,204,0.2);border-radius:10px;color:var(--accent);font-size:12px;font-weight:600;cursor:pointer;">Upload</button></div><input type="file" id="kdrive-input" multiple style="display:none;" onchange="handleKDriveUpload(this.files)"><p style="font-size:11px;opacity:0.4;margin-bottom:16px;">' + files.length + ' files</p>' +
+            (files.length===0 ? '<div style="text-align:center;padding:60px;opacity:0.3;"><p style="font-size:14px;font-weight:600;">No files yet</p><p style="font-size:12px;margin-top:4px;">Upload files to get started</p></div>' :
+            '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;">' + files.map((f,i) => '<div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:16px;text-align:center;transition:0.2s;cursor:pointer;" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.04)\'"><div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#3b82f6,#1d4ed8);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><p style="font-size:12px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+f.name+'</p><p style="font-size:10px;opacity:0.3;margin-top:2px;">'+fmtSize(f.size)+'</p><button onclick="event.stopPropagation();deleteKDriveFile('+i+')" style="margin-top:8px;background:none;border:none;color:#ff5f57;font-size:10px;cursor:pointer;opacity:0.5;">Delete</button></div>').join('') + '</div>') + '</div>';
+    }
+    function handleKDriveUpload(fileList) {
+        if(!fileList) return;
+        const files = JSON.parse(localStorage.getItem('koma_drive_files') || '[]');
+        Array.from(fileList).forEach(f => { files.push({name:f.name,size:f.size,type:f.type,date:new Date().toISOString()}); });
+        localStorage.setItem('koma_drive_files', JSON.stringify(files));
+        showNotification('Koma Drive', fileList.length + ' file(s) added');
+        const driveEl = document.querySelector('.koma-drive-native');
+        if(driveEl) renderKomaDrive(driveEl);
+    }
+    function deleteKDriveFile(i) {
+        const files = JSON.parse(localStorage.getItem('koma_drive_files') || '[]');
+        const name = files[i]?.name;
+        files.splice(i,1);
+        localStorage.setItem('koma_drive_files', JSON.stringify(files));
+        showNotification('Koma Drive', (name||'File') + ' deleted');
+        const driveEl = document.querySelector('.koma-drive-native');
+        if(driveEl) renderKomaDrive(driveEl);
+    }
+    // Add Koma Drive to launcher
+    document.addEventListener('DOMContentLoaded', () => setTimeout(() => {
+        const c = document.getElementById('launcher-container');
+        if(c && !c.querySelector('[data-app-name="Koma Drive"]')) {
+            const icon = document.createElement('div'); icon.className='launch-icon'; icon.setAttribute('draggable','true'); icon.setAttribute('data-app-name','Koma Drive'); icon.setAttribute('data-app-icon','https://cdn-icons-png.flaticon.com/512/4340/4340010.png');
+            icon.innerHTML='<img src="https://cdn-icons-png.flaticon.com/512/4340/4340010.png"><span>Koma Drive</span>';
+            icon.onclick = () => openKomaDrive();
+            icon.addEventListener('dragstart',(e)=>{e.dataTransfer.setData('text/plain',JSON.stringify({name:'Koma Drive',icon:'https://cdn-icons-png.flaticon.com/512/4340/4340010.png'}));e.dataTransfer.effectAllowed='move';});
+            c.appendChild(icon);
+        }
+    }, 2000));
+
+    // ============================================================
+    // 3D TRANSITIONS + EXTRA ANIMATIONS
+    // ============================================================
+    const transitions3D = document.createElement('style');
+    transitions3D.textContent = '.window{transform-style:preserve-3d;}.notif-card{animation:notifSlide3D 0.5s cubic-bezier(0.175,0.885,0.32,1.275)!important;}@keyframes notifSlide3D{from{opacity:0;transform:translateX(100px) rotateY(-15deg) scale(0.8);}to{opacity:1;transform:translateX(0) rotateY(0) scale(1);}}.dock-icon:hover{transform:translateY(-8px) scale(1.2)!important;}.launch-icon{transition:transform 0.2s ease!important;}.launch-icon:hover{transform:scale(1.1) translateY(-4px)!important;}.launch-icon:active{transform:scale(0.95)!important;}';
+    document.head.appendChild(transitions3D);
 
 
 </body>
