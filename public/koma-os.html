@@ -11382,12 +11382,15 @@
         const content = document.getElementById('komafy-content');
         if(!content) return;
         content.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:40px;text-align:center;">' +
-            '<div style="width:80px;height:80px;border-radius:20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;margin-bottom:24px;">' +
+            '<div style="width:80px;height:80px;border-radius:20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;margin-bottom:24px;animation:brandFloat 3s ease-in-out infinite;">' +
             '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg></div>' +
             '<h2 style="font-size:20px;font-weight:700;margin-bottom:8px;">Animated Covers</h2>' +
-            '<p style="font-size:14px;opacity:0.5;margin-bottom:20px;">Coming soon!</p>' +
-            '<p style="font-size:28px;margin-bottom:16px;">&#128064;</p>' +
-            '<p style="font-size:12px;opacity:0.3;">Animated album covers are being prepared. Stay tuned for updates.</p></div>';
+            '<div style="display:inline-block;padding:8px 20px;border-radius:20px;background:linear-gradient(135deg,rgba(145,70,255,0.15),rgba(255,107,157,0.15));border:1px solid rgba(145,70,255,0.2);margin-bottom:16px;">' +
+            '<span style="font-size:13px;font-weight:600;background:linear-gradient(135deg,#9146ff,#ff6b9d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Coming Soon</span></div>' +
+            '<p style="font-size:13px;opacity:0.5;margin-bottom:20px;max-width:300px;line-height:1.6;">Animated album covers with real-time visualizations are being developed. Stay tuned!</p>' +
+            '<div style="display:flex;gap:8px;align-items:center;opacity:0.3;">' +
+            '<div style="width:8px;height:8px;border-radius:50%;background:#9146ff;animation:chargePulse 1.5s infinite;"></div>' +
+            '<span style="font-size:11px;">In development</span></div></div>';
     }
 
     // ============================================================
