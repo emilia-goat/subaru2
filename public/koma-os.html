@@ -8749,10 +8749,11 @@
     function switchStoreTab(tab, el) {
         document.querySelectorAll('.store-nav-item').forEach(n => n.classList.remove('active'));
         if(el) el.classList.add('active');
-        ['featured','apps','games','walls','themes'].forEach(t => {
+        ['featured','apps','games','walls','themes','myapps'].forEach(t => {
             const panel = document.getElementById('store-tab-' + t);
             if(panel) panel.style.display = (t === tab) ? 'block' : 'none';
         });
+        if(tab === 'myapps') renderMyApps();
     }
 
     // ============================================================
