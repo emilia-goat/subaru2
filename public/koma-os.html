@@ -5058,7 +5058,12 @@
         vid.style.display = 'none';
         const bgStatic = document.getElementById('bg-static');
         if(bgStatic) bgStatic.style.display = 'none';
-        document.body.style.background = `url('${url}') center/cover no-repeat fixed`; 
+        document.body.style.background = `url('${url}') center/cover no-repeat fixed`;
+    }
+    function showDefaultWallpaper() {
+        const bgStatic = document.getElementById('bg-static');
+        if(bgStatic) { bgStatic.style.display = 'block'; }
+        document.body.style.background = 'none';
     }
     function changeBGPersist(url) {
         if(!url || !url.trim()) return;
