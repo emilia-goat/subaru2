@@ -5622,7 +5622,8 @@
     // --- WALLPAPER PERSISTENCE ---
     document.addEventListener('DOMContentLoaded', () => { 
         const savedWall = localStorage.getItem('koma_wallpaper'); 
-        if(savedWall) changeBG(savedWall); 
+        if(savedWall) changeBG(savedWall);
+        else showDefaultWallpaper();
         initDockAutoHide(); 
     });
     function initDockAutoHide() {
